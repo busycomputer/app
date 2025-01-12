@@ -1,0 +1,112 @@
+:root {
+  --editor-background-color: hsl(var(--input));
+  --sidebar-background-color: hsl(var(--surface));
+  --sidebar-border-color: hsl(var(--border));
+  --node-box-shadow: 0 1px 3px 0 hsl(var(--foreground) / 0.03);
+  --node-background-color: hsl(var(--card));
+  --node-border-color: hsl(var(--border));
+  --node-selected-outline-color: hsl(var(--ring));
+}
+
+.wf-editor,
+.wf-add-handle-menu {
+  background-color: var(--editor-background-color);
+}
+
+.wf-node {
+  background: var(--node-background-color);
+  border-color: var(--node-border-color);
+  box-shadow: var(--node-box-shadow);
+}
+
+.wf-editor .wf-add-handle {
+  background-color: hsl(var(--border));
+  border-color: hsl(var(--secondary));
+}
+
+.wf-editor .wf-add-handle > div {
+  background: hsl(var(--background));
+  background-color: hsl(var(--background));
+  border-bottom-color: hsl(var(--border));
+  border-left-color: hsl(var(--border));
+}
+
+.wf-node-description {
+  color: hsl(var(--muted-foreground));
+}
+
+.wf-editor .wf-add-handle > div:hover {
+  background-color: hsl(var(--accent));
+}
+
+.wf-editor .wf-add-handle > div > svg {
+  color: hsl(var(--muted-foreground));
+}
+
+.wf-editor .wf-target-handle {
+  background-color: hsl(var(--border));
+  border-color: hsl(var(--secondary));
+}
+
+.wf-node-selected {
+  outline-color: var(--node-selected-outline-color);
+  box-shadow:
+    var(--node-box-shadow),
+    0 2px 18px 0 hsl(var(--foreground) / 0.08);
+}
+
+.wf-blank-node {
+  outline-color: var(--node-selected-outline-color);
+  box-shadow: 0 2px 12px 0 hsl(var(--foreground) / 0.08);
+}
+
+.wf-add-handle-menu {
+  background: var(--node-background-color);
+  box-shadow: 0 2px 12px 0 hsl(var(--foreground) / 0.08);
+}
+
+.wf-add-handle-menu-item:hover {
+  background: hsl(var(--accent));
+}
+
+.wf-sidebar {
+  background-color: var(--sidebar-background-color);
+  border-color: var(--sidebar-border-color);
+}
+
+.wf-sidebar-form input,
+.wf-sidebar-form textarea {
+  border-color: hsl(var(--input));
+}
+
+.wf-sidebar-form input::placeholder,
+.wf-sidebar-form textarea::placeholder {
+  color: hsl(var(--muted-foreground));
+}
+
+.wf-sidebar-action-description,
+.wf-sidebar-configure {
+  color: hsl(var(--muted-foreground));
+}
+
+.wf-sidebar-action-list-item {
+  background-color: var(--node-background-color);
+  border-color: var(--node-border-color);
+}
+
+.wf-sidebar-action-list-item:hover {
+  background-color: hsl(var(--accent));
+}
+
+.wf-sidebar-back:hover {
+  background-color: hsl(var(--accent));
+}
+
+.wf-sidebar-back:focus {
+  box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
+}
+
+.wf-sidebar-delete {
+  border-color: hsl(var(--destructive));
+  color: hsl(var(--destructive));
+}
