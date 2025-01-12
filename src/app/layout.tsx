@@ -14,9 +14,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(font.variable, 'antialiased')}>
-        <div className="flex h-screen bg-gray-100 text-slate-900">
+        <div className="flex h-screen">
           {/* Sidebar */}
-          <div className="w-64 bg-white shadow-md">
+          <div className="w-64 shadow-md">
             <div className="p-4">
               <h1 className="mb-6 text-2xl font-bold">Dashboard</h1>
               <Menu />
