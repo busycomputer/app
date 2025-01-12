@@ -1,5 +1,5 @@
 {
-  "name": "@aloshy-ai/busy-computer",
+  "name": "busycomputer",
   "version": "0.1.0",
   "private": true,
   "scripts": {
