@@ -46,12 +46,14 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+    --surface: 0 0% 100%;
+    --surface-foreground: 240 10% 3.9%;
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
+    --background: 0 0% 7.1%;
     --foreground: 0 0% 95%;
-    --card: 24 9.8% 10%;
+    --card: 0 0% 25%;
     --card-foreground: 0 0% 95%;
     --popover: 0 0% 9%;
     --popover-foreground: 0 0% 95%;
@@ -73,6 +75,8 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --surface: 20 14.3% 4.1%;
+    --surface-foreground: 0 0% 95%;
   }
 }
 
