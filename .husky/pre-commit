@@ -7,13 +7,13 @@ eval "$(direnv export bash)"
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Run type check
-yarn tsc --noEmit
+bun tsc --noEmit
 
 # Run linting
-yarn lint
+bun lint
 
 # Run formatting
-yarn format
+bun format
 nixfmt flake.nix
 
 # Stage formatting changes

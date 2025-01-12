@@ -48,30 +48,14 @@
             exit 0
           '';
 
-          setup-yarn = makeScript "setup-yarn" ''
+          install-modules = makeScript "install-modules" ''
             #!/usr/bin/env bash
-            if ! yarn --version &>/dev/null; then
-             echo "⚠️  Yarn not found"
-             exit 1
-            fi
-
-            if ! yarn --version | grep -q "^4"; then
-             echo "Enabling corepack..."
-             if ! command -v sudo &>/dev/null; then
-              corepack enable || exit 1
-             else
-              sudo corepack enable || exit 1
-             fi
-             echo "Setting Yarn to Berry..."
-             yarn set version berry || exit 1
-            fi
-
             if [ ! -d "node_modules" ]; then
-             echo "Installing Node Modules..."
-             yarn install || exit 1
-             echo "☑ Node Modules Installed!"
+             echo "Installing Modules..."
+             bun install || exit 1
+             echo "☑Modules IInstalled!"
             else
-             echo "☑ Node modules found"
+             echo "☑Mmodules found"
             fi
 
             exit 0
@@ -141,14 +125,14 @@
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs;
-            [ nodejs_22 corepack yarn docker wait4x direnv supabase-cli nixfmt ]
+            [ nodejs_22 bun docker wait4x direnv supabase-cli nixfmt ]
             ++ (builtins.attrValues scripts);
 
           inherit env;
 
           shellHook = ''
             setup-direnv || exit 1
-            setup-yarn || exit 1
+            install-modules || exit 1
             setup-docker || exit 1
             setup-supabase || exit 1
             setup-inngest || exit 1
