@@ -13,9 +13,11 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en"
-    // className="dark" // change this to [dark / light] or enable button toggles.
-    suppressHydrationWarning>
+    <html
+      lang="en"
+      // className="dark" // change this to [dark / light] or enable button toggles.
+      suppressHydrationWarning
+    >
       <body className={cn(font.variable, 'antialiased')}>
         <ThemeProvider
           attribute="class"
