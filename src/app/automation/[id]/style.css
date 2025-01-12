@@ -1,6 +1,6 @@
 :root {
   --editor-background-color: hsl(var(--input));
-  --sidebar-background-color: hsl(var(--card));
+  --sidebar-background-color: hsl(var(--surface));
   --sidebar-border-color: hsl(var(--border));
   --node-box-shadow: 0 1px 3px 0 hsl(var(--foreground) / 0.03);
   --node-background-color: hsl(var(--card));

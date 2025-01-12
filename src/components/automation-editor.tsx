@@ -42,7 +42,6 @@ export const AutomationEditor = ({ workflow }: { workflow: Workflow }) => {
           <div className="flex items-center justify-between">
             <div>
               <CardTitle>{workflow.name}</CardTitle>
-              <CardDescription>{workflow.description}</CardDescription>
             </div>
             <Button onClick={onSaveWorkflow}>
               <SaveIcon className="mr-2 h-4 w-4" /> Save changes
