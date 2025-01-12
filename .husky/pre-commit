@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# Load the Nix environment through direnv
+eval "$(direnv export bash)"
+
+# Now run your checks in the Nix environment
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run type check
+yarn tsc --noEmit
+
+# Run linting
+yarn lint
+
+# Run formatting
+yarn format
+nixfmt flake.nix
+
+# Stage formatting changes
+git add -u
