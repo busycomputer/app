@@ -7,17 +7,13 @@ import { ThemeProvider } from '@/components/providers/theme-providers'
 
 export { metadata }
 
-export default function RootLayout({
+export default function RootHomeLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html
-      lang="en"
-      // className="dark" // change this to [dark / light] or enable button toggles.
-      suppressHydrationWarning
-    >
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={cn(font.variable, 'antialiased')}>
         <ThemeProvider
           attribute="class"
@@ -25,17 +21,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex h-screen">
-            {/* Sidebar */}
-            <div className="w-64 shadow-md">
-              <div className="p-4">
-                <h1 className="mb-6 text-2xl font-bold">Dashboard</h1>
-                <Menu />
-              </div>
-            </div>
-            {/* Main Content */}
-            <div className="flex-1 overflow-auto p-8">{children}</div>
-          </div>
+          {children}
         </ThemeProvider>
       </body>
     </html>
