@@ -22,12 +22,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prov
       const supabase = await createClient()
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider as Provider,
+
         options: {
+          skipBrowserRedirect: true,
           redirectTo: `${new URL(req.url).origin}/auth/callback`,
           // scopes: `${provider === 'github' && 'read:user repo'}`,
         },
       })
-
       if (error) throw error
 
       return NextResponse.redirect(data.url)
