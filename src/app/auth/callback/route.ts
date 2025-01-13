@@ -15,19 +15,24 @@ import { createClient } from '@/lib/supabase/server'
  *                                 a default user page.
  */
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url)
-  const code = requestUrl.searchParams.get('code')
-  const origin = requestUrl.origin
-  const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
+  try {
+    const requestUrl = new URL(request.url)
+    const code = requestUrl?.searchParams?.get('code')
+    const origin = requestUrl?.origin
+    const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
 
-  if (code) {
-    const supabase = await createClient()
-    await supabase.auth.exchangeCodeForSession(code)
+    if (code) {
+      const supabase = await createClient()
+      await supabase.auth.exchangeCodeForSession(code)
+    }
+
+    if (redirectTo) {
+      return NextResponse.redirect(`${origin}${redirectTo}`)
+    }
+
+    return NextResponse.redirect(`${origin}/user`)
+  } catch (error) {
+    console.log(error)
+    return NextResponse.redirect(`${origin}/user`)
   }
-
-  if (redirectTo) {
-    return NextResponse.redirect(`${origin}${redirectTo}`)
-  }
-
-  return NextResponse.redirect(`${origin}/user`)
 }
