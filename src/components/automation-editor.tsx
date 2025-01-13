@@ -21,7 +21,7 @@ import { actions } from '@/lib/inngest/workflowActions'
 
 import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
-import '@/app/automation/[id]/style.css'
+import '@/app/(dashboard)/dashboard/automation/[id]/style.css'
 
 export const AutomationEditor = ({ workflow }: { workflow: Workflow }) => {
   const router = useRouter()
@@ -29,7 +29,7 @@ export const AutomationEditor = ({ workflow }: { workflow: Workflow }) => {
 
   const onSaveWorkflow = useCallback(async () => {
     await updateWorkflow(workflowDraft)
-    router.push('/automation')
+    router.push('/dashboard/automation')
   }, [router, workflowDraft])
 
   return (

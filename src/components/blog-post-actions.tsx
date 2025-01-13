@@ -11,12 +11,12 @@ export const BlogPostActions = ({ id }: { id: string }) => {
 
   const approve = useCallback(async () => {
     await approveBlogPostAiSuggestions(id)
-    router.push('/')
+    router.push('/dashboard')
   }, [id, router])
 
   const discardAndPublish = useCallback(async () => {
     await publishBlogPost(id)
-    router.push('/')
+    router.push('/dashboard')
   }, [id, router])
 
   return (

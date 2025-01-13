@@ -68,7 +68,7 @@ export const BlogPostList = () => {
               </div>
               {blogPost.markdown_ai_revision ? (
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/blog-post/${blogPost.id}`}>
+                  <Link href={`/dashboard/blog-post/${blogPost.id}`}>
                     <Edit className="mr-2 h-4 w-4" /> Review
                   </Link>
                 </Button>
@@ -82,7 +82,7 @@ export const BlogPostList = () => {
                 </Button>
               ) : (
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/blog-post/${blogPost.id}`}>
+                  <Link href={`/dashboard/blog-post/${blogPost.id}`}>
                     <Eye className="mr-2 h-4 w-4" /> View
                   </Link>
                 </Button>
