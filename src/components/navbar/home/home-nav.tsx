@@ -30,7 +30,7 @@ export default function HomeNav() {
               className:
                 'flex items-center justify-center rounded-2xl border p-1.5 px-2.5 text-sm leading-none hover:bg-primary',
             })}
-            href={'/login'}
+            href={'/auth/sign-in'}
           >
             Sign in
           </Link>
