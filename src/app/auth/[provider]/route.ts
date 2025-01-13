@@ -24,7 +24,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prov
         provider: provider as Provider,
         options: {
           redirectTo: `${new URL(req.url).origin}/auth/callback`,
-          scopes: `${provider === 'github' && 'read:user repo'}`,
+          // scopes: `${provider === 'github' && 'read:user repo'}`,
         },
       })
 

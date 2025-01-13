@@ -11,7 +11,7 @@ export const Menu = () => {
       <Button
         variant={pathname === '/' || pathname.startsWith('/blog-post') ? 'default' : 'ghost'}
         className="mb-2 w-full justify-start"
-        onClick={() => router.push('/')}
+        onClick={() => router.push('/dashboard')}
       >
         <FileTextIcon className="mr-2 h-4 w-4" />
         Posts
@@ -19,7 +19,7 @@ export const Menu = () => {
       <Button
         variant={pathname.startsWith('/automation') ? 'default' : 'ghost'}
         className="w-full justify-start"
-        onClick={() => router.push('/automation')}
+        onClick={() => router.push('/dashboard/automation')}
       >
         <ZapIcon className="mr-2 h-4 w-4" />
         Automation

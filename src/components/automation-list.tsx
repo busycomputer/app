@@ -58,7 +58,7 @@ export const AutomationList = () => {
                   <Label htmlFor="airplane-mode">Active</Label>
                 </div>
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/automation/${workflow.id}`}>
+                  <Link href={`/dashboard/automation/${workflow.id}`}>
                     <EditIcon className="mr-2 h-4 w-4" /> Configure
                   </Link>
                 </Button>
