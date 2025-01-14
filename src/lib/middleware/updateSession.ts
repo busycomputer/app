@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { authRoutes, DEFAULT_REDIRECT, publicRoutes } from '@/constants/routes'
 
 export const updateSession = async (request: NextRequest): Promise<NextResponse> => {
@@ -11,7 +11,7 @@ export const updateSession = async (request: NextRequest): Promise<NextResponse>
   })
 
   const { pathname } = request.nextUrl
-  const { auth } = await getServerClient()
+  const { auth } = await createServerClient()
 
   try {
     // Check authentication status

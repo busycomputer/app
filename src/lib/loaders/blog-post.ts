@@ -1,8 +1,8 @@
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { BlogPost } from '@/lib/supabase/types'
 
 export async function loadBlogPost(id: string): Promise<BlogPost> {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
 
   const { data: blogPosts } = await supabase
     .from('blog_posts')

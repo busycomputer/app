@@ -1,11 +1,11 @@
 import OpenAI from 'openai'
 import { ActionHandler } from '@/lib/inngest/types'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { loadBlogPost } from '@/lib/loaders/blog-post'
 import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
 
 export const addToc: ActionHandler = async ({ event, step, workflowAction }) => {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
 
   const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 

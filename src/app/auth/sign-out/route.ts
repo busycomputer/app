@@ -1,7 +1,7 @@
 // src/app/auth/sign-out/route.ts
 
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 
 /**
  * Handles the HTTP GET request by signing out the user from Supabase authentication
@@ -11,7 +11,7 @@ import { getServerClient } from '@/lib/supabase/server'
  * @return {Promise<NextResponse>} - A promise that resolves to a redirect response to the homepage.
  */
 export async function GET(req: NextRequest) {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
   await supabase.auth.signOut()
   return NextResponse.redirect(new URL('/', req.url))
 }
