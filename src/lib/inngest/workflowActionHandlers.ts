@@ -1,12 +1,10 @@
 import { type EngineAction, type WorkflowAction } from '@inngest/workflow-kit'
 import OpenAI from 'openai'
-
-import { type BlogPost } from 'src/lib/supabase/types'
-
-import { loadBlogPost } from 'src/lib/loaders/blog-post'
-import { createClient } from 'src/lib/supabase/server'
-import { actions } from 'src/lib/inngest/workflowActions'
-import { inngest } from 'src/lib/inngest/client'
+import { type BlogPost } from '@/lib/supabase/types'
+import { loadBlogPost } from '@/lib/loaders/blog-post'
+import { getServerClient } from '@/lib/supabase/server'
+import { actions } from '@/lib/inngest/workflowActions'
+import { inngest } from '@/lib/inngest/client'
 
 // helper to ensure that each step of the workflow use
 //  the original content or current AI revision
@@ -33,7 +31,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Add a Table of Contents
     ...actions[0],
     handler: async ({ event, step, workflowAction }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 
@@ -84,7 +82,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Perform a grammar review
     ...actions[1],
     handler: async ({ event, step, workflowAction }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 
@@ -135,7 +133,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Apply changes after approval
     ...actions[2],
     handler: async ({ event, step }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 
@@ -187,7 +185,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Apply changes
     ...actions[3],
     handler: async ({ event, step }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 
@@ -208,7 +206,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Generate LinkedIn posts
     ...actions[4],
     handler: async ({ event, step, workflowAction }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
 
@@ -263,7 +261,7 @@ export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
     // Generate Twitter posts
     ...actions[5],
     handler: async ({ event, step, workflowAction }) => {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
       const numberOfTweets = 2
 
       const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))

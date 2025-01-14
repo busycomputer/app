@@ -4,9 +4,7 @@
 import Link from 'next/link'
 import useSWR from 'swr'
 import { CalendarIcon, Edit, Eye, RocketIcon } from 'lucide-react'
-
 import { type BlogPost } from '@/lib/supabase/types'
-
 import {
   Card,
   CardContent,
@@ -17,7 +15,6 @@ import {
 } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-
 import { capitalize, fetcher } from '@/lib/utils'
 import { sendBlogPostToReview } from '@/app/actions'
 

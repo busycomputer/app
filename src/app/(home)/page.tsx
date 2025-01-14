@@ -6,9 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Cover } from '@/components/ui/cover'
 import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
 import SupabaseTableEditor from '@/assets/images/supabase-table-editor.png'
-import VideoPreview from './video-preview'
+import VideoPreview from '../../components/home/video-preview'
 import { TimelineDemo } from '@/components/home/time-line'
-import Footer from './footer'
+import Footer from '../../components/home/footer'
 export default function HomePage() {
   return (
     <div className="">
