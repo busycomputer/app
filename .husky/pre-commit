@@ -19,6 +19,9 @@ bun lint
 bun format
 nixfmt flake.nix
 
+# Run build
+bun run build
+
 # Run tests
 bun test
 
