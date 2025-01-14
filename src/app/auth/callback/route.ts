@@ -1,7 +1,7 @@
 // src/app/auth/callback/route.ts
 
 import { NextResponse } from 'next/server'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 
 /**
  * Handles GET requests by processing authentication codes from the URL parameters,
@@ -15,25 +15,19 @@ import { getServerClient } from '@/lib/supabase/server'
  *                                 a default user page.
  */
 export async function GET(request: Request) {
-  try {
-    const requestUrl = new URL(request.url)
-    const code = requestUrl?.searchParams?.get('code')
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
+  const origin = requestUrl.origin
+  const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
 
-    const origin = requestUrl?.origin
-    const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
-
-    if (code) {
-      const supabase = await getServerClient()
-      await supabase.auth.exchangeCodeForSession(code)
-    }
-
-    if (redirectTo) {
-      return NextResponse.redirect(`${origin}${redirectTo}`)
-    }
-
-    return NextResponse.redirect(`${origin}/dashboard/`)
-  } catch (error) {
-    console.log(error)
-    return NextResponse.redirect(`${origin}/auth/sign-in`)
+  if (code) {
+    const supabase = await createServerClient()
+    await supabase.auth.exchangeCodeForSession(code)
   }
+
+  if (redirectTo) {
+    return NextResponse.redirect(`${origin}${redirectTo}`)
+  }
+
+  return NextResponse.redirect(`${origin}/user`)
 }

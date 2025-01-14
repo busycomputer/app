@@ -2,7 +2,7 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { Provider } from '@supabase/supabase-js'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 
 /**
  * Handles the GET request to initiate OAuth authentication with a specified provider.
@@ -19,16 +19,15 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ prov
 
   if (provider) {
     try {
-      const supabase = await getServerClient()
+      const supabase = await createServerClient()
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: provider as Provider,
-
         options: {
-          skipBrowserRedirect: true,
           redirectTo: `${new URL(req.url).origin}/auth/callback`,
           // scopes: `${provider === 'github' && 'read:user repo'}`,
         },
       })
+
       if (error) throw error
 
       return NextResponse.redirect(data.url)
