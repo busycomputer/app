@@ -44,6 +44,12 @@ jobs:
         with:
           version: latest
 
+      - name: Link Vercel Project
+        run: bun vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Pull Preview Environment Variables
+        run: bun vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
       - name: Start Supabase
         run: supabase start
 
@@ -65,9 +71,6 @@ jobs:
         run: supabase db push --dry-run
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
-
-      - name: Link Vercel Project
-        run: bun vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
