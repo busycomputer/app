@@ -16,9 +16,11 @@ Durable Visual AI Workflow Infrastructure
    echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
    ```
 3. Make sure Docker Daemon is running
+
    ```sh
    sudo systemctl start docker
    ```
+
 4. Clone the repository
    ```sh
    git clone https://github.com/busycomputer/app.git
