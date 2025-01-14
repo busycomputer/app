@@ -39,8 +39,13 @@ jobs:
       - name: Setup Docker
         uses: docker/setup-buildx-action@v3
 
+      - name: Install Supabase CLI
+        run: |
+          curl -fsSL https://cli.supabase.com/install.sh | sh
+          supabase --version
+
       - name: Start Supabase
-        run: bun supabase start
+        run: supabase start
 
       - name: Generate Types
         run: bun types:gen
@@ -52,12 +57,12 @@ jobs:
           SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
 
       - name: Link Supabase
-        run: bun supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
       - name: Check Database Changes
-        run: bun supabase db push --dry-run
+        run: supabase db push --dry-run
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
@@ -92,18 +97,23 @@ jobs:
       - name: Install Dependencies
         run: bun install
 
+      - name: Install Supabase CLI
+        run: |
+          curl -fsSL https://cli.supabase.com/install.sh | sh
+          supabase --version
+
       - name: Link Supabase
-        run: bun supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
       - name: Deploy Database Changes
-        run: bun supabase db push
+        run: supabase db push
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
       - name: Deploy Edge Functions
-        run: bun supabase functions deploy
+        run: supabase functions deploy
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
