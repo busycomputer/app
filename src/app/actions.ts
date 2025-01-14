@@ -1,11 +1,11 @@
 'use server'
 import { inngest } from '@/lib/inngest/client'
 import { Json } from '@/lib/supabase/database.types'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { type Workflow } from '@/lib/supabase/types'
 
 export const sendBlogPostToReview = async (id: string) => {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
 
   try {
     await supabase
@@ -37,7 +37,7 @@ export const approveBlogPostAiSuggestions = async (id: string) => {
 }
 
 export const publishBlogPost = async (id: string) => {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
 
   try {
     await supabase
@@ -59,7 +59,7 @@ export const publishBlogPost = async (id: string) => {
   })
 }
 export const updateWorkflow = async (workflow: Workflow) => {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
   await supabase
     .from('workflows')
     .update({
@@ -69,7 +69,7 @@ export const updateWorkflow = async (workflow: Workflow) => {
 }
 
 export const toggleWorkflow = async (workflowId: number, enabled: boolean) => {
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
   await supabase
     .from('workflows')
     .update({
