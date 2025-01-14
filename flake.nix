@@ -125,7 +125,7 @@
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs;
-            [ nodejs_22 bun docker wait4x direnv supabase-cli nixfmt act ]
+            [ nodejs_22 bun docker wait4x direnv supabase-cli nixfmt act deno ]
             ++ (builtins.attrValues scripts);
 
           inherit env;
