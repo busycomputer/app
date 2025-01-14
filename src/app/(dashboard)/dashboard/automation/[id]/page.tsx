@@ -1,13 +1,13 @@
 import { notFound } from 'next/navigation'
 import { AutomationEditor } from '@/components/automation-editor'
-import { getServerClient } from '@/lib/supabase/server'
+import { createServerClient } from '@/lib/supabase/server'
 import { Workflow as SupabaseWorkflow } from '@/lib/supabase/types'
 
 export const runtime = 'edge'
 
 export default async function Automation(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
-  const supabase = await getServerClient()
+  const supabase = await createServerClient()
   let workflow: SupabaseWorkflow | null = null
 
   try {
