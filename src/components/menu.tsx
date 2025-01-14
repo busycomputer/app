@@ -1,7 +1,7 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { FileTextIcon, ZapIcon } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
 
 export const Menu = () => {
   const pathname = usePathname()

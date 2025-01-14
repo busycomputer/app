@@ -2,7 +2,6 @@
 import { useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { SaveIcon } from 'lucide-react'
-
 import { Button } from '@/components/ui/button'
 import { approveBlogPostAiSuggestions, publishBlogPost } from '@/app/actions'
 

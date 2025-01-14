@@ -1,7 +1,7 @@
 // src/app/auth/callback/route.ts
 
 import { NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { getServerClient } from '@/lib/supabase/server'
 
 /**
  * Handles GET requests by processing authentication codes from the URL parameters,
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
     const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
 
     if (code) {
-      const supabase = await createClient()
+      const supabase = await getServerClient()
       await supabase.auth.exchangeCodeForSession(code)
     }
 

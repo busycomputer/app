@@ -1,6 +1,6 @@
+import { serve } from 'inngest/next'
 import { inngest } from '@/lib/inngest/client'
 import workflow from '@/lib/inngest/workflow'
-import { serve } from 'inngest/next'
 
 export const runtime = 'edge'
 
