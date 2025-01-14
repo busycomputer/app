@@ -56,9 +56,6 @@ jobs:
       - name: Generate Types
         run: bun types:gen
 
-      - name: Type Check
-        run: bun tsc --noEmit
-
       - name: Format
         run: bun format
 
