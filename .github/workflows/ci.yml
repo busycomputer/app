@@ -56,6 +56,15 @@ jobs:
       - name: Generate Types
         run: bun types:gen
 
+      - name: Type Check
+        run: bun tsc --noEmit
+
+      - name: Format
+        run: bun format
+
+      - name: Lint
+        run: bun lint
+
       - name: Run Tests
         run: bun test
         env:
@@ -99,6 +108,12 @@ jobs:
 
       - name: Install Dependencies
         run: bun install
+
+      - name: Format
+        run: bun format
+
+      - name: Lint
+        run: bun lint
 
       - name: Setup Supabase CLI
         uses: supabase/setup-cli@v1
