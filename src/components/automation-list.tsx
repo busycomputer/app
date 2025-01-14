@@ -4,9 +4,7 @@
 import useSWR from 'swr'
 import Link from 'next/link'
 import { EditIcon } from 'lucide-react'
-
 import { type Workflow } from '@/lib/supabase/types'
-
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -18,7 +16,6 @@ import {
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-
 import { toggleWorkflow } from '@/app/actions'
 import { fetcher } from '@/lib/utils'
 

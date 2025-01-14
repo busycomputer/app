@@ -1,18 +1,23 @@
 'use server'
 import { inngest } from '@/lib/inngest/client'
 import { Json } from '@/lib/supabase/database.types'
-import { createClient } from '@/lib/supabase/server'
+import { getServerClient } from '@/lib/supabase/server'
 import { type Workflow } from '@/lib/supabase/types'
 
 export const sendBlogPostToReview = async (id: string) => {
-  const supabase = await createClient()
-  await supabase
-    .from('blog_posts')
-    .update({
-      status: 'under review',
-      markdown_ai_revision: null,
-    })
-    .eq('id', id)
+  const supabase = await getServerClient()
+
+  try {
+    await supabase
+      .from('blog_posts')
+      .update({
+        status: 'under review',
+        markdown_ai_revision: null,
+      })
+      .eq('id', Number(id))
+  } catch (error) {
+    console.error('Error updating blog post status:', error)
+  }
 
   await inngest.send({
     name: 'blog-post.updated',
@@ -32,14 +37,19 @@ export const approveBlogPostAiSuggestions = async (id: string) => {
 }
 
 export const publishBlogPost = async (id: string) => {
-  const supabase = await createClient()
-  await supabase
-    .from('blog_posts')
-    .update({
-      status: 'published',
-      markdown_ai_revision: null,
-    })
-    .eq('id', id)
+  const supabase = await getServerClient()
+
+  try {
+    await supabase
+      .from('blog_posts')
+      .update({
+        status: 'published',
+        markdown_ai_revision: null,
+      })
+      .eq('id', Number(id))
+  } catch (error) {
+    console.error('Error updating blog post status:', error)
+  }
 
   await inngest.send({
     name: 'blog-post.published',
@@ -49,7 +59,7 @@ export const publishBlogPost = async (id: string) => {
   })
 }
 export const updateWorkflow = async (workflow: Workflow) => {
-  const supabase = await createClient()
+  const supabase = await getServerClient()
   await supabase
     .from('workflows')
     .update({
@@ -59,7 +69,7 @@ export const updateWorkflow = async (workflow: Workflow) => {
 }
 
 export const toggleWorkflow = async (workflowId: number, enabled: boolean) => {
-  const supabase = await createClient()
+  const supabase = await getServerClient()
   await supabase
     .from('workflows')
     .update({
