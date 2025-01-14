@@ -1,9 +1,9 @@
+import Link from 'next/link'
+import React from 'react'
 import LoginSideCarousal from '@/components/carousal/login-side-carousel'
 import Bounded from '@/components/elements/Bounded'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Carousel } from '@/components/ui/carousel'
-import Link from 'next/link'
-import React from 'react'
 
 export default function LoginPage() {
   return (

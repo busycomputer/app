@@ -6,6 +6,9 @@ eval "$(direnv export bash)"
 # Now run your checks in the Nix environment
 . "$(dirname -- "$0")/_/husky.sh"
 
+# Generate Supabase types
+bun types:gen
+
 # Run type check
 bun tsc --noEmit
 
@@ -15,6 +18,9 @@ bun lint
 # Run formatting
 bun format
 nixfmt flake.nix
+
+# Run tests
+bun test
 
 # Stage formatting changes
 git add -u

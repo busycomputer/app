@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import Autoplay from 'embla-carousel-autoplay'
-
 import { Card, CardContent } from '@/components/ui/card'
 import {
   Carousel,
@@ -41,7 +40,7 @@ export default function LoginSideCarousal() {
                 <div className="flex flex-col p-2">
                   <div className="relative">
                     <span className="absolute -top-5 font-serif text-5xl leading-none text-muted-foreground">
-                      "
+                      &#34;
                     </span>
                   </div>
                   <span className="max-w-md text-xl font-semibold">{review}</span>

@@ -1,17 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '../supabase/server'
+import { getServerClient } from '@/lib/supabase/server'
 import { authRoutes, DEFAULT_REDIRECT, publicRoutes } from '@/constants/routes'
 
 export const updateSession = async (request: NextRequest): Promise<NextResponse> => {
   // Initialize response
-  let response = NextResponse.next({
+  const response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   })
 
   const { pathname } = request.nextUrl
-  const { auth } = await createClient()
+  const { auth } = await getServerClient()
 
   try {
     // Check authentication status
