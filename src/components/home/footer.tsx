@@ -97,11 +97,11 @@ const Footer = () => {
               <Image
                 width={160}
                 height={160}
-                alt="Buzycomputer Logo"
+                alt="busycomputer Logo"
                 className="max-w-16"
                 src={Logo.src}
               />
-              Buzycomputer
+              busycomputer
             </Link>
             <div className="flex space-x-5">{/* Add social media icons/links here */}</div>
           </div>
@@ -119,7 +119,7 @@ const Footer = () => {
 
         {/* Footer Bottom */}
         <div className="border-default mt-32 flex justify-between border-t pt-8">
-          <small className="text-sm">© Buzycomputer Inc</small>
+          <small className="text-sm">© busycomputer Inc</small>
           <div>
             <button
               id="user-settings-dropdown"
