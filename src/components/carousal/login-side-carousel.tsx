@@ -40,9 +40,11 @@ export default function LoginSideCarousal() {
               <div className="flex h-full w-full items-center justify-center">
                 <div className="flex flex-col p-2">
                   <div className="relative">
-                    <span className="absolute  font-serif text-5xl -top-5 text-muted-foreground leading-none">"</span>
+                    <span className="absolute -top-5 font-serif text-5xl leading-none text-muted-foreground">
+                      "
+                    </span>
                   </div>
-                  <span className="text-xl font-semibold max-w-md">{review}</span>
+                  <span className="max-w-md text-xl font-semibold">{review}</span>
                   <span>{name}</span>
                 </div>
               </div>

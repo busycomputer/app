@@ -1,36 +1,72 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '../supabase/server'
-import { publicRoutes } from '@/constants/routes'
+import { authRoutes, DEFAULT_REDIRECT, publicRoutes } from '@/constants/routes'
 
 export const updateSession = async (request: NextRequest): Promise<NextResponse> => {
-  // Create an unmodified response
+  // Initialize response
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   })
+
   const { pathname } = request.nextUrl
   const { auth } = await createClient()
 
-  // To refresh session if expired
-  const { error, data } = await auth.getUser()
-  if (error) {
-    if (error.code === 'session_not_found' || error.name === 'AuthSessionMissingError') {
-      response = NextResponse.redirect(new URL('/auth/sign-in', request.url))
-    } else if (error.code === 'user_not_found') {
-      response = NextResponse.redirect(new URL('/auth/sign-in', request.url))
-    } else {
-      console.error(`[ERROR] ${error.code} | ${error.status} | ${error.name} | ${error.message}`)
-      //handle error search param in React Component.
-      response = NextResponse.redirect(
-        new URL(`/auth/sign-in?error='true'&message=${error.message}`, request.url)
+  try {
+    // Check authentication status
+    const {
+      data: { user },
+      error,
+    } = await auth.getUser()
+
+    // Handle authentication errors
+    if (error) {
+      if (
+        error.code === 'session_not_found' ||
+        error.name === 'AuthSessionMissingError' ||
+        error.code === 'user_not_found'
+      ) {
+        // If accessing protected route, redirect to sign in
+        if (!publicRoutes.includes(pathname)) {
+          return NextResponse.redirect(new URL('/auth/sign-in', request.url))
+        }
+        // If on public route, allow access
+        return response
+      }
+
+      // Handle other errors
+      console.error(
+        `[AUTH ERROR] ${error.code} | ${error.status} | ${error.name} | ${error.message}`
+      )
+      return NextResponse.redirect(
+        new URL(
+          `/auth/sign-in?error=true&message=${encodeURIComponent(error.message)}`,
+          request.url
+        )
       )
     }
-  }
-  console.log(pathname)
-  if (data.user && publicRoutes.includes(pathname)) {
-    response = NextResponse.redirect(new URL('/dashboard/', request.url))
-  }
 
-  return response
+    if (user) {
+      // Prevent authenticated users from accessing auth routes
+      if (authRoutes.includes(pathname)) {
+        return NextResponse.redirect(new URL(DEFAULT_REDIRECT, request.url))
+      }
+
+      // Allow access to protected routes
+      return response
+    }
+
+    // No user and trying to access protected route
+    if (!publicRoutes.includes(pathname)) {
+      return NextResponse.redirect(new URL('/auth/sign-in', request.url))
+    }
+
+    return response
+  } catch (error) {
+    console.error('[MIDDLEWARE ERROR]', error)
+    return NextResponse.redirect(
+      new URL('/auth/sign-in?error=true&message=An unexpected error occurred', request.url)
+    )
+  }
 }
