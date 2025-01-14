@@ -28,7 +28,7 @@ const PageKnownLink = ({
         }),
         {
           'bg-primary': isCurrent,
-        //   'bg-': !isCurrent, // adjust and Implement
+          //   'bg-': !isCurrent, // adjust and Implement
         }
       )}
     >

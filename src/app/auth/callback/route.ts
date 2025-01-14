@@ -18,6 +18,7 @@ export async function GET(request: Request) {
   try {
     const requestUrl = new URL(request.url)
     const code = requestUrl?.searchParams?.get('code')
+
     const origin = requestUrl?.origin
     const redirectTo = requestUrl.searchParams.get('redirect_to')?.toString()
 
@@ -30,9 +31,9 @@ export async function GET(request: Request) {
       return NextResponse.redirect(`${origin}${redirectTo}`)
     }
 
-    return NextResponse.redirect(`${origin}/user`)
+    return NextResponse.redirect(`${origin}/dashboard/`)
   } catch (error) {
     console.log(error)
-    return NextResponse.redirect(`${origin}/user`)
+    return NextResponse.redirect(`${origin}/auth/sign-in`)
   }
 }
