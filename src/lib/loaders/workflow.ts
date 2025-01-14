@@ -1,9 +1,8 @@
 import { Workflow } from '@inngest/workflow-kit'
-
-import { createClient } from 'src/lib/supabase/server'
+import { getServerClient } from '@/lib/supabase/server'
 
 export async function loadWorkflow(event: { name: string }) {
-  const supabase = await createClient()
+  const supabase = await getServerClient()
   const { data } = await supabase
     .from('workflows')
     .select('*', {})

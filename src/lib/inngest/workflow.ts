@@ -1,8 +1,7 @@
 import { Engine } from '@inngest/workflow-kit'
-
-import { loadWorkflow } from 'src/lib/loaders/workflow'
-import { inngest } from 'src/lib/inngest/client'
-import { actionsWithHandlers } from 'src/lib/inngest/workflowActionHandlers'
+import { loadWorkflow } from '@/lib/loaders/workflow'
+import { inngest } from '@/lib/inngest/client'
+import { actionsWithHandlers } from '@/lib/inngest/workflowActionHandlers'
 
 const workflowEngine = new Engine({
   actions: actionsWithHandlers,
