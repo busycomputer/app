@@ -29,5 +29,5 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}${redirectTo}`)
   }
 
-  return NextResponse.redirect(`${origin}/user`)
+  return NextResponse.redirect(`${origin}/dashboard`)
 }
