@@ -1,8 +1,8 @@
-import Bounded from '@/components/elements/Bounded'
-import { buttonVariants } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
+import { buttonVariants } from '@/components/ui/button'
+import Bounded from '@/components/elements/Bounded'
 import BcLogo from '@/assets/images/logo-192x192.png'
 
 export default function HomeNav() {

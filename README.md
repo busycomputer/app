@@ -1,5 +1,7 @@
 # BusyComputer
 
+Durable Visual AI Workflow Infrastructure
+
 ## Development
 
 ### Prerequisites

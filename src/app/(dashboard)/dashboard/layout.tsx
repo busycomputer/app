@@ -1,3 +1,4 @@
+import React from 'react'
 import { geist as font } from '@/app/fonts'
 import '@/app/globals.css'
 import { Menu } from '@/components/menu'
@@ -6,8 +7,6 @@ import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
 
 export { metadata }
-
-import React from 'react'
 
 export default function RootDashboardLayout({
   children,
