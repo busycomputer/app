@@ -7,7 +7,7 @@ import BcLogo from '@/assets/images/logo-192x192.png'
 
 export default function HomeNav() {
   return (
-    <div className="sticky top-0 border-b z-50  py-1 backdrop-blur-md">
+    <div className="sticky top-0 z-50 border-b py-1 backdrop-blur-md">
       <Bounded as={'nav'} className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-1">
           <Image

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Moon } from 'lucide-react'
-
 // Add SVG icons for social media here
-import Logo from '@/assets/images/logo-192x192.png'
 import Link from 'next/link'
 import Image from 'next/image'
+import Logo from '@/assets/images/logo-192x192.png'
+
 const Footer = () => {
   const productLinks = [
     { href: '/database', label: 'Database' },
@@ -93,7 +93,7 @@ const Footer = () => {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and Social Links */}
           <div className="space-y-8 xl:col-span-1">
-            <Link className="w-12 flex items-center font-bold text-xl" href="/">
+            <Link className="flex w-12 items-center text-xl font-bold" href="/">
               <Image
                 width={160}
                 height={160}
