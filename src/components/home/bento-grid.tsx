@@ -1,6 +1,4 @@
-import { cn } from '@/lib/utils'
 import React from 'react'
-import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 import {
   IconArrowWaveRightUp,
   IconBoxAlignRightFilled,
@@ -10,6 +8,8 @@ import {
   IconSignature,
   IconTableColumn,
 } from '@tabler/icons-react'
+import { cn } from '@/lib/utils'
+import { BentoGrid, BentoGridItem } from '../ui/bento-grid'
 
 export function BentoGridDemo() {
   return (
@@ -48,8 +48,6 @@ const items = [
     description: 'Discover the beauty of thoughtful and functional design.',
     header: <Skeleton />,
     icon: <IconSignature className="h-4 w-4 text-neutral-500" />,
-
-    
   },
   {
     title: 'The Power of Communication',
