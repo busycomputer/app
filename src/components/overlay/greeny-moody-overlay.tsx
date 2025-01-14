@@ -12,7 +12,7 @@ export default function GreenMoodyOverlay({
     <div
       aria-hidden="true"
       className={cn(
-        'top- pointer-events-none absolute inset-x-0 -z-10 transform-gpu overflow-hidden border-2 backdrop-blur-3xl blur-[150px]  sm:-top-80',
+        'top- pointer-events-none absolute inset-x-0 -z-10 transform-gpu overflow-hidden border-2 blur-[150px] backdrop-blur-3xl sm:-top-80',
         TopClassName
       )}
     >
