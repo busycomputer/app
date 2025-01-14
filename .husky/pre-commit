@@ -9,15 +9,15 @@ eval "$(direnv export bash)"
 # Generate Supabase types
 bun types:gen
 
-# Run type check
-bun tsc --noEmit
-
 # Run linting
 bun lint
 
 # Run formatting
 bun format
 nixfmt flake.nix
+
+# Run type check
+bun tsc --noEmit
 
 # Run build
 bun run build
