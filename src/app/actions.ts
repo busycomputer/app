@@ -68,7 +68,7 @@ export const updateWorkflow = async (workflow: Workflow) => {
     .eq('id', workflow.id)
 }
 
-export const toggleWorkflow = async (workflowId: number, enabled: boolean) => {
+export const toggleWorkflow = async (workflowId: string, enabled: boolean) => {
   const supabase = await createServerClient()
   await supabase
     .from('workflows')

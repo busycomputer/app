@@ -11,11 +11,7 @@ export default async function Automation(props: { params: Promise<{ id: string }
   let workflow: SupabaseWorkflow | null = null
 
   try {
-    const { data } = await supabase
-      .from('workflows')
-      .select('*')
-      .eq('id', Number(params.id)!)
-      .single()
+    const { data } = await supabase.from('workflows').select('*').eq('id', params.id!).single()
 
     if (data) {
       workflow = data as SupabaseWorkflow
