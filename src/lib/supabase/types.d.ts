@@ -21,4 +21,3 @@ export type FunctionReturns<T extends FunctionName> = Functions[T]['Returns']
 export type Workflow = Omit<Database['public']['Tables']['workflows']['Row'], 'workflow'> & {
   workflow: InngestWorkflow | Json
 }
-export type BlogPost = Database['public']['Tables']['blog_posts']['Row']

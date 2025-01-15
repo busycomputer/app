@@ -2,7 +2,7 @@ import { Workflow } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
 import { Event } from '@/lib/inngest/types'
 
-export async function loadWorkflow(event: Event) {
+export async function loadSupabaseWorkflow(event: Event) {
   const supabase = await createServerClient()
 
   try {

@@ -28,39 +28,6 @@ export type Database = {
   }
   public: {
     Tables: {
-      blog_posts: {
-        Row: {
-          ai_publishing_recommendations: string | null
-          created_at: string | null
-          id: number
-          markdown: string | null
-          markdown_ai_revision: string | null
-          status: string | null
-          subtitle: string | null
-          title: string | null
-        }
-        Insert: {
-          ai_publishing_recommendations?: string | null
-          created_at?: string | null
-          id?: number
-          markdown?: string | null
-          markdown_ai_revision?: string | null
-          status?: string | null
-          subtitle?: string | null
-          title?: string | null
-        }
-        Update: {
-          ai_publishing_recommendations?: string | null
-          created_at?: string | null
-          id?: number
-          markdown?: string | null
-          markdown_ai_revision?: string | null
-          status?: string | null
-          subtitle?: string | null
-          title?: string | null
-        }
-        Relationships: []
-      }
       profiles: {
         Row: {
           first_name: string | null
@@ -86,7 +53,6 @@ export type Database = {
           enabled: boolean
           id: string
           name: string | null
-          trigger: string
           user_id: string
           workflow: Json | null
         }
@@ -96,7 +62,6 @@ export type Database = {
           enabled?: boolean
           id?: string
           name?: string | null
-          trigger: string
           user_id: string
           workflow?: Json | null
         }
@@ -106,7 +71,6 @@ export type Database = {
           enabled?: boolean
           id?: string
           name?: string | null
-          trigger?: string
           user_id?: string
           workflow?: Json | null
         }

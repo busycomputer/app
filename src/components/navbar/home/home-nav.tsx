@@ -16,7 +16,7 @@ export default function HomeNav() {
             alt="Busy computer logo"
           />
           <div>
-            <span className="flex flex-col justify-center text-xs font-bold">
+            <span className="flex flex-col justify-center text-xs font-bold uppercase">
               <span>Busy</span>
               <span>Computers</span>
             </span>

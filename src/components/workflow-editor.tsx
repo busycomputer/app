@@ -1,33 +1,32 @@
 'use client'
+
 import { Editor, Provider, Sidebar } from '@inngest/workflow-kit/ui'
 import { SaveIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
+import type { PublicEngineAction, Workflow as InngestWorkflow } from '@inngest/workflow-kit'
+import useSWR from 'swr'
 import type { Workflow as SupabaseWorkflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { updateWorkflow } from '@/app/actions'
-import { actions } from '@/lib/inngest/workflowActions'
-
 import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
-import '@/app/(dashboard)/dashboard/automation/[id]/style.css'
+import '@/app/(protected)/dashboard/workflow/[id]/style.css'
+import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
+import { fetcher } from '@/lib/utils'
 
-export const AutomationEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => {
+export const WorkflowEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => {
   const router = useRouter()
   const [workflowDraft, updateWorkflowDraft] = useState<typeof workflow>(workflow)
 
+  const { data } = useSWR<{ publicEngineActions: PublicEngineAction[] }>('/api/actions', fetcher, {
+    refreshInterval: 500,
+  })
+
   const onSaveWorkflow = useCallback(async () => {
     await updateWorkflow(workflowDraft)
-    router.push('/dashboard/automation')
+    router.push('/dashboard')
   }, [router, workflowDraft])
 
   return (
@@ -53,10 +52,10 @@ export const AutomationEditor = ({ workflow }: { workflow: SupabaseWorkflow }) =
               workflow={workflowDraft?.workflow as InngestWorkflow}
               trigger={{
                 event: {
-                  name: workflowDraft.trigger,
+                  name: EVENT_RUN_ON_DEMAND,
                 },
               }}
-              availableActions={actions}
+              availableActions={data?.publicEngineActions || []}
               onChange={(updated) => {
                 updateWorkflowDraft({
                   ...workflowDraft,

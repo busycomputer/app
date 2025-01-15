@@ -7,8 +7,8 @@ export const SITE_KEYWORDS = ['AI', 'Workflow', 'Automation', 'Infrastructure', 
 
 // Inngest
 export const FUNCTION_RUN_ON_DEMAND = 'run-on-demand'
-export const EVENT_RUN_ON_DEMAND: string = 'on-demand/run'
+export const EVENT_RUN_ON_DEMAND: string = 'run-on-demand'
 export const FUNCTION_RUN_SCHEDULED = 'run-scheduled'
-export const EVENT_RUN_SCHEDULED: string = 'scheduled/run'
+export const EVENT_RUN_SCHEDULED: string = 'scheduled-run'
 export const FUNCTION_RUN_WEBHOOK = 'run-webhook'
-export const EVENT_RUN_WEBHOOK: string = 'webhook/run'
+export const EVENT_RUN_WEBHOOK: string = 'webhook-run'
