@@ -1,11 +1,11 @@
 import { Engine } from '@inngest/workflow-kit'
 import { loadSupabaseWorkflow } from '@/lib/inngest/loaders/load-supabase-workflow'
 import { inngest } from '@/lib/inngest/client'
-import { actionsWithHandlers } from '@/lib/inngest/workflowActionHandlers'
+import { engineActions } from '@/lib/inngest/engine-actions'
 import { EVENT_RUN_ON_DEMAND, FUNCTION_RUN_ON_DEMAND } from '@/lib/constants'
 
 const workflowEngine = new Engine({
-  actions: actionsWithHandlers,
+  actions: engineActions,
   loader: loadSupabaseWorkflow,
 })
 
