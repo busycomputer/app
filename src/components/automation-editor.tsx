@@ -16,10 +16,10 @@ import {
 } from '@/components/ui/card'
 import { updateWorkflow } from '@/app/actions'
 import { actions } from '@/lib/inngest/workflowActions'
-
 import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
 import '@/app/(dashboard)/dashboard/automation/[id]/style.css'
+import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
 
 export const AutomationEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => {
   const router = useRouter()
@@ -53,7 +53,7 @@ export const AutomationEditor = ({ workflow }: { workflow: SupabaseWorkflow }) =
               workflow={workflowDraft?.workflow as InngestWorkflow}
               trigger={{
                 event: {
-                  name: workflowDraft.trigger,
+                  name: EVENT_RUN_ON_DEMAND,
                 },
               }}
               availableActions={actions}
