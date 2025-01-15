@@ -79,5 +79,6 @@
     "@types/react": "19.0.4",
     "@types/react-dom": "19.0.2"
   },
+  "browserslist": [">0.3%", "not dead", "not op_mini all"],
   "packageManager": "bun@1.1.42"
 }
