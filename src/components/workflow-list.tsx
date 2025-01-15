@@ -19,7 +19,7 @@ import { Switch } from '@/components/ui/switch'
 import { toggleWorkflow } from '@/app/actions'
 import { fetcher } from '@/lib/utils'
 
-export const AutomationList = () => {
+export const WorkflowList = () => {
   const { data } = useSWR<{ workflows: Workflow[] }>('/api/workflows', fetcher, {
     refreshInterval: 500,
   })
@@ -55,7 +55,7 @@ export const AutomationList = () => {
                   <Label htmlFor="airplane-mode">Active</Label>
                 </div>
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/dashboard/automation/${workflow.id}`}>
+                  <Link href={`/dashboard/workflow/${workflow.id}`}>
                     <EditIcon className="mr-2 h-4 w-4" /> Configure
                   </Link>
                 </Button>
