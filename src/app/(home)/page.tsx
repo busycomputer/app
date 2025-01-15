@@ -1,6 +1,6 @@
 import Bounded from '@/components/elements/Bounded'
 import HeroTitle from '@/components/hero-title'
-import { BentoGridDemo } from '@/components/home/bento-grid'
+import { BentoGridSecondDemo } from '@/components/home/bento-grid'
 import GreenMoodyOverlay from '@/components/overlay/greeny-moody-overlay'
 import { Button } from '@/components/ui/button'
 import { Cover } from '@/components/ui/cover'
@@ -11,9 +11,9 @@ import { TimelineDemo } from '@/components/home/time-line'
 import Footer from '../../components/home/footer'
 export default function HomePage() {
   return (
-    <div className="">
-      <div className="px-2 bg-grid-small-white/[0.1]">
-        <div className="relative h-[calc(100vh-5rem)] w-full bg-background bg-dot-white/[0.5]">
+    <div className="bg-neutral-950">
+      <div className="px-2">
+        <div className="relative h-[calc(100vh-5rem)] w-full bg-neutral-950 bg-dot-neutral-400/[0.2]">
           <Bounded className="flex h-full w-full items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="px-5 text-center">
@@ -32,8 +32,8 @@ export default function HomePage() {
           </Bounded>
           {/* <div className="absolute top-0 h-full w-full bg-gradient-to-t from-background to-black/0" /> */}
         </div>
-        <div className="relative z-10 pb-10 pt-20">
-          <Bounded>
+        <div className="relative z-10 pb-40 pt-40">
+          <Bounded className="">
             <div className="flex flex-col items-center justify-center py-12">
               <h2 className="text-center text-4xl font-medium">
                 Build amazing websites at warp speed
@@ -43,8 +43,8 @@ export default function HomePage() {
                 aliquid possimus officia, maiores enim incidunt vitae?
               </p>
             </div>
+            <BentoGridSecondDemo />
           </Bounded>
-          <BentoGridDemo />
         </div>
       </div>
 
@@ -64,7 +64,9 @@ export default function HomePage() {
           </div>
         </Bounded>
       </div>
-      <TimelineDemo />
+      <div className="pt-40">
+        <TimelineDemo />
+      </div>
       <Footer />
     </div>
   )
