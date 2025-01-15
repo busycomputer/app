@@ -83,31 +83,42 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
-          enabled: boolean | null
-          id: number
+          enabled: boolean
+          id: string
           name: string | null
-          trigger: string | null
+          trigger: string
+          user_id: string
           workflow: Json | null
         }
         Insert: {
           created_at?: string
           description?: string | null
-          enabled?: boolean | null
-          id?: number
+          enabled?: boolean
+          id?: string
           name?: string | null
-          trigger?: string | null
+          trigger: string
+          user_id: string
           workflow?: Json | null
         }
         Update: {
           created_at?: string
           description?: string | null
-          enabled?: boolean | null
-          id?: number
+          enabled?: boolean
+          id?: string
           name?: string | null
-          trigger?: string | null
+          trigger?: string
+          user_id?: string
           workflow?: Json | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: 'workflows_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          },
+        ]
       }
     }
     Views: {
