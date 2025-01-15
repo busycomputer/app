@@ -4,7 +4,7 @@ import * as runtime from 'react/jsx-runtime'
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { BlogPostActions } from '@/components/blog-post-actions'
-import { loadBlogPost } from '@/lib/loaders/blog-post'
+import { loadBlogPost } from '@/lib/inngest/loaders/blog-post'
 import { mdxComponents } from '@/lib/mdxComponents'
 
 export const revalidate = 0
