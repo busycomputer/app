@@ -86,7 +86,6 @@ export type Database = {
           enabled: boolean
           id: string
           name: string | null
-          trigger: string
           user_id: string
           workflow: Json | null
         }
@@ -96,7 +95,6 @@ export type Database = {
           enabled?: boolean
           id?: string
           name?: string | null
-          trigger: string
           user_id: string
           workflow?: Json | null
         }
@@ -106,7 +104,6 @@ export type Database = {
           enabled?: boolean
           id?: string
           name?: string | null
-          trigger?: string
           user_id?: string
           workflow?: Json | null
         }
