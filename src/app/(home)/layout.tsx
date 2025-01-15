@@ -1,6 +1,6 @@
 import { geist as font } from '@/app/fonts'
-import '../../app/globals.css'
-// import '@/app/globals.css'
+// import '../../app/globals.css'
+import '@/app/globals.css'
 import { Menu } from '@/components/menu'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
