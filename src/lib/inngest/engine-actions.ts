@@ -7,7 +7,7 @@ import { applyChanges } from '@/lib/inngest/actions/apply-changes'
 import { generateLinkedinPosts } from '@/lib/inngest/actions/generate-linkedin-posts'
 import { generateTwitterPosts } from '@/lib/inngest/actions/generate-twitter-posts'
 
-export const actionsWithHandlers: EngineAction<typeof inngest>[] = [
+export const engineActions: EngineAction<typeof inngest>[] = [
   addToc,
   grammarReview,
   applyChangesAfterApproval,
