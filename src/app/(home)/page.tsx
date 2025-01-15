@@ -1,14 +1,9 @@
 import Bounded from '@/components/elements/Bounded'
-import HeroTitle from '@/components/hero-title'
 import { BentoGridSecondDemo } from '@/components/home/bento-grid'
-import GreenMoodyOverlay from '@/components/overlay/greeny-moody-overlay'
-import { Button } from '@/components/ui/button'
-import { Cover } from '@/components/ui/cover'
-import { HoverBorderGradient } from '@/components/ui/hover-border-gradient'
-import SupabaseTableEditor from '@/assets/images/supabase-table-editor.png'
-import VideoPreview from '../../components/home/video-preview'
 import { TimelineDemo } from '@/components/home/time-line'
+import { Cover } from '@/components/ui/cover'
 import Footer from '../../components/home/footer'
+import VideoPreview from '../../components/home/video-preview'
 export default function HomePage() {
   return (
     <div className="bg-neutral-950">
