@@ -4,7 +4,7 @@ import { DotBackground } from '@/components/ui/dotted-background'
 
 export { metadata }
 
-export default function ProtectedLayout({
+export default function EditorLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
