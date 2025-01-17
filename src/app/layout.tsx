@@ -1,5 +1,5 @@
 import React from 'react'
-import { geistSans as sans, geistMono as mono } from '@/app/fonts'
+import { geistSans as sans, geistMono as mono } from 'src/fonts'
 import '@/app/globals.css'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'

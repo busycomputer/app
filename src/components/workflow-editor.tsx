@@ -5,7 +5,7 @@ import { SaveIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
 import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
-import type { Workflow as SupabaseWorkflow } from '@/lib/supabase/types'
+import type { Workflow as UserWorkflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { updateWorkflow } from '@/app/actions/update-workflow'
@@ -13,9 +13,9 @@ import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
 import '@/app/(protected)/dashboard/workflow/[id]/style.css'
 import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
-import { useGetAvailableActions } from '@/hooks/useGetAvailableActions'
+import { useGetAvailableActions } from '@/hooks/use-get-available-actions'
 
-export const WorkflowEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => {
+export const WorkflowEditor = ({ workflow }: { workflow: UserWorkflow }) => {
   const router = useRouter()
   const [workflowDraft, updateWorkflowDraft] = useState<typeof workflow>(workflow)
   const availableActions = useGetAvailableActions()
