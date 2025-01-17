@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from 'react'
 import { PublicEngineAction } from '@inngest/workflow-kit'
 import { getAvailableActions } from '@/app/actions/get-available-actions'

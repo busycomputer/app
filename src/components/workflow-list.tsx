@@ -1,10 +1,8 @@
 'use client'
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import useSWR from 'swr'
 import Link from 'next/link'
 import { EditIcon } from 'lucide-react'
-import { type Workflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -17,12 +15,10 @@ import {
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { toggleWorkflow } from '@/app/actions/toggle-workflow'
-import { fetcher } from '@/lib/utils'
+import { useGetUserWorkflows } from '@/hooks/use-get-user-workflows'
 
 export const WorkflowList = () => {
-  const { data } = useSWR<{ workflows: Workflow[] }>('/api/workflows', fetcher, {
-    refreshInterval: 500,
-  })
+  const userWorkflows = useGetUserWorkflows()
 
   return (
     <div>
@@ -30,13 +26,13 @@ export const WorkflowList = () => {
         <h2 className="text-2xl font-bold">Automations</h2>
       </div>
       <div className="grid gap-6">
-        {(data?.workflows || []).map((workflow) => {
-          const actions: any[] = (workflow.workflow as any)?.actions || []
+        {userWorkflows.map((userWorkflow) => {
+          const actions: any[] = (userWorkflow.workflow as any)?.actions || []
           return (
-            <Card key={workflow.id}>
+            <Card key={userWorkflow.id}>
               <CardHeader>
-                <CardTitle>{workflow.name}</CardTitle>
-                <CardDescription>{workflow.description}</CardDescription>
+                <CardTitle>{userWorkflow.name}</CardTitle>
+                <CardDescription>{userWorkflow.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center text-sm text-muted-foreground">
@@ -49,13 +45,13 @@ export const WorkflowList = () => {
                 <div className="flex items-center space-x-2">
                   <Switch
                     id="airplane-mode"
-                    checked={workflow.enabled!}
-                    onCheckedChange={() => toggleWorkflow(workflow.id, !workflow.enabled)}
+                    checked={userWorkflow.enabled!}
+                    onCheckedChange={() => toggleWorkflow(userWorkflow.id, !userWorkflow.enabled)}
                   />
                   <Label htmlFor="airplane-mode">Active</Label>
                 </div>
                 <Button variant="outline" size="sm" asChild>
-                  <Link href={`/dashboard/workflow/${workflow.id}`}>
+                  <Link href={`/dashboard/workflow/${userWorkflow.id}`}>
                     <EditIcon className="mr-2 h-4 w-4" /> Configure
                   </Link>
                 </Button>
