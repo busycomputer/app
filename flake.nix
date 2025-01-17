@@ -24,10 +24,10 @@
         };
 
         env = {
+          PROJECT_NAME = "busycomputer";
           SUPABASE_API_URL = "http://localhost:${ports.supabase-api}";
           INNGEST_URL = "http://localhost:${ports.inngest}";
           DIRENV_WARN_TIMEOUT = "60s";
-
         };
 
         makeScript = name: text: pkgs.writeScriptBin name text;
@@ -48,14 +48,18 @@
             exit 0
           '';
 
-          install-modules = makeScript "install-modules" ''
+          setup-yarn = makeScript "setup-yarn" ''
             #!/usr/bin/env bash
+            if ! yarn --version &>/dev/null; then
+             npm i -g yarn || exit 1
+            fi
+
             if [ ! -d "node_modules" ]; then
-             echo "Installing Modules..."
-             bun install || exit 1
-             echo "☑Modules IInstalled!"
+             echo "Installing Node Modules..."
+             yarn install || exit 1
+             echo "☑ Node Modules Installed!"
             else
-             echo "☑Mmodules found"
+             echo "☑ Node modules found"
             fi
 
             exit 0
@@ -125,14 +129,14 @@
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs;
-            [ nodejs_22 bun docker wait4x direnv supabase-cli nixfmt act deno ]
+            [ nodejs_22 docker wait4x direnv supabase-cli nixfmt ]
             ++ (builtins.attrValues scripts);
 
           inherit env;
 
           shellHook = ''
             setup-direnv || exit 1
-            install-modules || exit 1
+            setup-yarn || exit 1
             setup-docker || exit 1
             setup-supabase || exit 1
             setup-inngest || exit 1
