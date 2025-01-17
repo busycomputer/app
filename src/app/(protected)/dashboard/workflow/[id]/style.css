@@ -2,6 +2,8 @@
   --editor-background-color: hsl(var(--input));
   --sidebar-background-color: hsl(var(--surface));
   --sidebar-border-color: hsl(var(--border));
+  --sidebar-border-left-width: 0;
+  --sidebar-width: 384px;
   --node-box-shadow: 0 1px 3px 0 hsl(var(--foreground) / 0.03);
   --node-background-color: hsl(var(--card));
   --node-border-color: hsl(var(--border));
@@ -72,6 +74,7 @@
 .wf-sidebar {
   background-color: var(--sidebar-background-color);
   border-color: var(--sidebar-border-color);
+  flex-grow: 1;
 }
 
 .wf-sidebar-form input,
@@ -109,4 +112,49 @@
 .wf-sidebar-delete {
   border-color: hsl(var(--destructive));
   color: hsl(var(--destructive));
+}
+
+.wf-sidebar-header {
+  position: absolute;
+  z-index: 100;
+  flex-direction: column;
+  justify-content: space-between;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: var(--sidebar-width);
+  pointer-events: none;
+}
+
+.wf-sidebar-header > *:nth-child(1) {
+  align-self: flex-start;
+  padding: calc(var(--sidebar-content-padding) * 0.6) var(--sidebar-content-padding)
+    calc(var(--sidebar-content-padding) * 0.58) 0;
+  pointer-events: all;
+}
+
+.wf-sidebar-header > *:nth-child(2) {
+  align-self: flex-end;
+  padding: calc(var(--sidebar-content-padding) * 0.6) 0 calc(var(--sidebar-content-padding) * 0.58)
+    var(--sidebar-content-padding);
+  pointer-events: all;
+}
+
+.wf-sidebar-action {
+  padding: calc(var(--sidebar-content-padding) * 0.6) var(--sidebar-content-padding)
+    calc(var(--sidebar-content-padding) * 0.58) var(--sidebar-content-padding);
+}
+
+.wf-sidebar-footer {
+  flex-shrink: 0;
+}
+
+.wf-sidebar-form {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.wf-sidebar-action-name {
+  font-weight: bold;
+  font-size: 1.25rem;
 }

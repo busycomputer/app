@@ -2,7 +2,7 @@ import OpenAI from 'openai'
 import { EngineAction } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
 import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 
 export const grammarReview: EngineAction<typeof inngest> = {
   // Perform a grammar review

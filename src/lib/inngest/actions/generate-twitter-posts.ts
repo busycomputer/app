@@ -2,7 +2,7 @@ import OpenAI from 'openai'
 import { EngineAction } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
 import { addAIPublishingSuggestion } from '@/lib/helpers/add-ai-publishing-suggestion'
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 
 export const generateTwitterPosts: EngineAction<typeof inngest> = {
   // Generate Twitter posts
