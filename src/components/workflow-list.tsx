@@ -17,16 +17,19 @@ import { Switch } from '@/components/ui/switch'
 import { toggleWorkflow } from '@/app/actions/toggle-workflow'
 import { useGetUserWorkflows } from '@/hooks/use-get-user-workflows'
 import { createEmptyWorkflow } from '@/app/actions/create-workflow'
+import { useRouter } from 'next/navigation'
 
 export const WorkflowList = () => {
   const userWorkflows = useGetUserWorkflows()
+  const router = useRouter()
   return (
-    <div className='px-4 py-4'>
+    <div className="px-4 py-4">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">Automations</h2>
         <Button
           onClick={async () => {
             await createEmptyWorkflow()
+            router.refresh()
           }}
         >
           Create Workflow
