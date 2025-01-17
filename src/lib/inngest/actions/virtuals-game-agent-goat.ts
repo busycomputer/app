@@ -1,15 +1,68 @@
 import OpenAI from 'openai'
 import { EngineAction } from '@inngest/workflow-kit'
-import { createServerClient } from '@/lib/supabase/server'
-import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
+import { Type } from '@sinclair/typebox'
+import {
+  ExecutableGameFunctionResponse,
+  ExecutableGameFunctionStatus,
+  GameAgent,
+  GameFunction,
+  GameWorker,
+} from '@virtuals-protocol/game'
+import { http } from 'viem'
+import { createWalletClient } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+import { mode } from 'viem/chains'
+import { ToolBase, getTools } from '@goat-sdk/core'
+import { PEPE, USDC, erc20 } from '@goat-sdk/plugin-erc20'
+import { sendETH } from '@goat-sdk/wallet-evm'
+import { viem } from '@goat-sdk/wallet-viem'
+import type { JSONSchemaType } from 'ajv'
+import { zodToJsonSchema } from 'zod-to-json-schema'
 import { inngest } from '@/lib/inngest'
+import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
+import { createServerClient } from '@/lib/supabase/server'
+import virtualsLogo from '@/assets/images/virtuals-logo.svg'
+import { privateKey } from '@/lib/typebox/private-key'
+import { rpcProviderUrl } from '@/lib/typebox/rpc-provider-url'
+import { virtualsGameApiKey } from '@/lib/typebox/virtuals-game-api-key'
+import { erc20TokenSymbol } from '@/lib/typebox/erc20-token-symbol'
 
 export const virtualsGameAgentGoat: EngineAction<typeof inngest> = {
   // Add a Table of Contents
   kind: 'virtuals_game_agent_goat',
-  name: 'Virtuals Game Agent',
+  name: 'Virtuals G.A.M.E',
   description: 'Perform on-chain actions with Virtuals Game Agent',
-  icon: 'https://mintlify.s3.us-west-1.amazonaws.com/goat/logo/goat-dark.svg',
+  icon: '🐐',
+  inputs: {
+    walletPrivateKey: {
+      fieldType: 'text',
+      type: privateKey,
+    },
+    rpcProviderUrl: {
+      fieldType: 'text',
+      type: rpcProviderUrl,
+    },
+    virtualsGameApiKey: {
+      fieldType: 'text',
+      type: virtualsGameApiKey,
+    },
+    tokenToSell: {
+      fieldType: 'text',
+      type: {
+        ...erc20TokenSymbol,
+        title: 'Token to Sell',
+        description: 'Ticker of token to sell',
+      },
+    },
+    tokenToBuy: {
+      fieldType: 'text',
+      type: {
+        ...erc20TokenSymbol,
+        title: 'Token to Buy',
+        description: 'Ticker of token to buy',
+      },
+    },
+  },
   handler: async ({ event, step, workflowAction }) => {
     // const supabase = await createServerClient()
     //
