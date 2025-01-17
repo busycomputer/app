@@ -1,6 +1,6 @@
 import { EngineAction } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 
 export const applyChangesAfterApproval: EngineAction<typeof inngest> = {
   // Apply changes after approval

@@ -3,7 +3,7 @@ import { EngineAction } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
 import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
 import { addAIPublishingSuggestion } from '@/lib/helpers/add-ai-publishing-suggestion'
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 
 export const generateLinkedinPosts: EngineAction<typeof inngest> = {
   // Generate LinkedIn posts
