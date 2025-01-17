@@ -16,14 +16,21 @@ import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
 import { toggleWorkflow } from '@/app/actions/toggle-workflow'
 import { useGetUserWorkflows } from '@/hooks/use-get-user-workflows'
+import { createEmptyWorkflow } from '@/app/actions/create-workflow'
 
 export const WorkflowList = () => {
   const userWorkflows = useGetUserWorkflows()
-
   return (
-    <div>
+    <div className='px-4 py-4'>
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-2xl font-bold">Automations</h2>
+        <Button
+          onClick={async () => {
+            await createEmptyWorkflow()
+          }}
+        >
+          Create Workflow
+        </Button>
       </div>
       <div className="grid gap-6">
         {userWorkflows.map((userWorkflow) => {
