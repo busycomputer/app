@@ -12,7 +12,7 @@
 
 .wf-editor,
 .wf-add-handle-menu {
-  background-color: var(--editor-background-color);
+  background-color: transparent;
 }
 
 .wf-node {
@@ -116,7 +116,7 @@
 
 .wf-sidebar-header {
   position: absolute;
-  z-index: 100;
+  z-index: 10;
   flex-direction: column;
   justify-content: space-between;
   top: 0;
