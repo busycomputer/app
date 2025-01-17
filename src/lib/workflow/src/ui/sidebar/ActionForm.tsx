@@ -1,9 +1,9 @@
-import { ActionInput, PublicEngineAction, WorkflowAction } from "../../types";
-import { useProvider } from '../Provider';
+import { ActionInput, PublicEngineAction, WorkflowAction } from '../../types'
+import { useProvider } from '../Provider'
 
 type SidebarActionFormProps = {
-  workflowAction: WorkflowAction,
-  engineAction: PublicEngineAction | undefined,
+  workflowAction: WorkflowAction
+  engineAction: PublicEngineAction | undefined
 }
 
 export const SidebarActionForm = ({ workflowAction, engineAction }: SidebarActionFormProps) => {
@@ -29,7 +29,7 @@ export const SidebarActionForm = ({ workflowAction, engineAction }: SidebarActio
         {InputFormUI(engineAction.inputs || {})}
       </div>
     </>
-  );
+  )
 }
 
 export const InputFormUI = (inputs: Record<string, ActionInput>) => {
@@ -41,7 +41,6 @@ export const InputFormUI = (inputs: Record<string, ActionInput>) => {
       {Object.entries(inputs).map(([id, input]) => (
         <label key={id}>
           {input.type.title}
-
           <FormUIInputRenderer input={input} id={id} />
         </label>
       ))}
@@ -49,28 +48,47 @@ export const InputFormUI = (inputs: Record<string, ActionInput>) => {
   )
 }
 
-const FormUIInputRenderer = ({ id, input }: { id: string, input: ActionInput }) => {
-  const { selectedNode  } = useProvider();
+const FormUIInputRenderer = ({ id, input }: { id: string; input: ActionInput }) => {
+  const { selectedNode, onChange, workflow } = useProvider()
 
-  selectedNode!.data.action.inputs = selectedNode!.data.action.inputs || {};
+  selectedNode!.data.action.inputs = selectedNode!.data.action.inputs || {}
+  const action = selectedNode!.data.action
+  action.inputs = action.inputs || {}
 
-  if (input.fieldType === "textarea") {
+  const updateWorkflowAction = () => {
+    const workflowCopy = {
+      ...workflow,
+    }
+
+    workflowCopy.actions = workflow.actions.map((a) =>
+      a.id !== action.id
+        ? a
+        : {
+            ...a,
+            inputs: action.inputs,
+          }
+    )
+
+    onChange(workflowCopy)
+  }
+  if (input.fieldType === 'textarea') {
     return (
       <textarea
         defaultValue={selectedNode!.data.action.inputs[id]}
         onChange={(e) => {
-          selectedNode!.data.action.inputs[id] = e.target.value;
+          selectedNode!.data.action.inputs[id] = e.target.value
         }}
       />
     )
   }
-
+  
   return (
     <input
+      onBlur={() => updateWorkflowAction()}
       type="text"
-      defaultValue={selectedNode!.data.action.inputs[id]}
+      defaultValue={action.inputs[id]}
       onChange={(e) => {
-        selectedNode!.data.action.inputs[id] = e.target.value;
+        action.inputs[id] = e.target.value
       }}
     />
   )
