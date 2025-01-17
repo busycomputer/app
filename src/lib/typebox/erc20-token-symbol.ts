@@ -15,7 +15,7 @@ const tokenSymbols = Object.values(erc20Package)
   )
   .map((token) => token.symbol)
 
-export const erc20TokenSymbol = Type.String({
+const typeSchema = Type.String({
   title: 'ERC20 Token Symbol',
   description: 'Token symbol matching @goat-sdk/plugin-erc20 tokens',
   enum: tokenSymbols,
@@ -24,3 +24,5 @@ export const erc20TokenSymbol = Type.String({
     enum: `Token symbol must be one of: ${tokenSymbols.join(', ')}`,
   },
 })
+
+export const erc20TokenSymbol = JSON.parse(JSON.stringify(typeSchema))
