@@ -4,25 +4,21 @@ import { Editor, Provider, Sidebar } from '@inngest/workflow-kit/ui'
 import { SaveIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useCallback, useState } from 'react'
-import type { PublicEngineAction, Workflow as InngestWorkflow } from '@inngest/workflow-kit'
-import useSWR from 'swr'
+import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
 import type { Workflow as SupabaseWorkflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
-import { updateWorkflow } from '@/app/actions'
+import { updateWorkflow } from '@/app/actions/update-workflow'
 import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
 import '@/app/(protected)/dashboard/workflow/[id]/style.css'
 import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
-import { fetcher } from '@/lib/utils'
+import { useGetAvailableActions } from '@/hooks/useGetAvailableActions'
 
 export const WorkflowEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => {
   const router = useRouter()
   const [workflowDraft, updateWorkflowDraft] = useState<typeof workflow>(workflow)
-
-  const { data } = useSWR<{ publicEngineActions: PublicEngineAction[] }>('/api/actions', fetcher, {
-    refreshInterval: 500,
-  })
+  const availableActions = useGetAvailableActions()
 
   const onSaveWorkflow = useCallback(async () => {
     await updateWorkflow(workflowDraft)
@@ -55,7 +51,7 @@ export const WorkflowEditor = ({ workflow }: { workflow: SupabaseWorkflow }) => 
                   name: EVENT_RUN_ON_DEMAND,
                 },
               }}
-              availableActions={data?.publicEngineActions || []}
+              availableActions={availableActions}
               onChange={(updated) => {
                 updateWorkflowDraft({
                   ...workflowDraft,

@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
-import { toggleWorkflow } from '@/app/actions'
+import { toggleWorkflow } from '@/app/actions/toggle-workflow'
 import { fetcher } from '@/lib/utils'
 
 export const WorkflowList = () => {
