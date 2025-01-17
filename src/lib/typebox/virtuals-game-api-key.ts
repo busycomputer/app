@@ -1,6 +1,6 @@
 import { Type } from '@sinclair/typebox'
 
-export const virtualsGameApiKey = Type.String({
+const typeSchema = Type.String({
   title: 'Virtuals G.A.M.E API Key',
   description: 'Authentication key for Virtuals G.A.M.E API access',
   pattern: '^[A-Za-z0-9_-]{32,128}$',
@@ -13,3 +13,5 @@ export const virtualsGameApiKey = Type.String({
     maxLength: 'API key cannot exceed 128 characters',
   },
 })
+
+export const virtualsGameApiKey = JSON.parse(JSON.stringify(typeSchema))

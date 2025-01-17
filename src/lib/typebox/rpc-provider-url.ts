@@ -1,6 +1,6 @@
 import { Type } from '@sinclair/typebox'
 
-export const rpcProviderUrl = Type.String({
+const typeSchema = Type.String({
   title: 'RPC Provider URL',
   description: 'URL endpoint for blockchain RPC provider',
   pattern:
@@ -12,3 +12,5 @@ export const rpcProviderUrl = Type.String({
     format: 'Invalid URL format',
   },
 })
+
+export const rpcProviderUrl = JSON.parse(JSON.stringify(typeSchema))

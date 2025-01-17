@@ -1,6 +1,6 @@
 import { Type } from '@sinclair/typebox'
 
-export const privateKey = Type.String({
+const typeSchema = Type.String({
   title: 'Wallet Private Key',
   description: 'Private key for blockchain wallet authentication',
   pattern: '^(0x)?[0-9a-fA-F]{64}$',
@@ -13,3 +13,5 @@ export const privateKey = Type.String({
     maxLength: 'Private key must be 32 bytes (64 hex characters) with optional 0x prefix',
   },
 })
+
+export const privateKey = JSON.parse(JSON.stringify(typeSchema))
