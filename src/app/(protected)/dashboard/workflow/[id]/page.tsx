@@ -21,7 +21,7 @@ export default async function WorkflowPage(props: { params: Promise<{ id: string
   }
 
   if (workflow) {
-    return <WorkflowEditor workflow={workflow} />
+    return <WorkflowEditor userWorkflow={workflow} />
   } else {
     notFound()
   }
