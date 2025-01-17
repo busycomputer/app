@@ -1,4 +1,4 @@
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 import { Event } from '@/lib/inngest/types'
 import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
 

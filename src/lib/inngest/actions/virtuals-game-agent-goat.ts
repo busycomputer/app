@@ -2,29 +2,28 @@ import OpenAI from 'openai'
 import { EngineAction } from '@inngest/workflow-kit'
 import { createServerClient } from '@/lib/supabase/server'
 import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
-import { addAIPublishingSuggestion } from '@/lib/helpers/add-ai-publishing-suggestion'
 import { inngest } from '@/lib/inngest'
 
-export const generateLinkedinPosts: EngineAction<typeof inngest> = {
-  // Generate LinkedIn posts
-  kind: 'generate_linkedin_posts',
-  name: 'Generate LinkedIn posts',
-  description: 'Generate LinkedIn posts',
+export const virtualsGameAgentGoat: EngineAction<typeof inngest> = {
+  // Add a Table of Contents
+  kind: 'virtuals_game_agent_goat',
+  name: 'Virtuals Game Agent',
+  description: 'Perform on-chain actions with Virtuals Game Agent',
+  icon: 'https://mintlify.s3.us-west-1.amazonaws.com/goat/logo/goat-dark.svg',
   handler: async ({ event, step, workflowAction }) => {
     // const supabase = await createServerClient()
     //
     // const blogPost = await step.run('load-blog-post', async () => loadBlogPost(event.data.id))
     //
-    // const aiRecommendations = await step.run('generate-linked-posts', async () => {
+    // const aiRevision = await step.run('add-toc-to-article', async () => {
     //   const openai = new OpenAI({
-    //     apiKey: process.env['OPENAI_API_KEY'],
+    //     apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
     //   })
     //
     //   const prompt = `
-    //     Generate a LinkedIn post that will drive traffic to the below blog post.
-    //     Keep the a profesionnal tone, do not use emojis.
+    //     Please update the below markdown article by adding a Table of Content under the h1 title. Return only the complete updated article in markdown without the wrapping "\`\`\`".
     //
-    //     Here is the blog post text wrapped with "\`\`\`":
+    //     Here is the text wrapped with "\`\`\`":
     //     \`\`\`
     //     ${getAIWorkingCopy(workflowAction, blogPost)}
     //     \`\`\`
@@ -35,7 +34,7 @@ export const generateLinkedinPosts: EngineAction<typeof inngest> = {
     //     messages: [
     //       {
     //         role: 'system',
-    //         content: 'You are an Developer Marketing expert.',
+    //         content: 'You are an AI that make text editing changes.',
     //       },
     //       {
     //         role: 'user',
@@ -47,15 +46,12 @@ export const generateLinkedinPosts: EngineAction<typeof inngest> = {
     //   return response.choices[0]?.message?.content || ''
     // })
     //
-    // await step.run('save-ai-recommendations', async () => {
+    // await step.run('save-ai-revision', async () => {
     //   await supabase
     //     .from('blog_posts')
     //     .update({
-    //       ai_publishing_recommendations: addAIPublishingSuggestion(
-    //         workflowAction,
-    //         blogPost,
-    //         `\n## LinkedIn posts: \n <br/ >${aiRecommendations}<br/ >`
-    //       ),
+    //       markdown_ai_revision: aiRevision,
+    //       status: 'under review',
     //     })
     //     .eq('id', event.data.id)
     //     .select('*')

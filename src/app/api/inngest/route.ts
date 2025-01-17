@@ -1,5 +1,5 @@
 import { serve } from 'inngest/next'
-import { inngest } from '@/lib/inngest/client'
+import { inngest } from '@/lib/inngest'
 import runOnDemand from '@/lib/inngest/functions/run-on-demand'
 
 export const runtime = 'edge'
