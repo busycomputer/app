@@ -193,7 +193,6 @@ export const Provider = (props: ProviderProps & { children: React.ReactNode }) =
       setSelectedNode,
       blankNode,
       setBlankNode,
-
       appendAction,
       deleteAction,
     }}>

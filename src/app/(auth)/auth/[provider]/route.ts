@@ -16,7 +16,7 @@ import { createServerClient } from '@/lib/supabase/server'
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ provider: string }> }) {
   const { provider } = await params
-
+  console.log(new URL(req.url).origin)
   if (provider) {
     try {
       const supabase = await createServerClient()
