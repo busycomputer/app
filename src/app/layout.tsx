@@ -4,6 +4,8 @@ import '@/app/globals.css'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
+import { Toaster } from 'react-hot-toast'
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
 
 export { metadata }
 
@@ -21,7 +23,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Toaster />
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
