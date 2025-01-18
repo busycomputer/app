@@ -1,6 +1,6 @@
 'use client'
 
-import { Editor, Provider, Sidebar } from '@inngest/workflow-kit/ui'
+import { Editor, Provider, Sidebar } from '@/lib/workflow/src/ui'
 import { SaveIcon } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
@@ -32,6 +32,7 @@ export const WorkflowEditor = ({ userWorkflow }: { userWorkflow: UserWorkflow })
       }}
       availableActions={availableActions}
       onChange={(updated) => {
+        console.log(updated);
         updateWorkflowDraft({
           ...workflowDraft,
           workflow: updated,
