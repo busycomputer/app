@@ -1,6 +1,6 @@
 'use server'
-import { createServerClient } from '@/lib/supabase/server'
 import { AuthError } from '@supabase/supabase-js'
+import { createServerClient } from '@/lib/supabase/server'
 
 export const createEmptyWorkflow = async () => {
   const supabase = await createServerClient()

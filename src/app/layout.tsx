@@ -1,9 +1,11 @@
 import React from 'react'
-import { geistSans as sans, geistMono as mono } from 'src/fonts'
 import '@/app/globals.css'
+import { Toaster } from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
+import { geistSans as sans, geistMono as mono } from 'src/fonts'
+import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
 
 export { metadata }
 
@@ -21,7 +23,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <Toaster />
+          <ReactQueryProvider>{children}</ReactQueryProvider>
         </ThemeProvider>
       </body>
     </html>
