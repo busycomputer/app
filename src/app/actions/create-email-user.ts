@@ -1,8 +1,8 @@
 'use server'
-import { createServerClient } from '@/lib/supabase/server'
-import { TUserAuthSchema, userAuthSchema } from '@/lib/validators/loginValidator'
 import { redirect } from 'next/navigation'
 import { ulid } from 'ulid'
+import { createServerClient } from '@/lib/supabase/server'
+import { TUserAuthSchema, userAuthSchema } from '@/lib/validators/loginValidator'
 
 export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   const { data, success, error } = userAuthSchema.safeParse(userdata)
@@ -37,7 +37,7 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   console.log('[CREATED USER]:', Nuser)
   redirect('/dashboard')
 }
-const GUEST_EMAIL_PREFIX = '@guest.busycomputer.com'
+
 export const loginAsGuest = async () => {
   const client = await createServerClient()
   const { data, error } = await client.auth.signInAnonymously()

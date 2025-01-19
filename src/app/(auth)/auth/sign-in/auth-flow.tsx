@@ -1,16 +1,16 @@
 'use client'
-import { Button, buttonVariants } from '@/components/ui/button'
 import { toast } from 'react-hot-toast'
-import { Input } from '@/components/ui/input'
-import { TUserAuthSchema, userAuthSchema } from '@/lib/validators/loginValidator'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { IconBrandGoogleFilled } from '@tabler/icons-react'
 import Link from 'next/link'
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
-import { CreateOrLoginEmailUser, loginAsGuest } from '@/app/actions/create-email-user'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
+import { CreateOrLoginEmailUser, loginAsGuest } from '@/app/actions/create-email-user'
+import { TUserAuthSchema, userAuthSchema } from '@/lib/validators/loginValidator'
+import { Input } from '@/components/ui/input'
+import { Button, buttonVariants } from '@/components/ui/button'
 export default function AuthFlow() {
   const {
     register,
@@ -37,18 +37,18 @@ export default function AuthFlow() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="w-full max-w-md rounded-2xl bg-secondary p-10"
+      className="w-full max-w-md rounded-2xl bg-secondary p-5 md:p-10"
     >
-      <div className="flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-semibold">Sign In</h1>
+      <div className="flex flex-col items-center justify-center pb-4">
+        <h1 className="mb-1 text-2xl font-semibold">Sign In</h1>
         <p className="text-sm font-light text-muted-foreground">Your Social Campaigns</p>
       </div>
       {/* OAuth flow */}
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
         <Link
           href={'/auth/github'}
           className={buttonVariants({
-            className: 'mt-2 h-10 rounded-2xl bg-secondary text-green-500',
+            className: 'mt-2 h-10 w-full rounded-2xl bg-secondary text-green-500 md:w-auto',
             variant: 'outline',
           })}
         >
@@ -56,14 +56,14 @@ export default function AuthFlow() {
           Continue with Github
         </Link>
         <Link
-          href={'/auth/github'}
+          href={'/auth/sign-in'}
           className={buttonVariants({
-            className: 'mt-2 h-10 rounded-2xl bg-secondary',
+            className: 'mt-2 h-10 w-full cursor-not-allowed rounded-2xl bg-secondary md:w-auto',
             variant: 'outline',
           })}
         >
           <IconBrandGoogleFilled />
-          Continue with Github
+          Continue with Google
         </Link>
       </div>
       {/*  */}
@@ -100,7 +100,7 @@ export default function AuthFlow() {
           className="flex items-center justify-center"
         >
           <p className="pt-6 text-sm text-muted-foreground">
-            Don't want to Signup?
+            Don&apos;t want to Signup?
             <span className="text-green-500"> Join Guest</span>
           </p>
         </button>
