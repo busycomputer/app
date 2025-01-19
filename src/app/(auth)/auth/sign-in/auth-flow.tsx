@@ -8,7 +8,7 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons'
 import { IconBrandGoogleFilled } from '@tabler/icons-react'
 import Link from 'next/link'
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
-import { CreateOrLoginEmailUser } from '@/app/actions/create-email-user'
+import { CreateOrLoginEmailUser, loginAsGuest } from '@/app/actions/create-email-user'
 import { useMutation } from '@tanstack/react-query'
 import { Loader2 } from 'lucide-react'
 export default function AuthFlow() {
@@ -92,10 +92,18 @@ export default function AuthFlow() {
         {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <></>} Sign In
       </Button>
       <div className="flex items-center justify-center">
-        <p className="pt-6 text-sm text-muted-foreground">
-          Not a Member yet?
-          <span className="text-green-500"> Sign Up</span>
-        </p>
+        <button
+          type="button"
+          onClick={async () => {
+            await loginAsGuest()
+          }}
+          className="flex items-center justify-center"
+        >
+          <p className="pt-6 text-sm text-muted-foreground">
+            Don't want to Signup?
+            <span className="text-green-500"> Join Guest</span>
+          </p>
+        </button>
       </div>
     </form>
   )
