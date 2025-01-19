@@ -12,4 +12,4 @@ export const userAuthSchema = z.object({
     }),
 })
 
-export type TUserAuthSchema = z.infer<typeof userAuthSchema> 
+export type TUserAuthSchema = z.infer<typeof userAuthSchema>

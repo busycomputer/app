@@ -13,6 +13,10 @@
 body {
 }
 
+.text-decorder-red {
+  text-decoration-color: red;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
