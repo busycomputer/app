@@ -14,6 +14,6 @@ export async function loadSupabaseWorkflow(event: Event) {
       .single()
     return (data && data.workflow) as unknown as Workflow
   } catch (e: any) {
-    throw new Error(`Failed to load workflow: ${e.message}`)
+    throw new Error(`Failed to load workflow: ${e?.message}`)
   }
 }
