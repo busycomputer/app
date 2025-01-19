@@ -18,33 +18,43 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   const dbUser = await client.from('profiles').select('email').eq('email', data.email)
 
   if (dbUser.count) {
-    const { data: logData } = await client.auth.signInWithPassword({
+    const { data: logData, error } = await client.auth.signInWithPassword({
       email: data.email,
       password: data.password,
     })
-    return logData
+
+    if (error) {
+      return `Invalid password`
+    }
+    redirect('/dashboard')
   }
-  console.log("[LOG]: Didn't find any user ?")
-  const { data: Nuser, error: NError } = await client.auth.signUp({
+
+  const { data: newUser, error: NewUserError } = await client.auth.signUp({
     email: data.email,
     password: data.password,
   })
 
-  if (NError) {
-    console.log('[ERROR-AUTH]', NError)
+  if (NewUserError) {
+    console.log('[ERROR-AUTH]', NewUserError)
     return "Couldn't create user login"
   }
-  console.log('[CREATED USER]:', Nuser)
+
+  console.log('[CREATED USER]:', newUser)
   redirect('/dashboard')
 }
-
+const GUEST_EMAIL_PREFIX = '@guest.buzycomputer.com'
 export const loginAsGuest = async () => {
   const client = await createServerClient()
-  const { data, error } = await client.auth.signInAnonymously()
-
+  const id = ulid()
+  const email = `${id}${GUEST_EMAIL_PREFIX}`
+  const { error } = await client.auth.signUp({
+    email: email,
+    password: id,
+  })
   if (error) {
     console.log('[ERROR-AUTH]', error)
     return "Couldn't create user login"
   }
+
   redirect('/dashboard')
 }
