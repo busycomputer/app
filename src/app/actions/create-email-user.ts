@@ -2,6 +2,7 @@
 import { createServerClient } from '@/lib/supabase/server'
 import { TUserAuthSchema, userAuthSchema } from '@/lib/validators/loginValidator'
 import { redirect } from 'next/navigation'
+import { ulid } from 'ulid'
 
 export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   const { data, success, error } = userAuthSchema.safeParse(userdata)
@@ -10,9 +11,9 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   }
   const client = await createServerClient()
   const { data: Sdata } = await client.auth.getSession()
-  console.log(Sdata)
+
   if (Sdata.session?.user) {
-    return
+    redirect('/dashboard')
   }
   const dbUser = await client.from('profiles').select('email').eq('email', data.email)
 
@@ -24,22 +25,26 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
     return logData
   }
   console.log("[LOG]: Didn't find any user ?")
-  const { data: Nuser, error: NError } = await client.auth.admin.createUser({
+  const { data: Nuser, error: NError } = await client.auth.signUp({
     email: data.email,
     password: data.password,
-    email_confirm: true,
   })
+
   if (NError) {
     console.log('[ERROR-AUTH]', NError)
     return "Couldn't create user login"
   }
+  console.log('[CREATED USER]:', Nuser)
+  redirect('/dashboard')
+}
+const GUEST_EMAIL_PREFIX = '@guest.busycomputer.com'
+export const loginAsGuest = async () => {
+  const client = await createServerClient()
+  const { data, error } = await client.auth.signInAnonymously()
 
-  const { error: ExUserError } = await client.auth.signInWithPassword({
-    email: Nuser.user.email!,
-    password: data.password,
-  })
-  if (ExUserError?.message) {
-    return ExUserError?.message
+  if (error) {
+    console.log('[ERROR-AUTH]', error)
+    return "Couldn't create user login"
   }
   redirect('/dashboard')
 }
