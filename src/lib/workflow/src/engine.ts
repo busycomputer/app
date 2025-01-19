@@ -1,28 +1,28 @@
+import { AssertError, Value } from '@sinclair/typebox/value'
 import {
-  type RunArgs,
-  type EngineOptions,
-  type EngineAction,
-  type WorkflowAction,
-  type Loader,
-  type Workflow,
   DAG,
+  type EngineAction,
+  type EngineOptions,
+  type Loader,
+  type RunArgs,
   TriggerEvent,
-} from "./types";
-import { bfs, newDAG, SourceNodeID } from './graph';
-import { Value, AssertError } from '@sinclair/typebox/value'
-import { interpolate, refs, resolveInputs } from "./interpolation";
+  type Workflow,
+  type WorkflowAction,
+} from './types'
+import { bfs, newDAG } from './graph'
+import { interpolate, refs, resolveInputs } from './interpolation'
 
 export class Engine {
-  #options: EngineOptions;
+  #options: EngineOptions
 
-  #actionKinds: Set<string>;
+  #actionKinds: Set<string>
   #actionMap: Record<string, EngineAction>
 
   constructor(options: EngineOptions) {
-    this.#options = options;
-    this.#actionKinds = new Set();
-    this.#actionMap = {};
-    this.actions = this.#options.actions || [];
+    this.#options = options
+    this.#actionKinds = new Set()
+    this.#actionMap = {}
+    this.actions = this.#options.actions || []
   }
 
   /**
@@ -30,7 +30,7 @@ export class Engine {
    *
    */
   get actions(): Record<string, EngineAction> {
-    return this.#actionMap;
+    return this.#actionMap
   }
 
   /**
@@ -38,14 +38,14 @@ export class Engine {
    *
    */
   set actions(actions: Array<EngineAction>) {
-    this.#options.actions = actions;
-    this.#actionKinds = new Set();
-    for (let action of this.#options.actions) {
+    this.#options.actions = actions
+    this.#actionKinds = new Set()
+    for (const action of this.#options.actions) {
       if (this.#actionKinds.has(action.kind)) {
-        throw new Error(`Duplicate action kind: ${action.kind}`);
+        throw new Error(`Duplicate action kind: ${action.kind}`)
       }
-      this.#actionKinds.add(action.kind);
-      this.#actionMap[action.kind] = action;
+      this.#actionKinds.add(action.kind)
+      this.#actionMap[action.kind] = action
     }
   }
 
@@ -54,7 +54,7 @@ export class Engine {
    *
    */
   get loader(): Loader | undefined {
-    return this.#options.loader;
+    return this.#options.loader
   }
 
   /**
@@ -62,9 +62,8 @@ export class Engine {
    *
    */
   set loader(loader: Loader) {
-    this.#options.loader = loader;
+    this.#options.loader = loader
   }
-
 
   /**
    * Graph returns a graph for the given workflow instance, and also ensures that the given
@@ -77,27 +76,26 @@ export class Engine {
    *
    */
   graph(flow: Workflow): DAG {
-    for (let action of flow.actions) {
-
+    for (const action of flow.actions) {
       // Validate that the action kind exists within the engine.
       if (!this.#actionKinds.has(action.kind)) {
-        throw new Error("Workflow instance references unknown action kind: " + action.kind);
+        throw new Error('Workflow instance references unknown action kind: ' + action.kind)
       }
 
       // Validate that the workflow action's input types match the expected
       // types defined on the engine's action
-      for (const [name, input] of Object.entries((this.#actionMap[action.kind]?.inputs || {}))) {
-        const wval = (action.inputs || {})[name];
+      for (const [name, input] of Object.entries(this.#actionMap[action.kind]?.inputs || {})) {
+        const wval = (action.inputs || {})[name]
 
         // If this is a ref, we can't yet validate as we don't have state.
         if (refs(wval).length === 0) {
           try {
             Value.Assert(input.type, wval)
-          } catch(e) {
-            throw new Error(`Action '${action.id}' has an invalid input for '${name}': ${(e as AssertError).message}`);
+          } catch (e) {
+            throw new Error(
+              `Action '${action.id}' has an invalid input for '${name}': ${(e as AssertError).message}`
+            )
           }
-
-          continue
         }
 
         // TODO: Ensure that refs are valid.
@@ -107,7 +105,7 @@ export class Engine {
       }
     }
 
-    const graph = newDAG(flow);
+    const graph = newDAG(flow)
     return graph
   }
 
@@ -116,28 +114,25 @@ export class Engine {
    *
    */
   run = async ({ event, step, workflow }: RunArgs): Promise<ExecutionState> => {
-    const { loader } = this.#options;
+    const { loader } = this.#options
     if (!workflow && !loader) {
-      throw new Error("Cannot run workflows without a workflow instance specified.");
+      throw new Error('Cannot run workflows without a workflow instance specified.')
     }
     if (!workflow && loader) {
       // Always load the workflow within a step so that it's declarative.
-      workflow = await step.run(
-        "Load workflow configuration",
-        async () => {
-          try {
-            return await loader(event);
-          } catch(e) {
-            // TODO: Is this an WorkflowNotFound error?
-          }
-        },
-      );
+      workflow = await step.run('Load workflow configuration', async () => {
+        try {
+          return await loader(event)
+        } catch (e) {
+          // TODO: Is this an WorkflowNotFound error?
+        }
+      })
     }
     if (!workflow) {
-      throw new Error("No workflow instance specified.");
+      throw new Error('No workflow instance specified.')
     }
 
-    let graph = this.graph(workflow);
+    const graph = this.graph(workflow)
 
     // Workflows use `step.run` to manage implicit step state, orchestration, and
     // execution, storing the ouput of each action within a custom state object for
@@ -145,26 +140,26 @@ export class Engine {
     //
     // Unlike regular Inngest step functions, workflow instances have no programming flow
     // and so we must maintain some state mapping ourselves.
-    let state = new ExecutionState({
+    const state = new ExecutionState({
       engine: this,
       graph,
       workflow,
       event,
       step,
-    });
+    })
 
-    await state.execute();
+    await state.execute()
 
-    return state;
+    return state
   }
 }
 
 export interface ExecutionOpts {
-  engine: Engine;
-  graph: DAG;
-  workflow: Workflow;
-  event: TriggerEvent;
-  step: any;
+  engine: Engine
+  graph: DAG
+  workflow: Workflow
+  event: TriggerEvent
+  step: any
 }
 
 /**
@@ -172,7 +167,7 @@ export interface ExecutionOpts {
  * each action within the graph in order, durably.
  *
  * Because each action in a workflow can reference previous action's outputs and event data, it
- * also resolves references and manages action data. 
+ * also resolves references and manages action data.
  *
  * Note that this relies on Inngest's step functionality for durability and function state
  * management.
@@ -181,64 +176,64 @@ export interface ExecutionOpts {
 export class ExecutionState {
   #opts: ExecutionOpts
 
-  #state: Map<string, any>;
+  #state: Map<string, any>
 
   constructor(opts: ExecutionOpts, state?: Record<string, any>) {
-    this.#opts = opts;
-    this.#state = new Map(Object.entries(state || {}));
+    this.#opts = opts
+    this.#state = new Map(Object.entries(state || {}))
   }
 
   get state(): Map<string, any> {
-    return this.#state;
+    return this.#state
   }
 
   execute = async () => {
-    const { event, step, graph, workflow, engine } = this.#opts;
+    const { event, step, graph, workflow, engine } = this.#opts
 
     await bfs(graph, async (action, edge) => {
       if (edge.conditional) {
-        const { type, ref, value } = edge.conditional || {};
+        const { type, ref, value } = edge.conditional || {}
 
         // We allow "!ref($.output)" to refer to the previous action's output.
         // Here we must grab the previous step's state for interpolation as the result.
-        const previousActionOutput = this.#state.get(edge.from);
-        const input = this.interpolate(ref, previousActionOutput);
+        const previousActionOutput = this.#state.get(edge.from)
+        const input = this.interpolate(ref, previousActionOutput)
 
         switch (type) {
-          case "if":
+          case 'if':
             if (!input) {
               // This doesn't match, so we skip this edge.
-              return;
-            }
-            break;
-          case "else":
-            if (!!input) {
-              // This doesn't match, so we skip this edge.
-              return;
+              return
             }
             break
-          case "match":
+          case 'else':
+            if (!!input) {
+              // This doesn't match, so we skip this edge.
+              return
+            }
+            break
+          case 'match':
             // Because object equality is what it is, we JSON stringify both
             // values here.
             if (JSON.stringify(input) !== JSON.stringify(value)) {
               // This doesn't match, so we skip this edge.
-              return;
+              return
             }
         }
       }
 
       // Find the base action from the workflow class.  This includes the handler
       // to invoke.
-      const base = engine.actions[action.kind];
+      const base = engine.actions[action.kind]
       if (!base) {
-        throw new Error(`Unable to find workflow action for kind: ${action.kind}`);
+        throw new Error(`Unable to find workflow action for kind: ${action.kind}`)
       }
 
       // Invoke the action directly.
       //
       // Note: The handler should use Inngest's step API within handlers, ensuring
       // that nodes in the workflow execute once, durably.
-      const workflowAction = { ...action, inputs: this.resolveInputs(action) };
+      const workflowAction = { ...action, inputs: this.resolveInputs(action) }
 
       const result = await base.handler({
         event,
@@ -246,11 +241,11 @@ export class ExecutionState {
         workflow,
         workflowAction,
         state: this.#state,
-      });
+      })
 
       // And set our state.  This may be a previously memoized output.
-      this.#state.set(action.id, result);
-    });
+      this.#state.set(action.id, result)
+    })
   }
 
   /**
@@ -262,8 +257,8 @@ export class ExecutionState {
     // For each action, check to see if it references any prior input.
     return resolveInputs(action.inputs ?? {}, {
       state: Object.fromEntries(this.#state),
-      event: this.#opts.event
-    });
+      event: this.#opts.event,
+    })
   }
 
   interpolate = (value: any, output?: any): any => {
@@ -271,9 +266,8 @@ export class ExecutionState {
       state: Object.fromEntries(this.#state),
       event: this.#opts.event,
       // output is an optional output from the previous step, used to
-      // interpolate conditional edges. 
+      // interpolate conditional edges.
       output,
-    });
+    })
   }
-
 }

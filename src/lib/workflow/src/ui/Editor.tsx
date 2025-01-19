@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import {
   ReactFlow,
   useNodesState,
@@ -10,25 +10,25 @@ import {
   useNodesInitialized,
   Rect,
   NodeChange,
-} from '@xyflow/react';
-import { Workflow, WorkflowAction } from "../types";
-import { getLayoutedElements, parseWorkflow, useLayout } from './layout';
-import { TriggerNode, ActionNode, BlankNode } from './nodes';
-import { useProvider, useSidebarPosition, useTrigger, useWorkflow } from './Provider';
+} from '@xyflow/react'
+import { Workflow, WorkflowAction } from '../types'
+import { getLayoutedElements, parseWorkflow, useLayout } from './layout'
+import { TriggerNode, ActionNode, BlankNode } from './nodes'
+import { useProvider, useSidebarPosition, useTrigger, useWorkflow } from './Provider'
 
 export type EditorProps = {
-  direction?: Direction;
-  children?: React.ReactNode;
+  direction?: Direction
+  children?: React.ReactNode
 }
 
-export type Direction = "right" | "down";
+export type Direction = 'right' | 'down'
 
 export const Editor = (props: EditorProps) => {
   // Force the correct enum if the user passes in a string via non-TS usage.
-  const direction = props.direction === "right" ? "right" : "down";
-  const sidebarPosition = useSidebarPosition();
+  const direction = props.direction === 'right' ? 'right' : 'down'
+  const sidebarPosition = useSidebarPosition()
 
-  let className = sidebarPosition === "left" ? "wf-editor-left-sidebar" : "";
+  const className = sidebarPosition === 'left' ? 'wf-editor-left-sidebar' : ''
 
   return (
     <ReactFlowProvider>
@@ -37,26 +37,28 @@ export const Editor = (props: EditorProps) => {
         {props.children}
       </div>
     </ReactFlowProvider>
-  );
+  )
 }
 
-const EditorUI = ({ direction = "down" }: EditorProps) => {
-  const { workflow, trigger, setSelectedNode, blankNode, setBlankNode } =
-    useProvider();
-  const nodesInitialized = useNodesInitialized();
+const EditorUI = ({ direction = 'down' }: EditorProps) => {
+  const { workflow, trigger, setSelectedNode, blankNode, setBlankNode } = useProvider()
+  const nodesInitialized = useNodesInitialized()
 
   // Retain the initial node measurement for computing layout when Workflow is refreshed.
-  const [defaultNodeMeasure, setDefaultNodeMeasure] = useState<{ width: number, height: number } | undefined>(undefined);
+  const [defaultNodeMeasure, setDefaultNodeMeasure] = useState<
+    { width: number; height: number } | undefined
+  >(undefined)
 
   // Store a reference to the parent div to compute layout
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLDivElement>(null)
 
-  const { nodes: initialNodes, edges: initialEdges } = useMemo(() =>
-    parseWorkflow({ workflow, trigger }),
-  []);
+  const { nodes: initialNodes, edges: initialEdges } = useMemo(
+    () => parseWorkflow({ workflow, trigger }),
+    []
+  )
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   // Lay out the nodes in the graph.
   const layoutRect = useLayout({
@@ -69,31 +71,36 @@ const EditorUI = ({ direction = "down" }: EditorProps) => {
     setEdges,
     nodesInitialized,
     defaultNodeMeasure,
-  });
+  })
 
-  useHandleBlankNode(nodes, edges, setNodes, setEdges, direction, defaultNodeMeasure);
-  useCenterGraph(layoutRect, ref);
+  useHandleBlankNode(nodes, edges, setNodes, setEdges, direction, defaultNodeMeasure)
+  useCenterGraph(layoutRect, ref)
 
   // When the workflow changes, we need to re-layout the graph.
   useEffect(() => {
-    const { nodes, edges } = parseWorkflow({ workflow, trigger });
-    setNodes(nodes);
-    setEdges(edges);
-  }, [JSON.stringify(workflow?.edges || [])]);
+    const { nodes, edges } = parseWorkflow({ workflow, trigger })
+    setNodes(nodes)
+    setEdges(edges)
+  }, [JSON.stringify(workflow?.edges || [])])
 
-  const nodeTypes = useMemo(() => ({
-    trigger: (node: any) => { // TODO: Define args type.
-      const { trigger } = node.data;
-      return <TriggerNode trigger={trigger} node={node} direction={direction} />
-    },
-    action: (node: any) => { // TODO: Define args type.
-      const { action} = node.data;
-      return <ActionNode action={action} node={node} direction={direction} />
-    },
-    blank: () => {
-      return <BlankNode direction={direction} />
-    }
-  }), [direction]);
+  const nodeTypes = useMemo(
+    () => ({
+      trigger: (node: any) => {
+        // TODO: Define args type.
+        const { trigger } = node.data
+        return <TriggerNode trigger={trigger} node={node} direction={direction} />
+      },
+      action: (node: any) => {
+        // TODO: Define args type.
+        const { action } = node.data
+        return <ActionNode action={action} node={node} direction={direction} />
+      },
+      blank: () => {
+        return <BlankNode direction={direction} />
+      },
+    }),
+    [direction]
+  )
 
   return (
     <div className="wf-editor-parent" ref={ref}>
@@ -105,99 +112,99 @@ const EditorUI = ({ direction = "down" }: EditorProps) => {
         edgesReconnectable={false}
         onClick={(event) => {
           // If the event target is not a node, set the selected node to undefined.
-          let target = event.target as HTMLElement,
+          const target = event.target as HTMLElement,
             isNode = false,
-            isBlank = false;
+            isBlank = false
 
-          const results = searchParents(target, ["wf-node", "wf-blank-node"], ref.current);
+          const results = searchParents(target, ['wf-node', 'wf-blank-node'], ref.current)
 
-          if (!results["wf-blank-node"] && !!blankNode) {
+          if (!results['wf-blank-node'] && !!blankNode) {
             // Remove the blank node, as we've clicked elsewhere.
-            setBlankNode(undefined);
+            setBlankNode(undefined)
           }
-          if (!results["wf-node"]) {
+          if (!results['wf-node']) {
             // Unselect any selected node, as we're not clicking on a node.
-            setSelectedNode(undefined);
+            setSelectedNode(undefined)
           }
         }}
         onNodeClick={(event, node) => {
           // Ensure we're not clicking the "add" handle.  When we click
           // the add handle, we automatically select the blank node.  Selecting
           // the node here would override that selection.
-          const results = searchParents(event.target as HTMLElement, ["wf-add-handle"], ref.current);
-          if (results["wf-add-handle"]) {
-            return;
+          const results = searchParents(event.target as HTMLElement, ['wf-add-handle'], ref.current)
+          if (results['wf-add-handle']) {
+            return
           }
 
-          setSelectedNode(node);
-          event.preventDefault();
+          setSelectedNode(node)
+          event.preventDefault()
         }}
         onNodesChange={(args: NodeChange<Node>[]) => {
           // Required to store .measured in nodes for computing layout.
-          onNodesChange(args);
+          onNodesChange(args)
 
           if (!defaultNodeMeasure && args.length > 0 && args[0]?.type === 'dimensions') {
-            const item = args[0] as any; // TODO: Fix types
-            setDefaultNodeMeasure(item?.dimensions as { width: number, height: number });
+            const item = args[0] as any // TODO: Fix types
+            setDefaultNodeMeasure(item?.dimensions as { width: number; height: number })
           }
         }}
         key={direction}
         proOptions={{ hideAttribution: true }}
       />
     </div>
-  );
-};
+  )
+}
 
 export type TriggerProps = {
-  trigger?: any; // TODO: Define trigger type.
+  trigger?: any // TODO: Define trigger type.
 }
 
 export type WorkflowProps = {
-  workflow?: Workflow;
+  workflow?: Workflow
 }
 
 const useCenterGraph = (layoutRect: Rect, ref: React.RefObject<HTMLDivElement>) => {
-  const flow = useReactFlow();
-  const nodesInitialized = useNodesInitialized();
+  const flow = useReactFlow()
+  const nodesInitialized = useNodesInitialized()
 
-  const [centered, setCentered] = useState(false);
+  const [centered, setCentered] = useState(false)
 
   useEffect(() => {
     if (!nodesInitialized) {
       return
     }
     if (centered) {
-      return;
+      return
     }
 
     // Only do this once per render.
-    setCentered(true);
+    setCentered(true)
 
     // If the workflow is too big for the current viewport, zoom out.
     // Otherwise, don't zoom in and center the current graph.
     if (
-      (layoutRect?.width > (ref.current?.offsetWidth ?? 0))
-      || (layoutRect?.height > (ref.current?.offsetHeight ?? 0))
+      layoutRect?.width > (ref.current?.offsetWidth ?? 0) ||
+      layoutRect?.height > (ref.current?.offsetHeight ?? 0)
     ) {
-      flow.fitView();
-      return;
+      flow.fitView()
+      return
     }
 
-    const w = ref.current?.offsetWidth ?? 0;
-    const h = ref.current?.offsetHeight ?? 0;
+    const w = ref.current?.offsetWidth ?? 0
+    const h = ref.current?.offsetHeight ?? 0
     if (w === 0 || h === 0) {
-      return;
+      return
     }
 
     const fitRect = {
-      x: -1 * (w - layoutRect.width) / 2, // center the node rect in the viewport
-      y: -1 * (h - layoutRect.height) / 2,
+      x: (-1 * (w - layoutRect.width)) / 2, // center the node rect in the viewport
+      y: (-1 * (h - layoutRect.height)) / 2,
       width: w, // use viewport width
       height: h, // use viewport height
     }
 
-    flow.fitBounds(fitRect);
-  }, [nodesInitialized]);
+    flow.fitBounds(fitRect)
+  }, [nodesInitialized])
 }
 
 // useHandleBlankNode is a hook that handles the logic for adding and removing
@@ -211,9 +218,9 @@ const useHandleBlankNode = (
   setNodes: (nodes: Node[]) => void,
   setEdges: (edges: Edge[]) => void,
   direction: Direction,
-  defaultNodeMeasure: { width: number, height: number } | undefined,
+  defaultNodeMeasure: { width: number; height: number } | undefined
 ) => {
-  const { blankNode } = useProvider();
+  const { blankNode } = useProvider()
 
   useEffect(() => {
     // We must manually update the react-flow nodes and edges as they're controlled
@@ -225,48 +232,54 @@ const useHandleBlankNode = (
       // Measured is undefined when a node is being added, and is filled after react-flow renders
       // the node for the first time.
       if (!blankNode.measured) {
-        blankNode.measured = nodes[0]?.measured || defaultNodeMeasure;
+        blankNode.measured = nodes[0]?.measured || defaultNodeMeasure
       }
 
-      const newNodes = [...nodes, blankNode];
-      const newEdges = [...edges, {
-        id: `blank-node-edge`,
-        source: blankNode.data.parent.id,
-        target: '$blank',
-        type: 'smoothstep',
-      }];
+      const newNodes = [...nodes, blankNode]
+      const newEdges = [
+        ...edges,
+        {
+          id: `blank-node-edge`,
+          source: blankNode.data.parent.id,
+          target: '$blank',
+          type: 'smoothstep',
+        },
+      ]
 
       // For each node, ensure there's a measured entry.
 
       // Re-layout the graph prior to re-rendering.
-      const result = getLayoutedElements(newNodes, newEdges, direction);
+      const result = getLayoutedElements(newNodes, newEdges, direction)
 
-      setNodes(result.nodes);
-      setEdges(result.edges);
+      setNodes(result.nodes)
+      setEdges(result.edges)
     } else {
       // Remove the blank node and its edge.
-      setNodes(nodes.filter((node) => node.id !== '$blank'));
-      setEdges(edges.filter((edge) => edge.target !== '$blank'));
+      setNodes(nodes.filter((node) => node.id !== '$blank'))
+      setEdges(edges.filter((edge) => edge.target !== '$blank'))
     }
-  }, [blankNode]);
+  }, [blankNode])
 }
-
 
 // searchParents is a utility to search parent elements for given clasnames.  It returns
 // a record of whether each class was found.
-const searchParents = (target: HTMLElement, search: string[], until?: HTMLElement | null): Record<string, boolean> => {
-  const result: Record<string, boolean> = {};
+const searchParents = (
+  target: HTMLElement,
+  search: string[],
+  until?: HTMLElement | null
+): Record<string, boolean> => {
+  const result: Record<string, boolean> = {}
 
   while (target !== until) {
     for (const key of search) {
       if (target.classList.contains(key)) {
-        result[key] = true;
+        result[key] = true
       }
     }
-    target = target.parentElement as HTMLElement;
+    target = target.parentElement as HTMLElement
     if (!target) {
-      break;
+      break
     }
   }
-  return result;
+  return result
 }
