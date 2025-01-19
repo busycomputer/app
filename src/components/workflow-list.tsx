@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Link from 'next/link'
 import { EditIcon } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -17,7 +18,6 @@ import { Switch } from '@/components/ui/switch'
 import { toggleWorkflow } from '@/app/actions/toggle-workflow'
 import { useGetUserWorkflows } from '@/hooks/use-get-user-workflows'
 import { createEmptyWorkflow } from '@/app/actions/create-workflow'
-import { useRouter } from 'next/navigation'
 
 export const WorkflowList = () => {
   const userWorkflows = useGetUserWorkflows()

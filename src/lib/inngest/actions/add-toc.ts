@@ -1,7 +1,4 @@
-import OpenAI from 'openai'
 import { EngineAction } from '@inngest/workflow-kit'
-import { createServerClient } from '@/lib/supabase/server'
-import { getAIWorkingCopy } from '@/lib/helpers/get-ai-working-copy'
 import { inngest } from '@/lib/inngest'
 
 export const addToc: EngineAction<typeof inngest> = {
@@ -9,6 +6,7 @@ export const addToc: EngineAction<typeof inngest> = {
   kind: 'add_ToC',
   name: 'Add a Table of Contents',
   description: 'Add an AI-generated ToC',
+  inputs: {},
   handler: async ({ event, step, workflowAction }) => {
     // const supabase = await createServerClient()
     //

@@ -1,10 +1,10 @@
-import { useProvider } from "../Provider";
+import { useProvider } from '../Provider'
 
 /**
  * The form for editing a workflow's name and description.
  */
 export const SidebarWorkflowForm = () => {
-  const { workflow, onChange } = useProvider();
+  const { workflow, onChange } = useProvider()
 
   return (
     <div className="wf-sidebar-form">
@@ -15,7 +15,7 @@ export const SidebarWorkflowForm = () => {
           defaultValue={workflow?.name}
           placeholder="Untitled workflow"
           onBlur={(e) => {
-            onChange({ ...workflow, name: e.target.value });
+            onChange({ ...workflow, name: e.target.value })
           }}
         />
       </label>
@@ -26,10 +26,10 @@ export const SidebarWorkflowForm = () => {
           defaultValue={workflow?.description}
           rows={4}
           onBlur={(e) => {
-            onChange({ ...workflow, description: e.target.value });
+            onChange({ ...workflow, description: e.target.value })
           }}
         />
       </label>
     </div>
   )
-} 
+}

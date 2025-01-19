@@ -81,7 +81,7 @@ const FormUIInputRenderer = ({ id, input }: { id: string; input: ActionInput }) 
       />
     )
   }
-  
+
   return (
     <input
       onBlur={() => updateWorkflowAction()}

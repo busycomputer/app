@@ -1,9 +1,9 @@
 'use client'
 
-import { Editor, Provider, Sidebar } from '@/lib/workflow/src/ui'
 import { SaveIcon } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
+import { Editor, Provider, Sidebar } from '@/lib/workflow/src/ui'
 import type { Workflow as UserWorkflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
 import { updateWorkflow } from '@/app/actions/update-workflow'
@@ -32,7 +32,7 @@ export const WorkflowEditor = ({ userWorkflow }: { userWorkflow: UserWorkflow })
       }}
       availableActions={availableActions}
       onChange={(updated) => {
-        console.log(updated);
+        console.log(updated)
         updateWorkflowDraft({
           ...workflowDraft,
           workflow: updated,
