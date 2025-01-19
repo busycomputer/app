@@ -12,15 +12,20 @@ export default function HomePage() {
           <Bounded className="flex h-full w-full items-center justify-center">
             <div className="flex flex-col items-center justify-center">
               <div className="px-5 text-center">
-                <h1 className="relative z-20 mx-auto mt-6 max-w-7xl bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 bg-clip-text py-6 text-center text-5xl font-semibold text-transparent dark:from-neutral-800 dark:via-white dark:to-white md:text-7xl lg:text-7xl">
+                <div className="flex items-center justify-center">
+                  <div className="bg-primary px-6 py-0.5">
+                    <p className="text-lg font-semibold tracking-widest">AI POWERED</p>
+                  </div>
+                </div>
+                <h1 className="relative z-20 mx-auto mt-6 max-w-7xl bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 bg-clip-text pb-6 text-center text-5xl font-semibold text-transparent dark:from-neutral-800 dark:via-white dark:to-white md:text-7xl lg:text-7xl">
                   Build amazing websites <br /> at <Cover>warp speed</Cover>
                 </h1>
               </div>
               <div className="px-2 py-2 text-center">
                 <p className="max-w-prose">
-                  Supabase is an open source Firebase alternative. Start your project with a
-                  Postgres database, Authentication, instant APIs, Edge Functions, Realtime
-                  subscriptions, Storage, and Vector embeddings.
+                  Infrastructure that combines powerful AI, DeFi, and data scraping modules with a
+                  vibrant marketplace where creators can share and monetize their automated
+                  solutions.{' '}
                 </p>
               </div>
             </div>
@@ -31,7 +36,7 @@ export default function HomePage() {
           <Bounded className="">
             <div className="flex flex-col items-center justify-center py-12">
               <h2 className="text-center text-4xl font-medium">
-                Build amazing websites at warp speed
+                Smarter workflows, seamless integrations{' '}
               </h2>
               <p className="mt-2 w-full max-w-prose text-center font-medium">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nisi ea ipsam magni
@@ -47,10 +52,10 @@ export default function HomePage() {
         <Bounded>
           <div className="flex flex-col items-center justify-center">
             <h3 className="text-center text-4xl font-medium">
-              Stay productive and manage your app
+              Turn complexity into simplicity{' '}
               <span className="text-muted-foreground">
                 <br />
-                without leaving the dashboard
+                Drag, drop, and design workflows like never before{' '}
               </span>
             </h3>
             <div className="h-full w-full py-12">
