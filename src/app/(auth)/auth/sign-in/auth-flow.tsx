@@ -38,58 +38,58 @@ export default function AuthFlow() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="w-full max-w-md rounded-2xl bg-secondary p-5 md:p-10"
+      className="w-full max-w-[464px] rounded-2xl bg-secondary p-5 md:p-10"
     >
       <div className="flex flex-col items-center justify-center pb-4">
         <h1 className="mb-1 text-2xl font-semibold">Sign In</h1>
         <p className="text-sm font-light text-muted-foreground">Your Social Campaigns</p>
       </div>
       {/* OAuth flow */}
-      <div className="flex flex-col items-center justify-center gap-2 md:flex-row">
+      <div className="flex max-w-[386px]  w-full flex-col items-center justify-center gap-2 md:flex-row">
         <Link
           href={'/auth/github'}
           className={buttonVariants({
-            className: 'mt-2 h-10 w-full rounded-2xl bg-secondary text-green-500 md:w-auto',
+            className: 'mt-2 h-10 w-full rounded-2xl bg-secondary text-primary text-sm md:w-auto',
             variant: 'outline',
           })}
         >
           <GitHubLogoIcon />
-          Continue with Github
+          Sign in with Github
         </Link>
         <Link
           href={'/auth/sign-in'}
           className={buttonVariants({
-            className: 'mt-2 h-10 w-full cursor-not-allowed rounded-2xl bg-secondary md:w-auto',
+            className: 'mt-2 h-10 w-full cursor-not-allowed rounded-2xl bg-secondary text-sm md:w-auto',
             variant: 'outline',
           })}
         >
           <IconBrandGoogleFilled />
-          Continue with Google
+          Sign in with Google
         </Link>
       </div>
       {/*  */}
-      <div className="flex w-full items-center justify-center gap-2 py-6">
+      <div className="flex w-full  items-center justify-center gap-2 py-6">
         <div className="h-[0.1px] w-full bg-muted-foreground" />
         <p className="flex-shrink-0 text-xs font-light text-muted-foreground">Or with Email</p>
         <div className="h-[0.1px] w-full bg-muted-foreground" />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 max-w-[386px]">
         <Input
-          className="rounded-xl placeholder:text-sm placeholder:font-light"
+          className="h-10 rounded-xl placeholder:text-sm placeholder:font-light focus-visible:ring-primary"
           placeholder="Email"
           {...register('email')}
         />
         <Input
-          className="rounded-xl placeholder:text-sm placeholder:font-light"
+          className="h-10 rounded-xl placeholder:text-sm placeholder:font-light focus-visible:ring-primary"
           placeholder="Password"
           type="password"
           {...register('password')}
         />
       </div>
-      <div className="flex justify-end pb-3 pt-4">
-        <p className="text-sm text-green-500">Forgot Password ?</p>
+      <div className="flex justify-end pb-7 pt-4">
+        <p className="text-sm text-primary">Forgot Password ?</p>
       </div>
-      <Button type="submit" className="w-full">
+      <Button type="submit" className="w-full h-10 ">
         {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <></>} Sign In
       </Button>
       <div className="flex items-center justify-center">
@@ -102,7 +102,7 @@ export default function AuthFlow() {
         >
           <p className="pt-6 text-sm text-muted-foreground">
             Don&apos;t want to Signup?
-            <span className="text-green-500"> Join Guest</span>
+            <span className="text-primary"> Join Guest</span>
           </p>
         </button>
       </div>
