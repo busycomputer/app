@@ -6,17 +6,29 @@ import Bounded from '@/components/elements/Bounded'
 import BzLogo from '@/components/Icons/bz-logo'
 import Image from 'next/image'
 import AuthFlow from './auth-flow'
+import FlickeringGrid from '@/components/ui/flickering-grid'
+import Link from 'next/link'
 export default function LoginPage() {
   return (
     <div className="relative h-screen w-full">
-      <div className="absolute -z-10 h-full w-full bg-white">
-        <Image src={authBgImage.src} alt="Auth background gradient" fill />
+      <div className="absolute -z-10 h-full w-full">
+        {/* <Image src={authBgImage.src} alt="Auth background gradient" fill /> */}
+        <FlickeringGrid
+          className="relative -z-10 opacity-40"
+          // squareSize={4}
+          // gridGap={6}
+          color="#56BEA1"
+          maxOpacity={0.5}
+          flickerChance={0.09}
+          // height={800}
+          // width={800}
+        />
       </div>
       <Bounded className="h-full w-full">
         <div className="flex h-full w-full items-center justify-between gap-4">
-          <div className="hidden max-w-[250px] md:block md:max-w-xs">
+          <Link href={'/'} className="hidden max-w-[250px] md:block md:max-w-xs">
             <BzLogo />
-          </div>
+          </Link>
           <div className="flex h-full w-full items-center justify-center md:justify-end">
             {/* Auth flow starts here. */}
             <AuthFlow />
