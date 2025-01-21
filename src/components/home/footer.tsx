@@ -4,6 +4,7 @@ import { Moon } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '@/assets/images/logo-192x192.png'
+import BzLogo from '../Icons/bz-logo'
 
 const Footer = () => {
   const productLinks = [
@@ -44,39 +45,31 @@ const Footer = () => {
   ]
 
   const companyLinks = [
-    { href: '/blog', label: 'Blog' },
-    { href: '/customers', label: 'Customer Stories' },
-    { href: '/careers', label: 'Careers' },
-    { href: '/company', label: 'Company' },
-    { href: '/events', label: 'Events & Webinars' },
-    { href: '/ga', label: 'General Availability' },
-    { href: '/terms', label: 'Terms of Service' },
-    { href: '/privacy', label: 'Privacy Policy' },
-    { href: '/aup', label: 'Acceptable Use Policy' },
-    { href: '/support-policy', label: 'Support Policy' },
-    { href: '/sla', label: 'Service Level Agreement' },
-    { href: '/humans.txt', label: 'Humans.txt' },
-    { href: '/lawyers.txt', label: 'Lawyers.txt' },
-    { href: '/.well-known/security.txt', label: 'Security.txt' },
+    { href: 'https://x.com/busycomputer', label: 'Twitter', isBlank: true },
+    { href: '/#footer', label: 'Telegram' },
+    { href: '/#footer', label: 'Discord' },
+    { href: '/#footer', label: 'Docs' },
+    { href: '/#footer', label: 'App' },
   ]
 
   const LinkColumn = ({
     title,
     links,
+
   }: {
     title: string
-    links: { href: string; label: string }[]
+    links: { href: string; label: string; isBlank?: boolean }[]
   }) => (
     <div>
       <h6 className="text-base text-foreground">{title}</h6>
       <ul className="mt-4 space-y-2">
         {links.map((link, index) => (
           <li key={`${link.href}-${index}`}>
-            <a href={link.href}>
+            <Link href={link.href} target={link.isBlank ? '_blank': undefined} >
               <div className="text-foreground-lighter text-sm transition-colors hover:text-foreground">
                 {link.label}
               </div>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
@@ -93,15 +86,8 @@ const Footer = () => {
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and Social Links */}
           <div className="space-y-8 xl:col-span-1">
-            <Link className="flex w-12 items-center text-xl font-bold" href="/">
-              <Image
-                width={160}
-                height={160}
-                alt="busycomputer Logo"
-                className="max-w-16"
-                src={Logo.src}
-              />
-              busycomputer
+            <Link className="flex max-w-[170px] items-center text-xl font-bold" href="/">
+              <BzLogo />
             </Link>
             <div className="flex space-x-5">{/* Add social media icons/links here */}</div>
           </div>
@@ -109,9 +95,12 @@ const Footer = () => {
           {/* Navigation Links */}
           <div className="mt-12 grid grid-cols-1 gap-8 xl:col-span-2 xl:mt-0">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              <LinkColumn title="Product" links={productLinks} />
-              <LinkColumn title="Resources" links={resourceLinks} />
-              <LinkColumn title="Developers" links={developerLinks} />
+              <div />
+              <div />
+              <div />
+              {/* <LinkColumn title="Product" links={productLinks} /> */}
+              {/* <LinkColumn title="Resources" links={resourceLinks} /> */}
+              {/* <LinkColumn title="Developers" links={developerLinks} /> */}
               <LinkColumn title="Company" links={companyLinks} />
             </div>
           </div>
