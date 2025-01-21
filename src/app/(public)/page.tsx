@@ -18,7 +18,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <h1 className="relative z-20 mx-auto mt-6 max-w-7xl bg-gradient-to-b from-neutral-800 via-neutral-700 to-neutral-700 bg-clip-text pb-6 text-center text-5xl font-semibold text-transparent dark:from-neutral-800 dark:via-white dark:to-white md:text-7xl lg:text-7xl">
-                  Build amazing websites <br /> at <Cover>warp speed</Cover>
+                  Build complex workflows <br /> at <Cover>warp speed</Cover>
                 </h1>
               </div>
               <div className="px-2 py-2 text-center">
