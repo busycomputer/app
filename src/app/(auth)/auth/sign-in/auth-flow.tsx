@@ -45,11 +45,11 @@ export default function AuthFlow() {
         <p className="text-sm font-light text-muted-foreground">Your Social Campaigns</p>
       </div>
       {/* OAuth flow */}
-      <div className="flex max-w-[386px]  w-full flex-col items-center justify-center gap-2 md:flex-row">
+      <div className="flex w-full max-w-[386px] flex-col items-center justify-center gap-2 md:flex-row">
         <Link
           href={'/auth/github'}
           className={buttonVariants({
-            className: 'mt-2 h-10 w-full rounded-2xl bg-secondary text-primary text-sm md:w-auto',
+            className: 'mt-2 h-10 w-full rounded-2xl bg-secondary text-sm text-primary md:w-auto',
             variant: 'outline',
           })}
         >
@@ -59,7 +59,8 @@ export default function AuthFlow() {
         <Link
           href={'/auth/sign-in'}
           className={buttonVariants({
-            className: 'mt-2 h-10 w-full cursor-not-allowed rounded-2xl bg-secondary text-sm md:w-auto',
+            className:
+              'mt-2 h-10 w-full cursor-not-allowed rounded-2xl bg-secondary text-sm md:w-auto',
             variant: 'outline',
           })}
         >
@@ -68,12 +69,12 @@ export default function AuthFlow() {
         </Link>
       </div>
       {/*  */}
-      <div className="flex w-full  items-center justify-center gap-2 py-6">
+      <div className="flex w-full items-center justify-center gap-2 py-6">
         <div className="h-[0.1px] w-full bg-muted-foreground" />
         <p className="flex-shrink-0 text-xs font-light text-muted-foreground">Or with Email</p>
         <div className="h-[0.1px] w-full bg-muted-foreground" />
       </div>
-      <div className="flex flex-col gap-2 max-w-[386px]">
+      <div className="flex max-w-[386px] flex-col gap-2">
         <Input
           className="h-10 rounded-xl placeholder:text-sm placeholder:font-light focus-visible:ring-primary"
           placeholder="Email"
@@ -89,7 +90,7 @@ export default function AuthFlow() {
       <div className="flex justify-end pb-7 pt-4">
         <p className="text-sm text-primary">Forgot Password ?</p>
       </div>
-      <Button type="submit" className="w-full h-10 ">
+      <Button type="submit" className="h-10 w-full">
         {isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <></>} Sign In
       </Button>
       <div className="flex items-center justify-center">

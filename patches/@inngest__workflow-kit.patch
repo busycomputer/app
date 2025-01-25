@@ -1,0 +1,59 @@
+diff --git a/dist/ui/sidebar/ActionForm.d.ts.map b/dist/ui/sidebar/ActionForm.d.ts.map
+index 0b7ba8ebe42676c0ed4496d4d164606e806df0da..f337e3aad70b02a99e3c7a93143780b23ee3b9e3 100644
+--- a/dist/ui/sidebar/ActionForm.d.ts.map
++++ b/dist/ui/sidebar/ActionForm.d.ts.map
+@@ -1 +1 @@
+-{"version":3,"file":"ActionForm.d.ts","sourceRoot":"","sources":["../../../src/ui/sidebar/ActionForm.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,kBAAkB,EAAE,cAAc,EAAE,MAAM,aAAa,CAAC;AAE9E,KAAK,sBAAsB,GAAG;IAC5B,cAAc,EAAE,cAAc,CAAC;IAC/B,YAAY,EAAE,kBAAkB,GAAG,SAAS,CAAC;CAC9C,CAAA;AAED,eAAO,MAAM,iBAAiB,qCAAsC,sBAAsB,4CAwBzF,CAAA;AAED,eAAO,MAAM,WAAW,WAAY,MAAM,CAAC,MAAM,EAAE,WAAW,CAAC,4CAc9D,CAAA"}
+\ No newline at end of file
++{"version":3,"file":"ActionForm.d.ts","sourceRoot":"","sources":["../../../src/ui/sidebar/ActionForm.tsx"],"names":[],"mappings":"AAAA,OAAO,EAAE,WAAW,EAAE,kBAAkB,EAAE,cAAc,EAAE,MAAM,aAAa,CAAC;AAG9E,KAAK,sBAAsB,GAAG;IAC5B,cAAc,EAAE,cAAc,CAAC;IAC/B,YAAY,EAAE,kBAAkB,GAAG,SAAS,CAAC;CAC9C,CAAA;AAED,eAAO,MAAM,iBAAiB,qCAAsC,sBAAsB,4CAwBzF,CAAA;AAED,eAAO,MAAM,WAAW,WAAY,MAAM,CAAC,MAAM,EAAE,WAAW,CAAC,4CAe9D,CAAA"}
+\ No newline at end of file
+diff --git a/dist/ui/sidebar/ActionForm.js b/dist/ui/sidebar/ActionForm.js
+index 6440e34456f4dca4664da17ae55864eccf1bfd2f..07312f79623ace8559aeea6ff024e23cc4b0dc60 100644
+--- a/dist/ui/sidebar/ActionForm.js
++++ b/dist/ui/sidebar/ActionForm.js
+@@ -2,6 +2,7 @@
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.InputFormUI = exports.SidebarActionForm = void 0;
+ const jsx_runtime_1 = require("react/jsx-runtime");
++const Provider_1 = require("../Provider");
+ const SidebarActionForm = ({ workflowAction, engineAction }) => {
+     if (engineAction === undefined) {
+         return ((0, jsx_runtime_1.jsx)("div", { className: "wf-sidebar-form", children: (0, jsx_runtime_1.jsx)("div", { className: "wf-sidebar-content wf-sidebar-error", children: `Action ${workflowAction.kind} not found in provider.` }) }));
+@@ -13,7 +14,27 @@ const InputFormUI = (inputs) => {
+     // TODO: Handle different input types
+     // TODO: Allow variables to be inserted into the input, based off of the event
+     // or previous actions.
+-    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: Object.entries(inputs).map(([key, input]) => ((0, jsx_runtime_1.jsxs)("label", { children: [input.type.title || key, input.fieldType === "textarea" ? (0, jsx_runtime_1.jsx)("textarea", {}) : (0, jsx_runtime_1.jsx)("input", { type: "text" })] }, key))) }));
++    return ((0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, { children: Object.entries(inputs).map(([id, input]) => ((0, jsx_runtime_1.jsxs)("label", { children: [input.type.title, (0, jsx_runtime_1.jsx)(FormUIInputRenderer, { input: input, id: id })] }, id))) }));
+ };
+ exports.InputFormUI = InputFormUI;
++const FormUIInputRenderer = ({ id, input }) => {
++    const { selectedNode, onChange, workflow } = (0, Provider_1.useProvider)();
++    const action = selectedNode.data.action;
++    action.inputs = action.inputs || {};
++    const updateWorkflowAction = () => {
++        const workflowCopy = Object.assign({}, workflow);
++        workflowCopy.actions = workflow.actions.map((a) => a.id !== action.id
++            ? a
++            : Object.assign(Object.assign({}, a), { inputs: action.inputs }));
++        onChange(workflowCopy);
++    };
++    if (input.fieldType === "textarea") {
++        return ((0, jsx_runtime_1.jsx)("textarea", { defaultValue: action.inputs[id], onChange: (e) => {
++                action.inputs[id] = e.target.value;
++            }, onBlur: () => updateWorkflowAction() }));
++    }
++    return ((0, jsx_runtime_1.jsx)("input", { type: "text", defaultValue: action.inputs[id], onChange: (e) => {
++            action.inputs[id] = e.target.value;
++        }, onBlur: () => updateWorkflowAction() }));
++};
+ //# sourceMappingURL=ActionForm.js.map
+\ No newline at end of file
+diff --git a/dist/ui/sidebar/ActionForm.js.map b/dist/ui/sidebar/ActionForm.js.map
+index 69a38f22782a08eb233b263ef5f3844ac3d9f989..a7a5e4ae630e0c45c0cbaed9ca50c5e03e2c2d47 100644
+--- a/dist/ui/sidebar/ActionForm.js.map
++++ b/dist/ui/sidebar/ActionForm.js.map
+@@ -1 +1 @@
+-{"version":3,"file":"ActionForm.js","sourceRoot":"","sources":["../../../src/ui/sidebar/ActionForm.tsx"],"names":[],"mappings":";;;;AAOO,MAAM,iBAAiB,GAAG,CAAC,EAAE,cAAc,EAAE,YAAY,EAA0B,EAAE,EAAE;IAC5F,IAAI,YAAY,KAAK,SAAS,EAAE,CAAC;QAC/B,OAAO,CACL,gCAAK,SAAS,EAAC,iBAAiB,YAE9B,gCAAK,SAAS,EAAC,qCAAqC,YACjD,UAAU,cAAc,CAAC,IAAI,yBAAyB,GACnD,GACF,CACP,CAAA;IACH,CAAC;IAED,OAAO,CACL,6DACE,iCAAK,SAAS,EAAC,mBAAmB,aAChC,8BAAG,SAAS,EAAC,wBAAwB,YAAE,YAAY,CAAC,IAAI,GAAK,EAC7D,8BAAG,SAAS,EAAC,+BAA+B,YAAE,YAAY,CAAC,WAAW,GAAK,IACvE,EACN,iCAAK,SAAS,EAAC,iBAAiB,aAC9B,iCAAM,SAAS,EAAC,sBAAsB,0BAAiB,EACtD,IAAA,mBAAW,EAAC,YAAY,CAAC,MAAM,IAAI,EAAE,CAAC,IACnC,IACL,CACJ,CAAC;AACJ,CAAC,CAAA;AAxBY,QAAA,iBAAiB,qBAwB7B;AAEM,MAAM,WAAW,GAAG,CAAC,MAAmC,EAAE,EAAE;IACjE,qCAAqC;IACrC,8EAA8E;IAC9E,uBAAuB;IACvB,OAAO,CACL,2DACG,MAAM,CAAC,OAAO,CAAC,MAAM,CAAC,CAAC,GAAG,CAAC,CAAC,CAAC,GAAG,EAAE,KAAK,CAAC,EAAE,EAAE,CAAC,CAC5C,8CACG,KAAK,CAAC,IAAI,CAAC,KAAK,IAAI,GAAG,EACvB,KAAK,CAAC,SAAS,KAAK,UAAU,CAAC,CAAC,CAAC,sCAAY,CAAC,CAAC,CAAC,kCAAO,IAAI,EAAC,MAAM,GAAG,KAF5D,GAAG,CAGP,CACT,CAAC,GACD,CACJ,CAAA;AACH,CAAC,CAAA;AAdY,QAAA,WAAW,eAcvB"}
+\ No newline at end of file
++{"version":3,"file":"ActionForm.js","sourceRoot":"","sources":["../../../src/ui/sidebar/ActionForm.tsx"],"names":[],"mappings":"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"}
