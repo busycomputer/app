@@ -1,0 +1,28 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
+  "packages": [
+    "nodejs_22@latest",
+    "corepack@latest",
+    "supabase-cli@latest",
+    "coreutils@latest",
+    "act@latest",
+    "colima@latest",
+    "docker@latest",
+    "toml-cli@latest",
+    "typescript@latest"
+  ],
+  "env": {
+    "PATH": "node_modules/.bin:$PATH",
+    "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
+  },
+  "shell": {
+    "init_hook": ["colima status || devbox services up -b && exit 0"],
+    "scripts": {
+      "supabase": ["supabase start"],
+      "inngest": [
+        "docker run -d --network supabase_network_$(toml get --raw supabase/config.toml project_id) -p 8288:8288 inngest/inngest inngest dev"
+      ],
+      "test": ["act push -j test"]
+    }
+  }
+}

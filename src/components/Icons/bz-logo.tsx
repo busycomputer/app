@@ -3,7 +3,7 @@ import React from 'react'
 export default function BzLogo() {
   return (
     <svg
-      className='w-full h-full'  
+      className="h-full w-full"
       viewBox="0 0 259 66"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

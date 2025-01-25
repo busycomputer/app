@@ -1,13 +1,13 @@
 'use client'
 
+import Image from 'next/image'
+import Link from 'next/link'
 import authBgImage from '@/assets/images/bg-image.png'
 import Logo from '@/assets/images/logo_Image.png'
 import Bounded from '@/components/elements/Bounded'
 import BzLogo from '@/components/Icons/bz-logo'
-import Image from 'next/image'
 import AuthFlow from './auth-flow'
 import FlickeringGrid from '@/components/ui/flickering-grid'
-import Link from 'next/link'
 export default function LoginPage() {
   return (
     <div className="relative h-screen w-full">

@@ -55,7 +55,6 @@ const Footer = () => {
   const LinkColumn = ({
     title,
     links,
-
   }: {
     title: string
     links: { href: string; label: string; isBlank?: boolean }[]
@@ -65,7 +64,7 @@ const Footer = () => {
       <ul className="mt-4 space-y-2">
         {links.map((link, index) => (
           <li key={`${link.href}-${index}`}>
-            <Link href={link.href} target={link.isBlank ? '_blank': undefined} >
+            <Link href={link.href} target={link.isBlank ? '_blank' : undefined}>
               <div className="text-foreground-lighter text-sm transition-colors hover:text-foreground">
                 {link.label}
               </div>
