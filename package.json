@@ -86,6 +86,7 @@
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.9",
+    "supabase": "^2.6.8",
     "tailwindcss": "^3.4.17",
     "typescript": "^5",
     "vercel": "^39.3.0"
