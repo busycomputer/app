@@ -81,6 +81,7 @@
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-prettier": "^5.2.1",
     "husky": "^9.1.7",
+    "lint-staged": "^15.4.2",
     "pinst": "^3.0.0",
     "postcss": "^8.4.49",
     "prettier": "^3.4.2",
@@ -106,5 +107,14 @@
     "patchedDependencies": {
       "@inngest/workflow-kit": "patches/@inngest__workflow-kit.patch"
     }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml}": [
+      "prettier --write"
+    ]
   }
 }
