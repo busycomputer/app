@@ -3,6 +3,6 @@ version: '0.5'
 processes:
   colima:
     command: colima start
-
-  inngest:
-    command: npx inngest dev
+    readiness_probe:
+      exec:
+        command: colima status

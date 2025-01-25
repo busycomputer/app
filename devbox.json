@@ -3,18 +3,26 @@
   "packages": [
     "nodejs_22@latest",
     "corepack@latest",
+    "supabase-cli@latest",
+    "coreutils@latest",
+    "act@latest",
     "colima@latest",
     "docker@latest",
-    "supabase-cli@latest",
-    "coreutils@latest"
+    "toml-cli@latest",
+    "typescript@latest"
   ],
   "env": {
-    "DOCKER_HOST": "unix://$HOME/.colima/default/docker.sock"
+    "PATH":        "node_modules/.bin:$PATH",
+    "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
   },
   "shell": {
     "init_hook": ["colima status || devbox services up -b && exit 0"],
     "scripts": {
-      "test": ["echo \"Error: no test specified\" && exit 1"]
+      "supabase": ["supabase start"],
+      "inngest": [
+        "docker run -d --network supabase_network_$(toml get --raw supabase/config.toml project_id) -p 8288:8288 inngest/inngest inngest dev"
+      ],
+      "test": ["act push -j test"]
     }
   }
 }
