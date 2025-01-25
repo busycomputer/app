@@ -11,7 +11,7 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "types": "dotenv -- supabase gen types typescript --local > src/lib/supabase/database.types.ts",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "dependencies": {
     "@goat-sdk/core": "^0.4.5",
