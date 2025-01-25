@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
-# Load the Nix environment through direnv
-eval "$(direnv export bash)"
+# Load the Devbox environment through direnv
+eval "$(devbox generate direnv --print-envrc)"
 
-# Now run your checks in the Nix environment
+# Now run your checks in the Devbox environment
 . "$(dirname -- "$0")/_/husky.sh"
 
 # Generate Supabase types
-bun types:gen
+bun types
 
 # Run linting
 bun lint

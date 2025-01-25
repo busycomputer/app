@@ -10,7 +10,7 @@
     "lint": "next lint --fix",
     "format": "prettier --write .",
     "prepare": "[ \"$HUSKY\" = \"1\" ] && husky || exit 0",
-    "types:gen": "dotenv -- supabase gen types typescript --local > src/lib/supabase/database.types.ts",
+    "types": "dotenv -- supabase gen types typescript --local > src/lib/supabase/database.types.ts",
     "test": "jest"
   },
   "dependencies": {
