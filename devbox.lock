@@ -330,54 +330,6 @@
         }
       }
     },
-    "supabase-cli@latest": {
-      "last_modified": "2025-01-14T19:01:50Z",
-      "resolved": "github:NixOS/nixpkgs/733994ea06585b76621073160e87b0bfac7fc5ae#supabase-cli",
-      "source": "devbox-search",
-      "version": "2.6.1",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/xn1m759yhrr6mq9q6kpdm64knrsycm4f-supabase-cli-2.6.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/xn1m759yhrr6mq9q6kpdm64knrsycm4f-supabase-cli-2.6.1"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/hj35yk4m5p7i6a9facxvvz4mpsrhr54c-supabase-cli-2.6.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/hj35yk4m5p7i6a9facxvvz4mpsrhr54c-supabase-cli-2.6.1"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/nprhi74w4q4x3ywssz603lgmsfmsxjwa-supabase-cli-2.6.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/nprhi74w4q4x3ywssz603lgmsfmsxjwa-supabase-cli-2.6.1"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/8ivy1rjlf9lqsnsr16ff3ajnclf86x2l-supabase-cli-2.6.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/8ivy1rjlf9lqsnsr16ff3ajnclf86x2l-supabase-cli-2.6.1"
-        }
-      }
-    },
     "toml-cli@latest": {
       "last_modified": "2024-12-23T21:10:33Z",
       "resolved": "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d#toml-cli",
@@ -423,54 +375,6 @@
             }
           ],
           "store_path": "/nix/store/zn7acmfra5gy0ip0sqba4bc6z7x4nsn3-toml-cli-0.2.3"
-        }
-      }
-    },
-    "typescript@latest": {
-      "last_modified": "2025-01-02T12:43:26Z",
-      "resolved": "github:NixOS/nixpkgs/d6973081434f88088e5321f83ebafe9a1167c367#typescript",
-      "source": "devbox-search",
-      "version": "5.7.2",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/3l98kfb99m6wb7w4lnzwmziv9238lp4x-typescript-5.7.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/3l98kfb99m6wb7w4lnzwmziv9238lp4x-typescript-5.7.2"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/dl14xf1fzyjjbvdfbcapn8mw9cpnnblf-typescript-5.7.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/dl14xf1fzyjjbvdfbcapn8mw9cpnnblf-typescript-5.7.2"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/zd1gyqc72lxnzax56k2pqq4ivh59g3k2-typescript-5.7.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/zd1gyqc72lxnzax56k2pqq4ivh59g3k2-typescript-5.7.2"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/pv4y28xgcblpas5sc23317gp19vsnzfg-typescript-5.7.2",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/pv4y28xgcblpas5sc23317gp19vsnzfg-typescript-5.7.2"
         }
       }
     }
