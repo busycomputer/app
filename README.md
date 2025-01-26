@@ -11,11 +11,13 @@ Durable Visual AI Workflow Infrastructure
    ```zsh
    curl -fsSL https://get.jetify.com/devbox | bash
    ```
+
 2. Install Direnv
 
    ```zsh
    devbox global add direnv
    ```
+
 3. Add Direnv Hook in `~/.zshrc`
 
    ```zsh
