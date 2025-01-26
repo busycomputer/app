@@ -3,6 +3,7 @@ version: '0.5'
 processes:
   colima:
     command: colima status || colima start
+    is_daemon: true
     readiness_probe:
       exec:
         command: colima status
