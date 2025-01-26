@@ -49,9 +49,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-docker-
 
+      # Install Devbox
+      - name: Install Devbox
+        uses: jetify-com/devbox-install-action@v0.12.0
+
+      # Setup pnpm
       - name: Setup pnpm
         run: |
-          npm install -g pnpm
           pnpm config set store-dir ~/.pnpm-store
 
       # Cache pnpm dependencies
@@ -77,11 +81,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-supabase-
 
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
       # Restore Supabase Volumes
       - name: Restore Supabase Volumes
         id: restore-volumes
@@ -93,13 +92,15 @@ jobs:
       # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
         if: steps.restore-volumes.outcome == 'success'
-        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+        run: |
+          sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+          chown -R 1000:1000 /var/lib/docker/volumes
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Start Supabase
         run: supabase start
@@ -134,7 +135,7 @@ jobs:
 
       - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
-        run: pnpm exec vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Compress Supabase Volumes
         run: sudo tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
@@ -171,7 +172,6 @@ jobs:
 
       - name: Setup pnpm
         run: |
-          npm install -g pnpm
           pnpm config set store-dir ~/.pnpm-store
 
       - name: Cache pnpm dependencies
@@ -202,11 +202,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-supabase-deploy-
 
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
       # Restore Supabase Volumes
       - name: Restore Supabase Volumes
         id: restore-volumes
@@ -218,13 +213,15 @@ jobs:
       # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
         if: steps.restore-volumes.outcome == 'success'
-        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+        run: |
+          sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+          chown -R 1000:1000 /var/lib/docker/volumes
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Start Supabase
         run: supabase start
@@ -248,7 +245,7 @@ jobs:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
 
       - name: Deploy to Vercel
-        run: pnpm exec vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Compress Supabase Volumes
         run: sudo tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
