@@ -18,11 +18,13 @@
       "colima status || devbox services up -b && exit 0"
     ],
     "scripts": {
+      "install": ["pnpm install"],
       "supabase": ["supabase status || supabase start"],
       "inngest": [
         "docker ps -q -f ancestor=inngest/inngest || docker run -d --network supabase_network_$(toml get --raw supabase/config.toml project_id) -p 8288:8288 inngest/inngest inngest dev"
       ],
       "test": ["act push -j test"]
     }
-  }
+  },
+  "env_from": "jetpack-cloud"
 }
