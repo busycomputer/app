@@ -82,17 +82,25 @@ jobs:
         with:
           version: latest
 
-      - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Restore Supabase Volumes
+        uses: actions/download-artifact@v3
+        with:
+          name: supabase-volumes
+      - name: Extract Supabase Volumes
+        if: success()
+        run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Start Supabase
         run: supabase start
         env:
           DOCKER_CLIENT_TIMEOUT: 120
           COMPOSE_HTTP_TIMEOUT: 120
+
+      - name: Link Vercel Project
+        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Pull Preview Environment Variables
+        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Link Supabase
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
@@ -122,6 +130,14 @@ jobs:
       - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
         run: pnpm exec vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Compress Supabase Volumes
+        run: tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
+      - name: Upload Supabase Volumes
+        uses: actions/upload-artifact@v3
+        with:
+          name: supabase-volumes
+          path: supabase-volumes.tar.gz
 
   deploy:
     needs: test
@@ -186,17 +202,25 @@ jobs:
         with:
           version: latest
 
-      - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Pull Preview Environment Variables # Production environment variables are encrypted. This is just for OAUTH Client Credentials anyway.
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Restore Supabase Volumes
+        uses: actions/download-artifact@v3
+        with:
+          name: supabase-volumes
+      - name: Extract Supabase Volumes
+        if: success()
+        run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Start Supabase
         run: supabase start
         env:
           DOCKER_CLIENT_TIMEOUT: 120
           COMPOSE_HTTP_TIMEOUT: 120
+
+      - name: Link Vercel Project
+        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Pull Preview Environment Variables
+        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Link Supabase
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
@@ -215,3 +239,11 @@ jobs:
 
       - name: Deploy to Vercel
         run: pnpm exec vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Compress Supabase Volumes
+        run: tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
+      - name: Upload Supabase Volumes
+        uses: actions/upload-artifact@v3
+        with:
+          name: supabase-volumes
+          path: supabase-volumes.tar.gz
