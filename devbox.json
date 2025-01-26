@@ -26,6 +26,5 @@
       "build": ["pnpm types", "pnpm format", "pnpm lint", "pnpm build"],
       "test": ["pnpm test"]
     }
-  },
-  "env_from": "jetpack-cloud"
+  }
 }
