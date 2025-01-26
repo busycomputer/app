@@ -30,15 +30,13 @@ Durable Visual AI Workflow Infrastructure
    git clone https://github.com/busycomputer/app.git
    cd app
    cp .env.example .env.local
-   direnv allow
    ```
 
 5. Install Packages
 
    ```zsh
-   devbox install
-   devbox shell
-   pnpm install
+   devbox generate direnv -f
+   devbox run install
    ```
 
 6. Install Services
