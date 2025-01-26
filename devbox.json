@@ -3,13 +3,11 @@
   "packages": [
     "nodejs_22@latest",
     "corepack@latest",
-    "supabase-cli@latest",
     "coreutils@latest",
     "act@latest",
     "colima@latest",
     "docker@latest",
-    "toml-cli@latest",
-    "typescript@latest"
+    "toml-cli@latest"
   ],
   "env": {
     "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
