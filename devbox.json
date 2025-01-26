@@ -15,7 +15,7 @@
   "shell": {
     "init_hook": [
       "export PATH=$(pwd)/node_modules/.bin:$PATH",
-      "[[ -z $(env | grep CI) ]] && (colima status || devbox services up -b)"
+      "test -z \"$CI\" && (colima status || devbox services up -b)"
     ],
     "scripts": {
       "install": ["pnpm install"],
