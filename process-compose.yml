@@ -2,7 +2,7 @@ version: '0.5'
 
 processes:
   colima:
-    command: colima start
+    command: colima status || colima start
     readiness_probe:
       exec:
         command: colima status
