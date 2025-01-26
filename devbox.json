@@ -7,7 +7,8 @@
     "act@latest",
     "colima@latest",
     "docker@latest",
-    "toml-cli@latest"
+    "toml-cli@latest",
+    "gh@latest"
   ],
   "env": {
     "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
@@ -18,13 +19,13 @@
       "[ -z \"$CI\" ] && (colima status || devbox services up -b)"
     ],
     "scripts": {
-      "install": ["pnpm install"],
+      "install":  ["pnpm install"],
       "supabase": ["supabase status || supabase start"],
       "inngest": [
         "docker ps -q -f ancestor=inngest/inngest || docker run -d --network supabase_network_$(toml get --raw supabase/config.toml project_id) -p 8288:8288 inngest/inngest inngest dev"
       ],
       "build": ["pnpm types", "pnpm format", "pnpm lint", "pnpm build"],
-      "test": ["pnpm test"]
+      "test":  ["pnpm test"]
     }
   }
 }
