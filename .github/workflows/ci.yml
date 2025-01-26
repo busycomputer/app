@@ -93,7 +93,7 @@ jobs:
       # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
         if: steps.restore-volumes.outcome == 'success'
-        run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Link Vercel Project
         run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
@@ -218,7 +218,7 @@ jobs:
       # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
         if: steps.restore-volumes.outcome == 'success'
-        run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Link Vercel Project
         run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
