@@ -81,7 +81,9 @@ jobs:
           enable-cache: 'true'
 
       - name: Install Dependencies
-        run: devbox run install
+        run: |
+          devbox services stop
+          devbox run install
 
       - name: Run Build
         run: devbox run build
