@@ -12,11 +12,13 @@
     "typescript@latest"
   ],
   "env": {
-    "PATH": "node_modules/.bin:$PATH",
     "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
   },
   "shell": {
-    "init_hook": ["colima status || devbox services up -b && exit 0"],
+    "init_hook": [
+      "export PATH=$(pwd)/node_modules/.bin:$PATH",
+      "colima status || devbox services up -b && exit 0"
+    ],
     "scripts": {
       "supabase": ["supabase status || supabase start"],
       "inngest": [
