@@ -22,79 +22,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Optimize Docker builds with BuildKit
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          buildkitd-flags: --debug
-          driver-opts: |
-            image=moby/buildkit:latest
-            network=host
-
-      # Cache Docker layers
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      # Cache Docker images
-      - name: Cache Docker images
-        uses: actions/cache@v3
-        with:
-          path: /var/lib/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('supabase/docker-compose.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
       # Install Devbox
       - name: Install Devbox
         uses: jetify-com/devbox-install-action@v0.12.0
-
-      # Setup pnpm
-      - name: Setup pnpm
-        run: |
-          pnpm config set store-dir ~/.pnpm-store
-
-      # Cache pnpm dependencies
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v3
         with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
+          enable-cache: 'true'
 
       - name: Install Dependencies
-        run: pnpm install
-
-      # Cache Supabase CLI and configs
-      - name: Cache Supabase CLI
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.supabase
-            ~/.config/supabase
-          key: ${{ runner.os }}-supabase-${{ hashFiles('**/supabase/config.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-supabase-
-
-      # Restore Supabase Volumes
-      - name: Restore Supabase Volumes
-        id: restore-volumes
-        uses: actions/download-artifact@v3
-        with:
-          name: supabase-volumes
-        continue-on-error: true
-
-      # Extract Supabase Volumes (only if artifact exists)
-      - name: Extract Supabase Volumes
-        if: steps.restore-volumes.outcome == 'success'
-        run: |
-          sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
-          chown -R 1000:1000 /var/lib/docker/volumes
+        run: devbox run install
 
       - name: Link Vercel Project
         run: vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
@@ -103,7 +38,7 @@ jobs:
         run: vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Start Supabase
-        run: supabase start
+        run: devbox run supabase
         env:
           DOCKER_CLIENT_TIMEOUT: 120
           COMPOSE_HTTP_TIMEOUT: 120
