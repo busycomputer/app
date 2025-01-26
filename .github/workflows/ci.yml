@@ -82,12 +82,17 @@ jobs:
         with:
           version: latest
 
+      # Restore Supabase Volumes
       - name: Restore Supabase Volumes
+        id: restore-volumes
         uses: actions/download-artifact@v3
         with:
           name: supabase-volumes
+        continue-on-error: true
+
+      # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
-        if: success()
+        if: steps.restore-volumes.outcome == 'success'
         run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Start Supabase
@@ -202,12 +207,17 @@ jobs:
         with:
           version: latest
 
+      # Restore Supabase Volumes
       - name: Restore Supabase Volumes
+        id: restore-volumes
         uses: actions/download-artifact@v3
         with:
           name: supabase-volumes
+        continue-on-error: true
+
+      # Extract Supabase Volumes (only if artifact exists)
       - name: Extract Supabase Volumes
-        if: success()
+        if: steps.restore-volumes.outcome == 'success'
         run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
       - name: Start Supabase
