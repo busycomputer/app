@@ -95,17 +95,17 @@ jobs:
         if: steps.restore-volumes.outcome == 'success'
         run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
-      - name: Start Supabase
-        run: supabase start
-        env:
-          DOCKER_CLIENT_TIMEOUT: 120
-          COMPOSE_HTTP_TIMEOUT: 120
-
       - name: Link Vercel Project
         run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Pull Preview Environment Variables
         run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Start Supabase
+        run: supabase start
+        env:
+          DOCKER_CLIENT_TIMEOUT: 120
+          COMPOSE_HTTP_TIMEOUT: 120
 
       - name: Link Supabase
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
@@ -220,17 +220,17 @@ jobs:
         if: steps.restore-volumes.outcome == 'success'
         run: tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
 
-      - name: Start Supabase
-        run: supabase start
-        env:
-          DOCKER_CLIENT_TIMEOUT: 120
-          COMPOSE_HTTP_TIMEOUT: 120
-
       - name: Link Vercel Project
         run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Pull Preview Environment Variables
         run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Start Supabase
+        run: supabase start
+        env:
+          DOCKER_CLIENT_TIMEOUT: 120
+          COMPOSE_HTTP_TIMEOUT: 120
 
       - name: Link Supabase
         run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
