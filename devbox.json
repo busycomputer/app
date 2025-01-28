@@ -13,19 +13,19 @@
   "shell": {
     "init_hook": ["export PATH=$(pwd)/node_modules/.bin:$PATH"],
     "scripts": {
-      "init": [
+      "prepare": [
         "corepack install",
         "alias pnpm='corepack pnpm'",
         "alias pnpx='corepack pnpx'",
         "pnpm install --force",
         "pnpx supabase start",
-        "pnpm types --if-present",
-        "pnpm run format --if-present",
-        "pnpm run lint --if-present",
-        "pnpm run build --if-present",
-        "pnpm run test --if-present"
+        "pnpm types",
+        "pnpm format",
+        "pnpm lint",
+        "pnpm build",
+        "pnpm test"
       ],
-      "dev":  ["pnpx inngest dev & pnpm dev"],
+      "dev": ["pnpx inngest dev & pnpm dev"],
       "test": ["act push -j test"]
     }
   }

@@ -7,13 +7,14 @@
   "customizations": {
     "vscode": {
       "settings": {},
-      "extensions": [
-        "jetpack-io.devbox"
-      ]
+      "extensions": ["jetpack-io.devbox"]
     }
   },
   "remoteUser": "devbox",
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
-  }
+  },
+  "runArgs": [
+    "--network=host" // Use host network
+  ]
 }

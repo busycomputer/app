@@ -8,10 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
-    "format": "prettier --write .",
-    "prepare": "husky",
-    "types": "dotenv -- supabase gen types typescript --local > src/lib/supabase/database.types.ts",
-    "test": "jest --passWithNoTests"
+    "format": "pnpx prettier --write .",
+    "prepare": "pnpx husky",
+    "types": "pnpx supabase gen types typescript --local > src/lib/supabase/database.types.ts",
+    "test": "pnpx jest --passWithNoTests"
   },
   "dependencies": {
     "@goat-sdk/core": "^0.4.5",

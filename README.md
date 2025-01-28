@@ -40,12 +40,12 @@ Durable Visual AI Workflow Infrastructure
 
 4. Colima Setup (Optional)
 
-   Install Colima and start it as Docker Daemon (if not already running)
+   Install Colima and start it as Docker Daemon (if not already running). Make sure at least 4 CPUs and 8GB Memory is allocated for containers to prevent errors.
 
    ```zsh
    devbox global add colima
    echo 'export DOCKER_HOST="unix:///Users/aloshy/.colima/default/docker.sock"' >> ~/.zshrc
-   colima start
+   colima start --cpu 4 --memory 8
    ```
 
    > You can skip this step if you prefer using Docker Desktop instead of Colima. But Colima is recommended for better performance and easier management.
@@ -65,7 +65,7 @@ Durable Visual AI Workflow Infrastructure
 
    ```zsh
    devbox install
-   devbox run init
+   devbox run prepare
    devbox shell
    ```
 
@@ -86,4 +86,3 @@ docker --host "unix://$HOME/.colima/docker.sock" build -t busycomputer .
 1. App: http://localhost:3000
 2. Inngest Dev: http://localhost:8288
 3. Supabase Studio: http://localhost:54323
-
