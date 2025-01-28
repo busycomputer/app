@@ -3,6 +3,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+.pnpm-store
 
 # testing
 /coverage
@@ -27,7 +28,6 @@ yarn-error.log*
 # environment
 .env*
 !.env.example
-!.envrc
 
 # vercel
 .vercel
@@ -36,8 +36,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# direnv
+# devenv
 .direnv
+.devbox
 
 # IDE
 .idea

@@ -49,54 +49,6 @@
         }
       }
     },
-    "colima@latest": {
-      "last_modified": "2025-01-05T01:56:15Z",
-      "resolved": "github:NixOS/nixpkgs/bf689c40d035239a489de5997a4da5352434632e#colima",
-      "source": "devbox-search",
-      "version": "0.8.1",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/w31z9xki6gzd4m49nyqjm5n5b3qw7qcm-colima-0.8.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/w31z9xki6gzd4m49nyqjm5n5b3qw7qcm-colima-0.8.1"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/a867x6jr62zsx15p8aginvvkq0p6h4gk-colima-0.8.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/a867x6jr62zsx15p8aginvvkq0p6h4gk-colima-0.8.1"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/8fkf8df6yqksdswnmqy7xfa4yl4xyj05-colima-0.8.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/8fkf8df6yqksdswnmqy7xfa4yl4xyj05-colima-0.8.1"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/fymd47wlraz3vx1n4qdwnzfy18bf1jh8-colima-0.8.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/fymd47wlraz3vx1n4qdwnzfy18bf1jh8-colima-0.8.1"
-        }
-      }
-    },
     "corepack@latest": {
       "last_modified": "2025-01-19T08:16:51Z",
       "resolved": "github:NixOS/nixpkgs/50165c4f7eb48ce82bd063e1fb8047a0f515f8ce#corepack",
@@ -327,6 +279,54 @@
             }
           ],
           "store_path": "/nix/store/k1r91cjalyc2mzzllpv5hklhqn8wvgjr-nodejs-22.12.0"
+        }
+      }
+    },
+    "supabase-cli@latest": {
+      "last_modified": "2025-01-25T23:17:58Z",
+      "resolved": "github:NixOS/nixpkgs/b582bb5b0d7af253b05d58314b85ab8ec46b8d19#supabase-cli",
+      "source": "devbox-search",
+      "version": "2.9.4",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1z7vc6g375p8f6zjp6r2g8xrkcwzn5gk-supabase-cli-2.9.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1z7vc6g375p8f6zjp6r2g8xrkcwzn5gk-supabase-cli-2.9.4"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ffm06zr3r4kyl5gjdrbg0h3bbavy28a9-supabase-cli-2.9.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ffm06zr3r4kyl5gjdrbg0h3bbavy28a9-supabase-cli-2.9.4"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1ipnfbbwq2sii6g73hbn74z2fn05ckpf-supabase-cli-2.9.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1ipnfbbwq2sii6g73hbn74z2fn05ckpf-supabase-cli-2.9.4"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ibzcdr2j9qlfl1icxwmaa1y325783qwi-supabase-cli-2.9.4",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ibzcdr2j9qlfl1icxwmaa1y325783qwi-supabase-cli-2.9.4"
         }
       }
     },
