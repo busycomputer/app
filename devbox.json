@@ -5,23 +5,27 @@
     "corepack@latest",
     "coreutils@latest",
     "act@latest",
-    "colima@latest",
     "docker@latest",
-    "toml-cli@latest"
+    "toml-cli@latest",
+    "supabase-cli@latest"
   ],
-  "env": {
-    "DOCKER_HOST": "unix://$HOME/.colima/docker.sock"
-  },
+  "env": {},
   "shell": {
-    "init_hook": [
-      "export PATH=$(pwd)/node_modules/.bin:$PATH",
-      "colima status || devbox services up -b && exit 0"
-    ],
+    "init_hook": ["export PATH=$(pwd)/node_modules/.bin:$PATH"],
     "scripts": {
-      "supabase": ["supabase start"],
-      "inngest": [
-        "docker run -d --network supabase_network_$(toml get --raw supabase/config.toml project_id) -p 8288:8288 inngest/inngest inngest dev"
+      "init": [
+        "corepack install",
+        "alias pnpm='corepack pnpm'",
+        "alias pnpx='corepack pnpx'",
+        "pnpm install --force",
+        "pnpx supabase start",
+        "pnpm types --if-present",
+        "pnpm run format --if-present",
+        "pnpm run lint --if-present",
+        "pnpm run build --if-present",
+        "pnpm run test --if-present"
       ],
+      "dev":  ["pnpx inngest dev & pnpm dev"],
       "test": ["act push -j test"]
     }
   }
