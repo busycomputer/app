@@ -25,7 +25,7 @@
         "pnpm build",
         "pnpm test"
       ],
-      "dev": ["pnpx inngest dev & pnpm dev"],
+      "dev": ["pnpx inngest-cli@latest dev & pnpm dev"],
       "test": ["act push -j test"]
     }
   }
