@@ -7,7 +7,8 @@
     "act@latest",
     "docker@latest",
     "toml-cli@latest",
-    "supabase-cli@latest"
+    "supabase-cli@latest",
+    "nodePackages.vercel@latest"
   ],
   "env": {},
   "shell": {
@@ -25,7 +26,7 @@
         "pnpm build",
         "pnpm test"
       ],
-      "dev": ["pnpx inngest-cli@latest dev & pnpm dev"],
+      "dev":  ["pnpx inngest-cli@latest dev & pnpm dev"],
       "test": ["act push -j test"]
     }
   }
