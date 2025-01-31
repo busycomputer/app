@@ -4,7 +4,6 @@
     "nodejs_22@latest",
     "corepack@latest",
     "coreutils@latest",
-    "act@latest",
     "docker@latest",
     "toml-cli@latest"
   ],
@@ -16,7 +15,9 @@
     "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}"
   },
   "shell": {
-    "init_hook": ["export PATH=$(pwd)/node_modules/.bin:$PATH"],
+    "init_hook": [
+      "export PATH=$(pwd)/node_modules/.bin:$PATH"
+    ],
     "scripts": {
       "prepare": [
         "corepack install",
@@ -30,16 +31,33 @@
         "pnpm build",
         "pnpm test"
       ],
-      "dev":  ["pnpx inngest-cli@latest dev & pnpm dev"],
-      "test": ["act push -j test"],
-      "vercel:link": ["pnpx vercel link --yes --project ${VERCEL_PROJECT_ID} --token=${VERCEL_TOKEN}"],
-      "vercel:env:pull": ["pnpx vercel env pull .env --environment=preview --token=${VERCEL_TOKEN}"],
-      "supabase:link": ["pnpx supabase link --project-ref ${SUPABASE_PROJECT_REF} --password ${SUPABASE_DB_PASSWORD}"],
-      "supabase:db:push:dry-run": ["pnpx supabase db push --dry-run --password ${SUPABASE_DB_PASSWORD}"],
-      "supabase:db:push": ["pnpx supabase db push --password ${SUPABASE_DB_PASSWORD}"],
-      "vercel:deploy:preview": ["pnpx vercel deploy --token=${VERCEL_TOKEN}"],
-      "vercel:deploy:production": ["pnpx vercel deploy --token=${VERCEL_TOKEN} --prod"],
-      "supabase:functions:deploy": ["pnpx supabase functions deploy --token ${SUPABASE_ACCESS_TOKEN}"]
+      "dev": [
+        "pnpx inngest-cli@latest dev & pnpm dev"
+      ],
+      "vercel:link": [
+        "pnpx vercel link --yes --project ${VERCEL_PROJECT_ID} --token=${VERCEL_TOKEN}"
+      ],
+      "vercel:env:pull": [
+        "pnpx vercel env pull .env --environment=preview --token=${VERCEL_TOKEN}"
+      ],
+      "supabase:link": [
+        "pnpx supabase link --project-ref ${SUPABASE_PROJECT_REF} --password ${SUPABASE_DB_PASSWORD}"
+      ],
+      "supabase:db:push:dry-run": [
+        "pnpx supabase db push --dry-run --password ${SUPABASE_DB_PASSWORD}"
+      ],
+      "supabase:db:push": [
+        "pnpx supabase db push --password ${SUPABASE_DB_PASSWORD}"
+      ],
+      "vercel:deploy:preview": [
+        "pnpx vercel deploy --token=${VERCEL_TOKEN}"
+      ],
+      "vercel:deploy:production": [
+        "pnpx vercel deploy --token=${VERCEL_TOKEN} --prod"
+      ],
+      "supabase:functions:deploy": [
+        "pnpx supabase functions deploy --token ${SUPABASE_ACCESS_TOKEN}"
+      ]
     }
   }
 }
