@@ -56,7 +56,7 @@
         "pnpx vercel deploy --token=${VERCEL_TOKEN} --prod"
       ],
       "supabase:functions:deploy": [
-        "pnpx supabase functions deploy --token ${SUPABASE_ACCESS_TOKEN}"
+        "pnpx supabase functions deploy"
       ]
     }
   }
