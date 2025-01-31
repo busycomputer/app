@@ -6,7 +6,7 @@ concurrency:
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
   merge_group:
 
@@ -22,127 +22,49 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Optimize Docker builds with BuildKit
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - uses: jetify-com/devbox-install-action@v0.12.0
         with:
-          buildkitd-flags: --debug
-          driver-opts: |
-            image=moby/buildkit:latest
-            network=host
+          enable-cache: true
 
-      # Cache Docker layers
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      # Cache Docker images
-      - name: Cache Docker images
-        uses: actions/cache@v3
-        with:
-          path: /var/lib/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('supabase/docker-compose.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
-
-      - name: Setup pnpm
+      - name: Setup environment
         run: |
-          npm install -g pnpm
-          pnpm config set store-dir ~/.pnpm-store
+          mkdir -p .devbox/gen/flake/glibc-patch
+          echo "glibc-patch.url=\"path:$GITHUB_WORKSPACE/.devbox/gen/flake/glibc-patch\"" > .devbox/gen/flake/flake.nix
 
-      # Cache pnpm dependencies
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - name: Install Dependencies
-        run: pnpm install
-
-      # Cache Supabase CLI and configs
-      - name: Cache Supabase CLI
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.supabase
-            ~/.config/supabase
-          key: ${{ runner.os }}-supabase-${{ hashFiles('**/supabase/config.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-supabase-
-
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
-      # Restore Supabase Volumes
-      - name: Restore Supabase Volumes
-        id: restore-volumes
-        uses: actions/download-artifact@v3
-        with:
-          name: supabase-volumes
-        continue-on-error: true
-
-      # Extract Supabase Volumes (only if artifact exists)
-      - name: Extract Supabase Volumes
-        if: steps.restore-volumes.outcome == 'success'
-        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+      - name: Install dependencies
+        run: |
+          devbox install
+          devbox run prepare
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Start Supabase
-        run: supabase start
         env:
-          DOCKER_CLIENT_TIMEOUT: 120
-          COMPOSE_HTTP_TIMEOUT: 120
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
 
       - name: Link Supabase
-        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
 
       - name: Check Database Changes
-        run: supabase db push --dry-run --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
-
-      - name: Generate Types
-        run: pnpm run types
-
-      - name: Format
-        run: pnpm run format
-
-      - name: Lint
-        run: pnpm run lint
-
-      - name: Run Tests
-        run: pnpm run test
-        env:
-          SUPABASE_URL: http://localhost:54321
-          SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:db:push:dry-run
 
       - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
-        run: pnpm exec vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Compress Supabase Volumes
-        run: sudo tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
-      - name: Upload Supabase Volumes
-        uses: actions/upload-artifact@v3
-        with:
-          name: supabase-volumes
-          path: supabase-volumes.tar.gz
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:deploy:preview
 
   deploy:
     needs: test
@@ -152,108 +74,50 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - uses: jetify-com/devbox-install-action@v0.12.0
         with:
-          buildkitd-flags: --debug
-          driver-opts: |
-            image=moby/buildkit:latest
-            network=host
+          enable-cache: true
 
-      # Cache Docker layers for deployment
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-deploy-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-deploy-
-
-      - name: Setup pnpm
+      - name: Setup environment
         run: |
-          npm install -g pnpm
-          pnpm config set store-dir ~/.pnpm-store
+          mkdir -p .devbox/gen/flake/glibc-patch
+          echo "glibc-patch.url=\"path:$GITHUB_WORKSPACE/.devbox/gen/flake/glibc-patch\"" > .devbox/gen/flake/flake.nix
 
-      - name: Cache pnpm dependencies
-        uses: actions/cache@v3
-        with:
-          path: ~/.pnpm-store
-          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-
-
-      - name: Install Dependencies
-        run: pnpm install
-
-      - name: Format
-        run: pnpm run format
-
-      - name: Lint
-        run: pnpm run lint
-
-      # Cache Supabase CLI for deployment
-      - name: Cache Supabase CLI
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.supabase
-            ~/.config/supabase
-          key: ${{ runner.os }}-supabase-deploy-${{ hashFiles('**/supabase/config.toml') }}
-          restore-keys: |
-            ${{ runner.os }}-supabase-deploy-
-
-      - name: Setup Supabase CLI
-        uses: supabase/setup-cli@v1
-        with:
-          version: latest
-
-      # Restore Supabase Volumes
-      - name: Restore Supabase Volumes
-        id: restore-volumes
-        uses: actions/download-artifact@v3
-        with:
-          name: supabase-volumes
-        continue-on-error: true
-
-      # Extract Supabase Volumes (only if artifact exists)
-      - name: Extract Supabase Volumes
-        if: steps.restore-volumes.outcome == 'success'
-        run: sudo tar -xzf supabase-volumes.tar.gz -C /var/lib/docker/volumes
+      - name: Install dependencies
+        run: |
+          devbox install
+          devbox run prepare
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Start Supabase
-        run: supabase start
         env:
-          DOCKER_CLIENT_TIMEOUT: 120
-          COMPOSE_HTTP_TIMEOUT: 120
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
 
       - name: Link Supabase
-        run: supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
 
       - name: Deploy Database Changes
-        run: supabase db push --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:db:push
 
       - name: Deploy Edge Functions
-        run: supabase functions deploy
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+        run: devbox run supabase:functions:deploy
 
       - name: Deploy to Vercel
-        run: pnpm exec vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
-
-      - name: Compress Supabase Volumes
-        run: sudo tar -czf supabase-volumes.tar.gz /var/lib/docker/volumes
-      - name: Upload Supabase Volumes
-        uses: actions/upload-artifact@v3
-        with:
-          name: supabase-volumes
-          path: supabase-volumes.tar.gz
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:deploy:production

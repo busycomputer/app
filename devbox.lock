@@ -282,54 +282,6 @@
         }
       }
     },
-    "supabase-cli@latest": {
-      "last_modified": "2025-01-25T23:17:58Z",
-      "resolved": "github:NixOS/nixpkgs/b582bb5b0d7af253b05d58314b85ab8ec46b8d19#supabase-cli",
-      "source": "devbox-search",
-      "version": "2.9.4",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/1z7vc6g375p8f6zjp6r2g8xrkcwzn5gk-supabase-cli-2.9.4",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/1z7vc6g375p8f6zjp6r2g8xrkcwzn5gk-supabase-cli-2.9.4"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/ffm06zr3r4kyl5gjdrbg0h3bbavy28a9-supabase-cli-2.9.4",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/ffm06zr3r4kyl5gjdrbg0h3bbavy28a9-supabase-cli-2.9.4"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/1ipnfbbwq2sii6g73hbn74z2fn05ckpf-supabase-cli-2.9.4",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/1ipnfbbwq2sii6g73hbn74z2fn05ckpf-supabase-cli-2.9.4"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/ibzcdr2j9qlfl1icxwmaa1y325783qwi-supabase-cli-2.9.4",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/ibzcdr2j9qlfl1icxwmaa1y325783qwi-supabase-cli-2.9.4"
-        }
-      }
-    },
     "toml-cli@latest": {
       "last_modified": "2024-12-23T21:10:33Z",
       "resolved": "github:NixOS/nixpkgs/de1864217bfa9b5845f465e771e0ecb48b30e02d#toml-cli",
