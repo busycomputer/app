@@ -37,24 +37,32 @@ jobs:
           devbox run prepare
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
 
       - name: Link Supabase
-        run: pnpm exec supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
 
       - name: Check Database Changes
-        run: pnpm exec supabase db push --dry-run --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:db:push:dry-run
 
       - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
-        run: pnpm exec vercel deploy --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:deploy:preview
 
   deploy:
     needs: test
@@ -79,25 +87,33 @@ jobs:
           devbox run prepare
 
       - name: Link Vercel Project
-        run: pnpm exec vercel link --yes --project ${{ env.VERCEL_PROJECT_ID }} --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
 
       - name: Pull Preview Environment Variables
-        run: pnpm exec vercel env pull .env --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
 
       - name: Link Supabase
-        run: pnpm exec supabase link --project-ref ${{ secrets.SUPABASE_PROJECT_REF }} --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
 
       - name: Deploy Database Changes
-        run: pnpm exec supabase db push --password ${{ secrets.SUPABASE_DB_PASSWORD }}
         env:
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:db:push
 
       - name: Deploy Edge Functions
-        run: pnpm exec supabase functions deploy
         env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+        run: devbox run supabase:functions:deploy
 
       - name: Deploy to Vercel
-        run: pnpm exec vercel deploy --prod --token=${{ secrets.VERCEL_TOKEN }}
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:deploy:production
