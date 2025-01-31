@@ -6,9 +6,7 @@
     "coreutils@latest",
     "act@latest",
     "docker@latest",
-    "toml-cli@latest",
-    "supabase-cli@latest",
-    "nodePackages.vercel@latest"
+    "toml-cli@latest"
   ],
   "env": {},
   "shell": {
