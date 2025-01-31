@@ -9,19 +9,18 @@
       "settings": {},
       "extensions": [
         "jetpack-io.devbox",
-        "GitHub.codespaces",
-        "GitHub.vscode-pull-request-github",
+        "ms-azuretools.vscode-docker",
         "github.vscode-github-actions",
-        "GitHub.github-vscode-theme",
-        "GitHub.remotehub"
+        "ms-python.python",
+        "fuadpashayev.bottom-terminal"
       ]
     }
   },
-  "remoteUser": "devbox",
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
   },
   "runArgs": [
     "--network=host" // Use host network
-  ]
+  ],
+  "remoteUser": "devbox"
 }
