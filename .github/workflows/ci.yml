@@ -17,54 +17,42 @@ env:
   COMPOSE_DOCKER_CLI_BUILD: 1
 
 jobs:
-  setup-env:
+  test:
     runs-on: ubuntu-latest
-    outputs:
-      setup-cache-key: ${{ steps.setup-cache.outputs.cache-key }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: jetify-com/devbox-install-action@v0.12.0
         with:
           enable-cache: true
-      
-      - id: setup-cache
+
+      - name: Setup environment
         run: |
           mkdir -p .devbox/gen/flake/glibc-patch
           echo "glibc-patch.url=\"path:$GITHUB_WORKSPACE/.devbox/gen/flake/glibc-patch\"" > .devbox/gen/flake/flake.nix
-          echo "cache-key=$(date +%s)" >> $GITHUB_OUTPUT
-          
-      - name: Install and Configure
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
-          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
-          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+
+      - name: Install dependencies
         run: |
           devbox install
           devbox run prepare
-          devbox run vercel:link
-          devbox run vercel:env:pull
-          devbox run supabase:link
 
-      - name: Cache Setup
-        uses: actions/cache@v3
-        with:
-          path: |
-            .devbox
-            ~/.cache/devbox
-          key: ${{ runner.os }}-devbox-${{ steps.setup-cache.outputs.cache-key }}
+      - name: Link Vercel Project
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
 
-  test:
-    needs: setup-env
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/cache@v3
-        with:
-          path: |
-            .devbox
-            ~/.cache/devbox
-          key: ${{ runner.os }}-devbox-${{ needs.setup-env.outputs.setup-cache-key }}
+      - name: Pull Preview Environment Variables
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
+
+      - name: Link Supabase
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
 
       - name: Check Database Changes
         env:
@@ -72,31 +60,64 @@ jobs:
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
         run: devbox run supabase:db:push:dry-run
 
-      - name: Deploy Preview
+      - name: Deploy Preview to Vercel
         if: github.event_name == 'pull_request'
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: devbox run vercel:deploy:preview
 
   deploy:
-    needs: [setup-env, test]
+    needs: test
     runs-on: ubuntu-latest
     if: (github.event_name == 'push' || github.event_name == 'merge_group') && github.ref == 'refs/heads/main'
+
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/cache@v3
-        with:
-          path: |
-            .devbox
-            ~/.cache/devbox
-          key: ${{ runner.os }}-devbox-${{ needs.setup-env.outputs.setup-cache-key }}
 
-      - name: Deploy Changes
+      - uses: jetify-com/devbox-install-action@v0.12.0
+        with:
+          enable-cache: true
+
+      - name: Setup environment
+        run: |
+          mkdir -p .devbox/gen/flake/glibc-patch
+          echo "glibc-patch.url=\"path:$GITHUB_WORKSPACE/.devbox/gen/flake/glibc-patch\"" > .devbox/gen/flake/flake.nix
+
+      - name: Install dependencies
+        run: |
+          devbox install
+          devbox run prepare
+
+      - name: Link Vercel Project
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: devbox run vercel:link
+
+      - name: Pull Preview Environment Variables
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:env:pull
+
+      - name: Link Supabase
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+          SUPABASE_PROJECT_REF: ${{ secrets.SUPABASE_PROJECT_REF }}
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+        run: devbox run supabase:link
+
+      - name: Deploy Database Changes
+        env:
           SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
           SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
-        run: |
-          devbox run supabase:db:push
-          devbox run supabase:functions:deploy
-          devbox run vercel:deploy:production
+        run: devbox run supabase:db:push
+
+      - name: Deploy Edge Functions
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+        run: devbox run supabase:functions:deploy
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: devbox run vercel:deploy:production
