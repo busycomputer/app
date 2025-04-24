@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
   "packages": [
     "nodejs_22@latest",
-    "corepack@latest",
+    "pnpm@latest",
     "coreutils@latest",
     "docker@latest",
     "toml-cli@latest"
@@ -20,16 +20,7 @@
     ],
     "scripts": {
       "prepare": [
-        "corepack install",
-        "alias pnpm='corepack pnpm'",
-        "alias pnpx='corepack pnpx'",
-        "pnpm install --force",
-        "pnpx supabase start",
-        "pnpm types",
-        "pnpm format",
-        "pnpm lint",
-        "pnpm build",
-        "pnpm test"
+        "pnpm install"
       ],
       "dev": [
         "pnpx inngest-cli@latest dev & pnpm dev"
