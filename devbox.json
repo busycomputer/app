@@ -5,7 +5,8 @@
     "pnpm@latest",
     "coreutils@latest",
     "docker@latest",
-    "toml-cli@latest"
+    "toml-cli@latest",
+    "direnv@latest"
   ],
   "env": {
     "VERCEL_TOKEN": "${VERCEL_TOKEN}",
