@@ -1,26 +1,27 @@
 {
-  "name": "Devbox Remote Container",
-  "build": {
-    "dockerfile": "./Dockerfile",
-    "context": ".."
-  },
+  "name": "Development Container",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
   "customizations": {
     "vscode": {
       "settings": {},
       "extensions": [
-        "jetpack-io.devbox",
         "ms-azuretools.vscode-docker",
         "github.vscode-github-actions",
         "ms-python.python",
-        "fuadpashayev.bottom-terminal"
+        "fuadpashayev.bottom-terminal",
+        "jetpack-io.devbox"
       ]
     }
   },
   "features": {
-    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    "ghcr.io/devcontainers/features/nix:1": {
+      "packages": [
+        "devbox"
+      ]
+    }
   },
   "runArgs": [
-    "--network=host" // Use host network
-  ],
-  "remoteUser": "devbox"
+    "--network=host"
+  ]
 }
