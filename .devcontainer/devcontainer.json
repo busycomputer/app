@@ -16,12 +16,8 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
     "ghcr.io/devcontainers/features/nix:1": {
-      "packages": [
-        "devbox"
-      ]
+      "packages": ["devbox"]
     }
   },
-  "runArgs": [
-    "--network=host"
-  ]
+  "runArgs": ["--network=host"]
 }
