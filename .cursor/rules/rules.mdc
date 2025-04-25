@@ -4,6 +4,7 @@ globs:
 alwaysApply: false
 ---
 - Use `pnpm` package manager
+- Must enter `devbox shell`
 - Refer `inngest` docs always
 - Adhere to existing pattern
 - Source files should be in `src` folder
