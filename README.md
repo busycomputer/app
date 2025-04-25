@@ -14,7 +14,7 @@ curl -fsSL https://get.jetpack.io/devbox | bash
 
 Start the devbox shell:
 
-```sh 
+```sh
 devbox shell
 ```
 
@@ -28,16 +28,16 @@ devbox run <script>
 
 Scripts are custom commands that can be run using this project's environment. This project has the following scripts:
 
-* [dev](#devbox-run-dev)
-* [prepare](#devbox-run-prepare)
-* [supabase:db:push](#devbox-run-supabase:db:push)
-* [supabase:db:push:dry-run](#devbox-run-supabase:db:push:dry-run)
-* [supabase:functions:deploy](#devbox-run-supabase:functions:deploy)
-* [supabase:link](#devbox-run-supabase:link)
-* [vercel:deploy:preview](#devbox-run-vercel:deploy:preview)
-* [vercel:deploy:production](#devbox-run-vercel:deploy:production)
-* [vercel:env:pull](#devbox-run-vercel:env:pull)
-* [vercel:link](#devbox-run-vercel:link)
+- [dev](#devbox-run-dev)
+- [prepare](#devbox-run-prepare)
+- [supabase:db:push](#devbox-run-supabase:db:push)
+- [supabase:db:push:dry-run](#devbox-run-supabase:db:push:dry-run)
+- [supabase:functions:deploy](#devbox-run-supabase:functions:deploy)
+- [supabase:link](#devbox-run-supabase:link)
+- [vercel:deploy:preview](#devbox-run-vercel:deploy:preview)
+- [vercel:deploy:production](#devbox-run-vercel:deploy:production)
+- [vercel:env:pull](#devbox-run-vercel:env:pull)
+- [vercel:link](#devbox-run-vercel:link)
 
 ## Environment
 
@@ -62,11 +62,11 @@ export PATH=$(pwd)/node_modules/.bin:$PATH
 
 ## Packages
 
-* [nodejs_22@latest](https://www.nixhub.io/packages/nodejs_22)
-* [corepack@latest](https://www.nixhub.io/packages/corepack)
-* [coreutils@latest](https://www.nixhub.io/packages/coreutils)
-* [docker@latest](https://www.nixhub.io/packages/docker)
-* [toml-cli@latest](https://www.nixhub.io/packages/toml-cli)
+- [nodejs_22@latest](https://www.nixhub.io/packages/nodejs_22)
+- [corepack@latest](https://www.nixhub.io/packages/corepack)
+- [coreutils@latest](https://www.nixhub.io/packages/coreutils)
+- [docker@latest](https://www.nixhub.io/packages/docker)
+- [toml-cli@latest](https://www.nixhub.io/packages/toml-cli)
 
 ## Script Details
 
@@ -158,7 +158,5 @@ pnpx vercel link --yes --project ${VERCEL_PROJECT_ID} --token=${VERCEL_TOKEN}
 ```
 
 &ensp;
-
-
 
 <!-- gen-readme end -->
