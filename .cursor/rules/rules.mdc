@@ -1,0 +1,10 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+- Use `pnpm` package manager
+- Refer `inngest` docs always
+- Adhere to existing pattern
+- Source files should be in `src` folder
+- Use `dev` script in `devbox.json` for local development
