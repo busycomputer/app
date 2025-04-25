@@ -1,12 +1,12 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'jest'
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals'
 import { runOnDemand } from '../run-on-demand'
 import { inngest } from '@/lib/inngest'
 import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
 
 // Mock the inngest dependency
-vi.mock('@/lib/inngest', () => ({
+jest.mock('@/lib/inngest', () => ({
   inngest: {
-    send: vi.fn().mockResolvedValue({ status: 'success' }),
+    send: jest.fn().mockResolvedValue({ status: 'success' }),
   },
 }))
 
@@ -16,11 +16,11 @@ describe('runOnDemand server action', () => {
 
   beforeEach(() => {
     // Clear mock calls between tests
-    vi.clearAllMocks()
+    jest.clearAllMocks()
   })
 
   afterEach(() => {
-    vi.resetAllMocks()
+    jest.resetAllMocks()
   })
 
   it('should successfully send an event to Inngest', async () => {
@@ -49,7 +49,7 @@ describe('runOnDemand server action', () => {
   it('should handle errors when sending an event fails', async () => {
     // Mock the send function to reject with an error
     const mockError = new Error('Failed to send event')
-    vi.mocked(inngest.send).mockRejectedValueOnce(mockError)
+    jest.mocked(inngest.send).mockRejectedValueOnce(mockError)
 
     // Use try/catch to test the error handling
     try {
@@ -94,7 +94,7 @@ describe('runOnDemand server action', () => {
     ]
 
     for (const testCase of testCases) {
-      vi.clearAllMocks()
+      jest.clearAllMocks()
       
       await runOnDemand(testCase)
       

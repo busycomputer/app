@@ -19,7 +19,7 @@
     "init_hook": ["export PATH=$(pwd)/node_modules/.bin:$PATH"],
     "scripts": {
       "prepare": ["pnpm install"],
-      "dev": ["pnpx inngest-cli@latest dev & pnpm dev"],
+      "dev": ["inngest dev & pnpm dev"],
       "vercel:link": [
         "pnpx vercel link --yes --project ${VERCEL_PROJECT_ID} --token=${VERCEL_TOKEN}"
       ],

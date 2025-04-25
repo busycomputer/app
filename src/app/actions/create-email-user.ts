@@ -42,7 +42,7 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   console.log('[CREATED USER]:', newUser)
   redirect('/dashboard')
 }
-const GUEST_EMAIL_PREFIX = '@guest.buzycomputer.com'
+const GUEST_EMAIL_PREFIX = '@guest.busycomputer.com'
 export const loginAsGuest = async () => {
   const client = await createServerClient()
   const id = ulid()
