@@ -4,7 +4,7 @@ import WorkFlowSection from "./work-flow-section";
 
 export default function Hero() {
   return (
-    <div className="bg-neutral-950">
+    <div className="bg-neutral-950 px-7">
       <div className="relative h-screen w-full bg-box-neutral-700">
         <div className="bg-circle-gradient absolute -top-3 left-1/2 h-[465px] w-[365px] -translate-x-1/2 rounded-full blur-[400px]"/>
         <div className="h-36"/>

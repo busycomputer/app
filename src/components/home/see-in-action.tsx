@@ -5,7 +5,7 @@ import workFlow5 from '@/assets/images/workflow-image5.png'
 export default function SeeInAction() {
   return (
     <Bounded className="h-screen ">
-      <p className="text- mx-auto  w-fit text-primary mt-[100px]">SEE IN ACTION</p>
+      <p className="font-sans-plex mx-auto  w-fit text-primary mt-[100px]">SEE IN ACTION</p>
       <h1 className="font-space mx-auto w-fit text-4xl mb-16 mt-6">SEE HOW BC WORKS</h1>
       <div className="flex flex-col">
         <div className="">

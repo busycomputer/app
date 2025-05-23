@@ -3,12 +3,14 @@ import { Input } from '@/components/ui/input'
 
 export default function EarlyAccessInput() {
   return (
-    <div className="mx-auto font-space-mono flex w-full max-w-[580px] justify-center h-[60px] mt-11 mb-[70px] ">
+    <div className="font-space-mono mx-auto mb-[70px] mt-11 flex h-[45px] w-full max-w-[450] justify-center lg:h-[60px] lg:max-w-[580px]">
       <Input
         placeholder="ENTER YOUR WORK EMAIL"
-        className="w-full max-w-96 rounded-l-sm rounded-r-none bg-white text-lg h-full font-bold mr-0 text-primary placeholder:bg-white placeholder:tracking-widest placeholder:font-thin"
+        className="mr-0 h-full w-full max-w-96 rounded-l-sm rounded-r-none bg-white font-bold text-primary placeholder:bg-white placeholder:font-thin lg:placeholder:tracking-widest text-sm lg:text-lg"
       />
-      <Button className="-ml-1 h-full hover:bg-primary  rounded-l-none rounded-r-[4px]">GET EARLY ACCESS</Button>
+      <Button className="-ml-1 h-full rounded-l-none rounded-r-[4px] hover:bg-primary">
+        GET EARLY ACCESS
+      </Button>
     </div>
   )
 }
