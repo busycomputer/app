@@ -1,0 +1,9 @@
+import Star from '@/assets/icons/star.svg'
+
+export default function StarIcon() {
+  return (
+    <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0 14.98H14V0.98H0V14.98Z" fill="#797C86" />
+    </svg>
+  )
+}
