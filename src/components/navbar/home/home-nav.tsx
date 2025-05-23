@@ -5,11 +5,15 @@ import { buttonVariants } from '@/components/ui/button'
 import Bounded from '@/components/elements/Bounded'
 import BcLogo from '@/assets/images/logo_Image.png'
 import LogoRow from '@/components/Icons/logo-row'
+import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 
 export default function HomeNav() {
   return (
-    <div className="sticky top-0 z-50 border-b border-b-neutral-900/95 bg-neutral-950/95 py-2 backdrop-blur-md">
-      <Bounded as={'nav'} className="flex items-center justify-between">
+    <div className="sticky top-0 z-50 flex h-36 items
+    -center justify-center ">
+
+      <Image src={ButtonContainer} alt="Logo" />
+      {/* <Bounded as={'nav'} className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-1">
           <LogoRow />
         </div>
@@ -26,7 +30,7 @@ export default function HomeNav() {
             Sign in
           </Link>
         </div>
-      </Bounded>
+      </Bounded> */}
     </div>
   )
 }
