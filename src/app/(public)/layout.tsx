@@ -1,18 +1,23 @@
 import React from 'react'
+import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import { metadata } from '@/app/metadata'
-import HomeNav from '@/components/navbar/home/home-nav'
+import Image from 'next/image'
+import Footer from '@/components/home/footer'
+import Navbar from '@/components/navbar/navbar'
 
 export { metadata }
 
+// const space = 
 export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <>
-      <HomeNav />
+    <div className="bg-black">
+      <Navbar/>
       {children}
-    </>
+      <Footer/>
+    </div>
   )
 }
