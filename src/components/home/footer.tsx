@@ -95,8 +95,8 @@ const Footer = () => {
                 <p className="font-space">BUSY COMPUTER</p>
               </div>
 
-              <div className="flex items-center ">
-                <div className="">
+              <div className="flex items-center flex-wrap">
+                <div className="lg:block hidden">
                   <p className="font-space-mono px-5 text-xl">Stay Connected</p>
                 </div>
                 <div className=" p-4">
