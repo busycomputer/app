@@ -10,11 +10,7 @@ type BoundedProps = {
 const Bounded = React.forwardRef<HTMLDivElement, BoundedProps>(
   ({ as: Comp = 'section', className, children, ...restProps }, ref) => {
     return (
-      <Comp
-        ref={ref}
-        className={cn('mx-auto w-full max-w-5xl', className)}
-        {...restProps}
-      >
+      <Comp ref={ref} className={cn('mx-auto w-full max-w-5xl', className)} {...restProps}>
         {children}
       </Comp>
     )

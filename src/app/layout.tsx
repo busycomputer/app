@@ -1,13 +1,12 @@
 import React from 'react'
 import '@/app/globals.css'
 import { Toaster } from 'react-hot-toast'
+import { Space_Mono, IBM_Plex_Sans, Space_Grotesk } from 'next/font/google'
+import localFont from 'next/font/local'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
-import { geistSans as sans, geistMono as mono, space } from 'src/fonts'
-import { Space_Mono, IBM_Plex_Sans, Space_Grotesk } from 'next/font/google'
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
-import localFont from 'next/font/local'
 
 export { metadata }
 
@@ -28,7 +27,8 @@ const SpaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
-export const Space = localFont({
+// @ts-ignore
+export const space = localFont({
   src: './SpaceType-Regular.woff',
   variable: '--font-space',
   weight: '100 900',
@@ -45,7 +45,7 @@ export default function RootLayout({
         className={cn(
           plexSansMono.variable,
           spaceMono.variable,
-          Space.variable,
+          space.variable,
           SpaceGrotesk.variable,
           'antialiased'
         )}

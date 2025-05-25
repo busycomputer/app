@@ -5,16 +5,12 @@ import { Event } from '@/lib/inngest/types'
 import { EVENT_RUN_ON_DEMAND } from '@/lib/constants'
 import { createServerClient } from '@/lib/supabase/server'
 
-export async function runOnDemand({
-  workflow_id,
-}: {
-  workflow_id: string
-}) {
+export async function runOnDemand({ workflow_id }: { workflow_id: string }) {
   // Input validation
   if (!workflow_id) {
     throw new Error('workflow_id is required')
   }
-  
+
   const supabase = await createServerClient()
   const {
     data: { user },
@@ -37,10 +33,10 @@ export async function runOnDemand({
 
   // Send the event to Inngest, letting any errors propagate
   const { ids } = await inngest.send(onDemandEvent)
-  const eventId = ids && ids.length > 0 ? ids[0] : undefined;
+  const eventId = ids && ids.length > 0 ? ids[0] : undefined
 
   // Log the event ID or handle potential undefined case if needed
-  console.log(`Sent Inngest event with ID: ${eventId}`);
+  console.log(`Sent Inngest event with ID: ${eventId}`)
 
   return { success: true, eventId: eventId }
 }

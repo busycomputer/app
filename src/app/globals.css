@@ -100,7 +100,8 @@ body {
 
 .background-primary-gradient {
   background-color: hsla(149, 0%, 0%, 1);
-  background-image: radial-gradient(at 36% 49%, hsla(24, 0%, 0%, 1) 0px, transparent 50%),
+  background-image:
+    radial-gradient(at 36% 49%, hsla(24, 0%, 0%, 1) 0px, transparent 50%),
     radial-gradient(at 67% 0%, hsla(74, 0%, 0%, 1) 0px, transparent 50%),
     radial-gradient(at 100% 100%, hsla(149, 44%, 54%, 1) 0px, transparent 50%),
     radial-gradient(at 100% 0%, hsla(172, 47%, 44%, 1) 0px, transparent 50%),
@@ -108,7 +109,6 @@ body {
     radial-gradient(at 0% 99%, hsla(149, 44%, 54%, 1) 0px, transparent 50%),
     radial-gradient(at 4% 26%, hsla(341, 0%, 0%, 1) 0px, transparent 50%);
 }
-
 
 .font-space-mono {
   font-family: var(--font-space-mono);

@@ -1,10 +1,9 @@
 import React from 'react'
-import ButtonContainer from '@/assets/icons/Buttons Container.svg'
-
 import { Moon } from 'lucide-react'
 // Add SVG icons for social media here
 import Link from 'next/link'
 import Image from 'next/image'
+import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import Logo from '@/assets/images/logo-192x192.png'
 import BzLogo from '../Icons/bz-logo'
 import LinkedId from '../icons/linkedId'
@@ -95,14 +94,14 @@ const Footer = () => {
                 <p className="font-space">BUSY COMPUTER</p>
               </div>
 
-              <div className="flex items-center flex-wrap">
-                <div className="lg:block hidden">
+              <div className="flex flex-wrap items-center">
+                <div className="hidden lg:block">
                   <p className="font-space-mono px-5 text-xl">Stay Connected</p>
                 </div>
-                <div className=" p-4">
+                <div className="p-4">
                   <Twitter />
                 </div>
-                <div className=" p-4">
+                <div className="p-4">
                   <LinkedId />
                 </div>
               </div>

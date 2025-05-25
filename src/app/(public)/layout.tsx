@@ -1,7 +1,7 @@
 import React from 'react'
+import Image from 'next/image'
 import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import { metadata } from '@/app/metadata'
-import Image from 'next/image'
 import Footer from '@/components/home/footer'
 import Navbar from '@/components/navbar/navbar'
 import SmoothScrollWrapper from '@/components/wrappers/SmoothScrollWrapper'
