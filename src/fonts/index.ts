@@ -16,4 +16,3 @@ export const space = localFont({
   variable: '--font-space',
   weight: '100 900',
 })
-

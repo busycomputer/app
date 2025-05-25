@@ -9,7 +9,7 @@ export default function Feature() {
   return (
     <Bounded className="px-7">
       <p className="font-sans-plex w-fit pt-24 text-base text-primary md:mx-auto">FEATURES</p>
-      <h1 className="font-space mb-10 lg:mb-16 lg:mt-6 w-fit text-2xl md:mx-auto md:text-4xl">
+      <h1 className="font-space mb-10 w-fit text-2xl md:mx-auto md:text-4xl lg:mb-16 lg:mt-6">
         DESIGN FOR SCALE. BUILD TO CONTROL
       </h1>
       <div className="space-y-2 md:space-y-0">

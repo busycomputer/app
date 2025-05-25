@@ -57,7 +57,7 @@ describe('runOnDemand server action', () => {
         workflow_id: mockWorkflowId,
         user_id: mockUserId,
       })
-      
+
       // If we get here, the test should fail because an error was expected
       expect(true).toBe(false) // This line should not execute
     } catch (error) {
@@ -95,9 +95,9 @@ describe('runOnDemand server action', () => {
 
     for (const testCase of testCases) {
       jest.clearAllMocks()
-      
+
       await runOnDemand(testCase)
-      
+
       expect(inngest.send).toHaveBeenCalledTimes(1)
       expect(inngest.send).toHaveBeenCalledWith({
         name: EVENT_RUN_ON_DEMAND,

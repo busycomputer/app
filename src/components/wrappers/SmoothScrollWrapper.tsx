@@ -1,13 +1,9 @@
-"use client";
+'use client'
 
-import { ReactLenis } from "@studio-freight/react-lenis";
+import { ReactLenis } from '@studio-freight/react-lenis'
 // import { useEffect, useRef } from "react";
 
-export default function SmoothScrollWrapper({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function SmoothScrollWrapper({ children }: { children: React.ReactNode }) {
   // Locomotive scroll
 
   // useEffect(()=>{
@@ -23,5 +19,5 @@ export default function SmoothScrollWrapper({
     <ReactLenis className="" root>
       {children}
     </ReactLenis>
-  );
+  )
 }
