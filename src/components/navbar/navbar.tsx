@@ -1,11 +1,11 @@
-import Image from "next/image";
+import Image from 'next/image'
 import ButtonContainer from '@/assets/icons/Buttons Container.svg'
-
+import Logo from '../icons/logo'
 
 export default function Navbar() {
   return (
-    <div className="absolute top-0 h-36 z-50 w-full flex items-center justify-center">
-        <Image src={ButtonContainer} alt="Logo"/>
+    <div className="absolute top-0 z-50 flex h-32 w-full items-center justify-center md:h-36">
+      <Logo className="w-14 md:h-[83px] md:w-[77px]" />
     </div>
   )
 }
