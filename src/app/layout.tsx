@@ -27,8 +27,7 @@ const SpaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
-// @ts-ignore
-export const space = localFont({
+const space = localFont({
   src: './SpaceType-Regular.woff',
   variable: '--font-space',
   weight: '100 900',
