@@ -1,8 +1,6 @@
-import StarIcon from '@/components/icons/star-icon'
-
 export default function HeroDescription() {
   return (
-    <div className="mx-auto flex max-w-screen-xl flex-col items-center sm:h-60 lg:h-72">
+    <div className="mx-auto flex max-w-screen-xl flex-col items-center sm:h-60 lg:h-72 ">
       <div className="font-space-mono mx-3 flex max-w-96 shrink-0 items-center gap-3 overflow-hidden border-2 bg-[#070708] px-1 py-1 text-xs font-light text-muted-foreground sm:px-2 sm:py-2 md:mb-3 md:text-sm lg:font-normal">
         <span className="h-8 w-8 shrink-0 bg-[#131316] md:h-10 md:w-10"></span>
         <p className="line-clamp-1">AUTOMATE, OPTIMIZE, OWN YOUR STACK</p>

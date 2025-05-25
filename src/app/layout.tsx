@@ -4,8 +4,8 @@ import { Toaster } from 'react-hot-toast'
 import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
-import { geistSans as sans, geistMono as mono ,space} from 'src/fonts'
-import { Space_Mono,IBM_Plex_Sans,Space_Grotesk } from 'next/font/google'
+import { geistSans as sans, geistMono as mono, space } from 'src/fonts'
+import { Space_Mono, IBM_Plex_Sans, Space_Grotesk } from 'next/font/google'
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
 import localFont from 'next/font/local'
 
@@ -14,13 +14,13 @@ export { metadata }
 const spaceMono = Space_Mono({
   subsets: ['latin'],
   variable: '--font-space-mono',
-  weight: '400'
+  weight: '400',
 })
 
 const plexSansMono = IBM_Plex_Sans({
   subsets: ['latin'],
   variable: '--font-sans-plex',
-  weight: '400'
+  weight: '400',
 })
 
 const SpaceGrotesk = Space_Grotesk({
@@ -28,12 +28,11 @@ const SpaceGrotesk = Space_Grotesk({
   variable: '--font-space-grotesk',
 })
 
-export const space = localFont({
+export const Space = localFont({
   src: './SpaceType-Regular.woff',
   variable: '--font-space',
   weight: '100 900',
 })
-
 
 export default function RootLayout({
   children,
@@ -42,7 +41,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={cn(plexSansMono.variable, spaceMono.variable,space.variable ,SpaceGrotesk.variable, 'antialiased')}>
+      <body
+        className={cn(
+          plexSansMono.variable,
+          spaceMono.variable,
+          Space.variable,
+          SpaceGrotesk.variable,
+          'antialiased'
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
