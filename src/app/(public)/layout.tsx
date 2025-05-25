@@ -4,10 +4,11 @@ import { metadata } from '@/app/metadata'
 import Image from 'next/image'
 import Footer from '@/components/home/footer'
 import Navbar from '@/components/navbar/navbar'
+import SmoothScrollWrapper from '@/components/wrappers/SmoothScrollWrapper'
 
 export { metadata }
 
-// const space = 
+// const space =
 export default function PublicLayout({
   children,
 }: Readonly<{
@@ -15,9 +16,11 @@ export default function PublicLayout({
 }>) {
   return (
     <div className="bg-black">
-      <Navbar/>
-      {children}
-      <Footer/>
+      <SmoothScrollWrapper>
+        <Navbar />
+        {children}
+        <Footer />
+      </SmoothScrollWrapper>
     </div>
   )
 }
