@@ -90,12 +90,12 @@ const Footer = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-lg">
               <Image src={ButtonContainer} alt="Logo" />
-              <p className="font-space sm:block hidden">BUSY COMPUTER</p>
+              <p className="font-space hidden sm:block">BUSY COMPUTER</p>
             </div>
 
             <div className="flex h-16 flex-wrap items-center border">
               <div className="hidden h-full items-center border-r lg:flex">
-                <p className="font-space-mono text-mutedText px-5 text-sm md:text-lg">
+                <p className="font-space-mono px-5 text-sm text-mutedText md:text-lg">
                   Stay Connected
                 </p>
               </div>
