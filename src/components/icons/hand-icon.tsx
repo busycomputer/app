@@ -1,4 +1,7 @@
-export default function HandIcon() {
+import { Ref } from 'react'
+
+export default function HandIcon({ ref }: { ref?: Ref<HTMLDivElement> }) {
+
   return (
     <svg
       width="110"
