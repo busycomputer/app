@@ -6,8 +6,8 @@ import Image from 'next/image'
 import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import Logo from '@/assets/images/logo-192x192.png'
 import BzLogo from '../Icons/bz-logo'
-import LinkedId from '../icons/linkedId'
-import Twitter from '../icons/twitter'
+import LinkedId from '../svg/linkedId'
+import Twitter from '../svg/twitter'
 
 const Footer = () => {
   const productLinks = [

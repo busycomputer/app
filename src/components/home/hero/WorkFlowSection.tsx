@@ -1,7 +1,7 @@
 'use client'
 
 import { Ref, useEffect, useRef, useState } from 'react'
-import HandIcon from '@/components/icons/hand-icon'
+import HandIcon from '@/components/svg/hand-icon'
 import { ConnectionNode, TPathDetails } from './connection-node'
 
 export default function WorkFlowSection() {

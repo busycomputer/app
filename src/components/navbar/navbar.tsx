@@ -1,4 +1,4 @@
-import Logo from '../icons/logo'
+import Logo from '../svg/logo'
 
 export default function Navbar() {
   return (
