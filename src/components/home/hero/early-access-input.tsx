@@ -1,4 +1,4 @@
-import TangledSideArrow from '@/components/icons/tangled-side-arrow'
+import TangledSideArrow from '@/components/svg/tangled-side-arrow'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
