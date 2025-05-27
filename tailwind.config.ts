@@ -14,6 +14,7 @@ const config: Config = {
       //   'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
       // },
       colors: {
+        mutedText: 'hsl(var(--muted-text))',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

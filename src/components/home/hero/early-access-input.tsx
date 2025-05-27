@@ -10,7 +10,6 @@ export default function EarlyAccessInput() {
       </div>
       <Input
         placeholder="ENTER YOUR WORK EMAIL"
-        // className="lg:text[16px] mr-0 h-full w-full max-w-44 rounded-l-sm rounded-r-none bg-white px-6 py-4 text-sm font-bold text-primary placeholder:bg-white placeholder:text-[10px] placeholder:font-thin sm:max-w-56 md:max-w-64 md:placeholder:text-xs lg:max-w-96 lg:leading-[28px] lg:placeholder:text-sm lg:placeholder:tracking-widest xl:placeholder:text-[16px]"
         className="lg:text[16px] mr-0 h-full w-full max-w-44 rounded-l-sm rounded-r-none bg-white px-6 py-2 text-sm font-bold text-primary placeholder:bg-white placeholder:text-[10px] placeholder:font-thin sm:max-w-56 sm:py-3 md:max-w-64 md:placeholder:text-xs lg:max-w-96 lg:py-4 lg:leading-[28px] lg:placeholder:text-sm lg:placeholder:tracking-widest xl:placeholder:text-[16px]"
       />
       <Button className="-ml-1 h-full w-full max-w-28 rounded-l-none rounded-r-[4px] text-[10px] hover:bg-primary sm:max-w-36 md:max-w-56 md:text-xs lg:text-[16px] xl:max-w-[205px]">

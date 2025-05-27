@@ -7,12 +7,12 @@ import workFlow4 from '@/assets/images/workflow-image4.png'
 
 export default function Feature() {
   return (
-    <Bounded className="px-7">
+    <Bounded className="px-7 pt-16 ">
       <p className="font-sans-plex w-fit pt-24 text-base text-primary md:mx-auto">FEATURES</p>
-      <h1 className="font-space mb-10 w-fit text-2xl md:mx-auto md:text-4xl lg:mb-16 lg:mt-6">
+      <h1 className="font-space mb-10 w-fit text-2xl md:mx-auto md:text-4xl lg:mb-16 mt-4 lg:mt-5">
         DESIGN FOR SCALE. BUILD TO CONTROL
       </h1>
-      <div className="font-space-grotesk space-y-2 text-[#CACACA] md:space-y-0">
+      <div className="font-space-grotesk space-y-2 text-mutedText md:space-y-0">
         {/* box1 */}
         <div className="flex flex-col items-center gap-2 md:flex-row md:gap-0">
           {/* <div className="max-md:w-full"> */}

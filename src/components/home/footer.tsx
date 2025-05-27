@@ -86,27 +86,27 @@ const Footer = () => {
       {/* Main Footer Content */}
       <div className="flex h-full items-center">
         <div className="container mx-auto px-6 pb-8 lg:px-16 xl:px-20">
-          <div className="">
-            {/* Logo and Social Links */}
-            <div className="flex justify-between">
-              <div className="flex items-center gap-3 text-lg">
-                <Image src={ButtonContainer} alt="Logo" />
-                <p className="font-space">BUSY COMPUTER</p>
-              </div>
-
-              <div className="flex flex-wrap items-center border h-16">
-                <div className="hidden  border-r h-full lg:flex items-center">
-                  <p className="font-space-mono px-5 text-xl">Stay Connected</p>
-                </div>
-                <div className="p-4 border-r flex items-center h-16 w-16 justify-center">
-                  <Twitter />
-                </div>
-                <div className="p-4 h-16 w-16 flex items-center justify-center">
-                  <LinkedId />
-                </div>
-              </div>
-              {/* <div className="flex space-x-5">Add social media icons/links here</div> */}
+          {/* Logo and Social Links */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 text-lg">
+              <Image src={ButtonContainer} alt="Logo" />
+              <p className="font-space sm:block hidden">BUSY COMPUTER</p>
             </div>
+
+            <div className="flex h-16 flex-wrap items-center border">
+              <div className="hidden h-full items-center border-r lg:flex">
+                <p className="font-space-mono text-mutedText px-5 text-sm md:text-lg">
+                  Stay Connected
+                </p>
+              </div>
+              <div className="flex h-16 w-16 items-center justify-center border-r p-4">
+                <Twitter />
+              </div>
+              <div className="flex h-16 w-16 items-center justify-center p-4">
+                <LinkedId />
+              </div>
+            </div>
+            {/* <div className="flex space-x-5">Add social media icons/links here</div> */}
           </div>
         </div>
       </div>
