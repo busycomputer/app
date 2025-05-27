@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import Logo from '../icons/logo'
 
 export default function Navbar() {
