@@ -10,3 +10,9 @@ export const geistMono = localFont({
   variable: '--font-geist-mono',
   weight: '100 900',
 })
+
+export const space = localFont({
+  src: 'SpaceType-Regular.woff',
+  variable: '--font-space',
+  weight: '100 900',
+})

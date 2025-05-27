@@ -3,8 +3,11 @@ import { Moon } from 'lucide-react'
 // Add SVG icons for social media here
 import Link from 'next/link'
 import Image from 'next/image'
+import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import Logo from '@/assets/images/logo-192x192.png'
 import BzLogo from '../Icons/bz-logo'
+import LinkedId from '../icons/linkedId'
+import Twitter from '../icons/twitter'
 
 const Footer = () => {
   const productLinks = [
@@ -76,37 +79,68 @@ const Footer = () => {
   )
 
   return (
-    <footer className="bg-alternative" aria-labelledby="footerHeading">
+    <footer className="bg-alternative h-60 border-t" aria-labelledby="footerHeading">
       <h2 id="footerHeading" className="sr-only">
         Footer
       </h2>
       {/* Main Footer Content */}
-      <div className="container mx-auto px-6 py-8 lg:px-16 xl:px-20">
-        <div className="xl:grid xl:grid-cols-3 xl:gap-8">
-          {/* Logo and Social Links */}
-          <div className="space-y-8 xl:col-span-1">
-            <Link className="flex max-w-[170px] items-center text-xl font-bold" href="/">
-              <BzLogo />
-            </Link>
-            <div className="flex space-x-5">{/* Add social media icons/links here */}</div>
-          </div>
+      <div className="flex h-full items-center">
+        <div className="container mx-auto px-6 pb-8 lg:px-16 xl:px-20">
+          <div className="">
+            {/* Logo and Social Links */}
+            <div className="flex justify-between">
+              <div className="flex items-center gap-3 text-lg">
+                <Image src={ButtonContainer} alt="Logo" />
+                <p className="font-space">BUSY COMPUTER</p>
+              </div>
 
-          {/* Navigation Links */}
-          <div className="mt-12 grid grid-cols-1 gap-8 xl:col-span-2 xl:mt-0">
+              <div className="flex flex-wrap items-center">
+                <div className="hidden lg:block">
+                  <p className="font-space-mono px-5 text-xl">Stay Connected</p>
+                </div>
+                <div className="p-4">
+                  <Twitter />
+                </div>
+                <div className="p-4">
+                  <LinkedId />
+                </div>
+              </div>
+              {/* <div className="flex space-x-5">Add social media icons/links here</div> */}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
+{
+  /* Navigation Links */
+}
+{
+  /* <LinkColumn title="Product" links={productLinks} /> */
+}
+{
+  /* <LinkColumn title="Resources" links={resourceLinks} /> */
+}
+{
+  /* <LinkColumn title="Developers" links={developerLinks} /> */
+}
+{
+  /* <div className="mt-12 grid grid-cols-1 gap-8 xl:col-span-2 xl:mt-0">
             <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
               <div />
               <div />
               <div />
-              {/* <LinkColumn title="Product" links={productLinks} /> */}
-              {/* <LinkColumn title="Resources" links={resourceLinks} /> */}
-              {/* <LinkColumn title="Developers" links={developerLinks} /> */}
               <LinkColumn title="Company" links={companyLinks} />
             </div>
-          </div>
-        </div>
+          </div> */
+}
 
-        {/* Footer Bottom */}
-        <div className="border-default mt-32 flex justify-between border-t pt-8">
+{
+  /* Footer Bottom */
+}
+{
+  /* <div className="border-default mt-32 flex justify-between border-t pt-8">
           <small className="text-sm">© busycomputer Inc</small>
           <div>
             <button
@@ -120,10 +154,7 @@ const Footer = () => {
               <span className="sr-only">Toggle theme</span>
             </button>
           </div>
-        </div>
-      </div>
-    </footer>
-  )
+        </div> */
 }
 
 export default Footer

@@ -17,6 +17,9 @@ body {
   text-decoration-color: red;
 }
 
+.bg-circle-gradient {
+  background: radial-gradient(circle, #36aa6f 100%, #63637300 0%);
+}
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -42,7 +45,7 @@ body {
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
+    --border: 240 6% 14%;
     --input: 240 5.9% 90%;
     --ring: 154.9 100% 19.2%;
     --radius: 0.5rem;
@@ -73,7 +76,7 @@ body {
     --accent-foreground: 0 0% 98%;
     --destructive: 10.2 77.9% 53.9%;
     --destructive-foreground: 0 0% 98.4%;
-    --border: 0 0% 18%;
+    --border: 240 8% 10%;
     --input: 0 0% 18%;
     --ring: 154.9 100% 19.2%;
     --chart-1: 170.8 43.1% 61.4%;
@@ -105,4 +108,35 @@ body {
     radial-gradient(at 75% 25%, hsla(117, 0%, 0%, 1) 0px, transparent 50%),
     radial-gradient(at 0% 99%, hsla(149, 44%, 54%, 1) 0px, transparent 50%),
     radial-gradient(at 4% 26%, hsla(341, 0%, 0%, 1) 0px, transparent 50%);
+}
+
+.font-space-mono {
+  font-family: var(--font-space-mono);
+}
+
+.font-sans-plex {
+  font-family: var(--font-sans-plex);
+}
+.font-space-grotesk {
+  font-family: var(--font-space-grotesk);
+}
+.font-space {
+  font-family: var(--font-space);
+}
+
+@font-face {
+  font-family: 'SpaceType';
+  src: url('./SpaceType-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.animate-dash  {
+  animation: dash-move 0.6s linear infinite;
+}
+
+@keyframes dash-move {
+  to {
+    stroke-dashoffset: -8;
+  }
 }

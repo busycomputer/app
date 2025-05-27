@@ -4,11 +4,11 @@ import { Editor, Provider, Sidebar } from '@inngest/workflow-kit/ui'
 import { SaveIcon, PlayIcon } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import type { Workflow as InngestWorkflow } from '@inngest/workflow-kit'
+import toast from 'react-hot-toast'
 import type { Workflow as UserWorkflow } from '@/lib/supabase/types'
 import { Button } from '@/components/ui/button'
 import { updateWorkflow } from '@/app/actions/update-workflow'
 import { runOnDemand } from '@/lib/inngest/triggers/run-on-demand'
-import toast from 'react-hot-toast'
 import '@inngest/workflow-kit/ui/ui.css'
 import '@xyflow/react/dist/style.css'
 import '@/app/(protected)/dashboard/workflow/[id]/style.css'
@@ -45,7 +45,9 @@ export const WorkflowEditor = ({ userWorkflow }: { userWorkflow: UserWorkflow })
       }
     } catch (error) {
       console.error('Failed to trigger workflow run:', error)
-      toast.error(`Failed to trigger workflow run: ${error instanceof Error ? error.message : 'Unknown error'}`)
+      toast.error(
+        `Failed to trigger workflow run: ${error instanceof Error ? error.message : 'Unknown error'}`
+      )
     } finally {
       setIsRunning(false)
     }
