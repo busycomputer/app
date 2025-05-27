@@ -94,14 +94,14 @@ const Footer = () => {
                 <p className="font-space">BUSY COMPUTER</p>
               </div>
 
-              <div className="flex flex-wrap items-center">
-                <div className="hidden lg:block">
+              <div className="flex flex-wrap items-center border h-16">
+                <div className="hidden  border-r h-full lg:flex items-center">
                   <p className="font-space-mono px-5 text-xl">Stay Connected</p>
                 </div>
-                <div className="p-4">
+                <div className="p-4 border-r flex items-center h-16 w-16 justify-center">
                   <Twitter />
                 </div>
-                <div className="p-4">
+                <div className="p-4 h-16 w-16 flex items-center justify-center">
                   <LinkedId />
                 </div>
               </div>

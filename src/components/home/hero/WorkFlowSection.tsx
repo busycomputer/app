@@ -9,6 +9,7 @@ export default function WorkFlowSection() {
   const boxTwoRef = useRef<HTMLDivElement>(null)
   const boxThreeRef = useRef<HTMLDivElement>(null)
   const boxFourRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef(null)
 
   const groupRef = useRef<HTMLDivElement>(null)
 
@@ -83,13 +84,15 @@ export default function WorkFlowSection() {
       }
     }
 
+    // function updateAnimation() {}
     updatePath()
+
     window.addEventListener('resize', updatePath)
-    // window.addEventListener('scroll', updatePath)
+    // window.addEventListener('scroll', updateAnimation)
 
     return () => {
       window.removeEventListener('resize', updatePath)
-      //   window.removeEventListener('scroll', updatePath)
+      // window.removeEventListener('scroll', updateAnimation)
     }
   }, [])
 
@@ -116,7 +119,7 @@ export default function WorkFlowSection() {
       >
         THEN DO THIS
         <div className="absolute -bottom-[74px] hidden lg:left-8 lg:block">
-          <HandIcon />
+          <HandIcon ref={containerRef} />
         </div>
       </div>
       {/* box 3 */}

@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 
 export default function EarlyAccessInput() {
   return (
-    <div className="font-space-mono relative mx-auto mb-[70px] mt-3 flex h-9 max-w-80 justify-center sm:max-w-96 md:mt-5 md:h-12 lg:mt-11 lg:h-[60px] lg:max-w-[580px]">
+    <div className="font-space-mono relative mx-auto mb-[70px] mt-3 flex h-9 w-full max-w-80 justify-center sm:max-w-96 md:mt-5 md:h-12 lg:mt-11 lg:h-[60px] lg:max-w-[580px]">
       <div className="absolute left-0 top-1/2 -translate-x-[calc(100%-13px)] -translate-y-1/2 sm:-translate-x-[calc(100%-4px)] md:-translate-x-[calc(100%+6px)]">
         <TangledSideArrow className="h-10 w-10 stroke-[#3B3B45] sm:h-20 sm:w-20 md:h-24 md:w-24" />
       </div>
