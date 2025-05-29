@@ -45,6 +45,7 @@ export default function Feature() {
             WORKFLOW MARKETPLACE
           </div>
         </div>
+        {/* box2 */}
         <div className="flex flex-col-reverse items-center gap-2 md:flex-row md:gap-0">
           {/* <div className="max-md:w-full"> */}
           <div className="block w-full basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:hidden md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
