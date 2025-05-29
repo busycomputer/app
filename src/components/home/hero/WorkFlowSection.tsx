@@ -108,14 +108,14 @@ export default function WorkFlowSection() {
       {/* box1 */}
       <div
         ref={boxOneRef}
-        className="h-16 w-full max-w-20 border border-primary p-2 lg:h-[124px] lg:max-w-[200px] lg:p-7"
+        className="h-16 w-full max-w-20 border border-primary bg-black p-2 lg:h-[124px] lg:max-w-[200px] lg:p-7"
       >
         DO THAT
       </div>
       {/* box2 */}
       <div
         ref={boxTwoRef}
-        className="relative h-16 w-full max-w-20 self-end border border-blue-800 p-2 md:self-center lg:h-[124px] lg:max-w-[200px] lg:self-end lg:p-7"
+        className="relative h-16 w-full max-w-20 self-end border border-blue-800 bg-black p-2 md:self-center lg:h-[124px] lg:max-w-[200px] lg:self-end lg:p-7"
       >
         THEN DO THIS
         <div className="absolute -bottom-[74px] hidden lg:left-8 lg:block">
@@ -125,14 +125,14 @@ export default function WorkFlowSection() {
       {/* box 3 */}
       <div
         ref={boxThreeRef}
-        className="h-16 w-full max-w-20 border border-yellow-600 p-2 lg:h-[124px] lg:max-w-[200px] lg:p-7"
+        className="h-16 w-full max-w-20 border border-yellow-600 bg-black p-2 lg:h-[124px] lg:max-w-[200px] lg:p-7"
       >
         THEN THIS
       </div>
       {/* box 4 */}
       <div
         ref={boxFourRef}
-        className="h-16 w-full max-w-20 self-end border border-pink-800 p-2 md:self-center lg:h-[124px] lg:max-w-[200px] lg:self-end lg:p-7"
+        className="h-16 w-full max-w-20 self-end border border-pink-800 bg-black p-2 md:self-center lg:h-[124px] lg:max-w-[200px] lg:self-end lg:p-7"
       >
         DONE!
       </div>
