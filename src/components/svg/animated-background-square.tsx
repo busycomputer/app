@@ -14,7 +14,7 @@ interface RandomBox {
 
 export default function AnimatedBackgroundSquare() {
   const [randomBoxes, setRandomBoxes] = useState<RandomBox[]>([])
-  const [dimensions, setDimensions] = useState({ width: 1800, height: 920 })
+  const [dimensions, setDimensions] = useState({ width: 1950, height: 920 })
   const boxWidth = 40.0812
   const boxHeight = 40.1187
   // const gridCols = Math.floor(1800 / boxWidth)
@@ -84,11 +84,11 @@ export default function AnimatedBackgroundSquare() {
     }
   }, [])
   return (
-    <div className="h-[100vh] w-full overflow-hidden">
+    <div className="h-full w-full overflow-hidden ">
       <svg viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="h-full w-full">
         {' '}
         {/* vertical lines */}
-        {Array.from({ length: 50 }).map((_, i) => {
+        {Array.from({ length: 48 }).map((_, i) => {
           return (
             <line
               key={`vertical-line-${i}`}
@@ -101,14 +101,14 @@ export default function AnimatedBackgroundSquare() {
           )
         })}
         {/* horizontal lines */}
-        {Array.from({ length: 50 }).map((_, i) => {
+        {Array.from({ length: 23 }).map((_, i) => {
           return (
             <line
               key={`horizontal-line-${i}`}
               y1={(i + 1) * boxHeight}
               x1={0}
               y2={(i + 1) * boxHeight}
-              x2={1800}
+              x2={1950}
               stroke="#131316"
             />
           )
