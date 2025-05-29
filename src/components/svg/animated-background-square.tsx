@@ -13,8 +13,9 @@ interface RandomBox {
 }
 
 export default function AnimatedBackgroundSquare() {
-  const [randomBoxes, setRandomBoxes] = useState<RandomBox[]>([])
   const [dimensions, setDimensions] = useState({ width: 1950, height: 920 })
+  const [randomBoxes, setRandomBoxes] = useState<RandomBox[]>([])
+  const [isVisible, setIsVisible] = useState(true)
   const boxWidth = 40.0812
   const boxHeight = 40.1187
   // const gridCols = Math.floor(1800 / boxWidth)
@@ -24,7 +25,7 @@ export default function AnimatedBackgroundSquare() {
   const gridCols = Math.floor(dimensions.width / boxWidth)
   const gridRows = Math.floor(dimensions.height / boxHeight)
   const generateRandomBoxes = () => {
-    const numBoxes = Math.floor(Math.random() * 20) + 5 // 5-29 boxes
+    const numBoxes = Math.floor(Math.random() * 50) + 5 // 5-29 boxes
     const newBoxes: RandomBox[] = []
     const minDistance = 3 // minimum 3 grid cells apart
     const maxAttempts = 100 // prevent infinite loops
@@ -64,10 +65,45 @@ export default function AnimatedBackgroundSquare() {
     setRandomBoxes(newBoxes)
   }
   useEffect(() => {
+    // Handle window focus/blur changes
+    const handleWindowBlur = () => {
+      // Window lost focus (tab switched or window minimized)
+      setIsVisible(false)
+    }
+
+    const handleWindowFocus = () => {
+      // Window gained focus (returned to tab/window)
+      setIsVisible(true)
+      // Clear existing boxes and generate fresh ones when returning
+      setRandomBoxes([])
+      setTimeout(() => {
+        generateRandomBoxes()
+      }, 100) // Small delay to ensure clean state
+    }
+
+    // Add focus/blur listeners
+    window.addEventListener('blur', handleWindowBlur)
+    window.addEventListener('focus', handleWindowFocus)
+
+    // Initial setup
     generateRandomBoxes()
 
-    // Optional: Regenerate boxes every 3 seconds
-    const interval = setInterval(generateRandomBoxes, 1000)
+    // Set up interval that only runs when window is focused
+    let interval: NodeJS.Timeout | null = null
+
+    const startInterval = () => {
+      if (interval) clearInterval(interval)
+      interval = setInterval(() => {
+        // Only generate new boxes if window is focused
+        if (isVisible) {
+          generateRandomBoxes()
+        }
+      }, 1000)
+    }
+
+    startInterval()
+
+    // Handle window resizing
     const updateDimensions = () => {
       setDimensions({
         width: window.innerWidth,
@@ -79,12 +115,18 @@ export default function AnimatedBackgroundSquare() {
     window.addEventListener('resize', updateDimensions)
 
     return () => {
+      window.removeEventListener('blur', handleWindowBlur)
+      window.removeEventListener('focus', handleWindowFocus)
       window.removeEventListener('resize', updateDimensions)
-      clearInterval(interval)
+      if (interval) clearInterval(interval)
     }
-  }, [])
+  }, [isVisible])
+
+  // console.log(randomBoxes)
+  // console.log(isVisible)
+
   return (
-    <div className="h-full w-full overflow-hidden ">
+    <div className="h-full w-full overflow-hidden">
       <svg viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="h-full w-full">
         {' '}
         {/* vertical lines */}

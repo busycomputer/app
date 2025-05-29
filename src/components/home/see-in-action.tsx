@@ -4,9 +4,9 @@ import workFlow5 from '@/assets/images/workflow-image5.png'
 
 export default function SeeInAction() {
   return (
-    <Bounded className="mb-5 px-7 pt-4 lg:mb-10">
+    <Bounded className="mb-5 px-7 pt-6 lg:mb-10 xl:mb-40">
       <p className="font-sans-plex mt-[100px] w-fit text-primary md:mx-auto">SEE IN ACTION</p>
-      <h1 className="font-space mb-10 mt-4 w-fit text-2xl md:mx-auto md:text-4xl lg:mb-16 lg:mt-5">
+      <h1 className="font-space mb-10 mt-1 text-mutedText w-fit text-4xl md:mx-auto md:text-4xl lg:mb-16 lg:mt-5 ">
         SEE HOW BC WORKS
       </h1>
       <div className="flex flex-col">
