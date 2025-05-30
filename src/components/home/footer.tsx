@@ -79,7 +79,7 @@ const Footer = () => {
   )
 
   return (
-    <footer className="bg-alternative h-60 border-t" aria-labelledby="footerHeading">
+    <footer className="bg-alternative h-60 overflow-clip border-t" aria-labelledby="footerHeading">
       <h2 id="footerHeading" className="sr-only">
         Footer
       </h2>
@@ -112,49 +112,6 @@ const Footer = () => {
       </div>
     </footer>
   )
-}
-{
-  /* Navigation Links */
-}
-{
-  /* <LinkColumn title="Product" links={productLinks} /> */
-}
-{
-  /* <LinkColumn title="Resources" links={resourceLinks} /> */
-}
-{
-  /* <LinkColumn title="Developers" links={developerLinks} /> */
-}
-{
-  /* <div className="mt-12 grid grid-cols-1 gap-8 xl:col-span-2 xl:mt-0">
-            <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-              <div />
-              <div />
-              <div />
-              <LinkColumn title="Company" links={companyLinks} />
-            </div>
-          </div> */
-}
-
-{
-  /* Footer Bottom */
-}
-{
-  /* <div className="border-default mt-32 flex justify-between border-t pt-8">
-          <small className="text-sm">© busycomputer Inc</small>
-          <div>
-            <button
-              id="user-settings-dropdown"
-              className="text-foreground-light flex h-7 w-7 items-center justify-center"
-              type="button"
-              aria-haspopup="menu"
-              aria-expanded="false"
-            >
-              <Moon className="h-5 w-5 rotate-90 transition-all dark:rotate-0" />
-              <span className="sr-only">Toggle theme</span>
-            </button>
-          </div>
-        </div> */
 }
 
 export default Footer
