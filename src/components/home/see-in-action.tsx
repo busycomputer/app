@@ -31,7 +31,7 @@ export default function SeeInAction() {
                 viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className='stroke-2'
+                className="stroke-2"
               >
                 <rect x="0.5" y="0.5" width="15" height="15" stroke="#36AA6F" />
               </svg>

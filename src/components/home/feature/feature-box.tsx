@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils'
 import Image, { StaticImageData } from 'next/image'
 import { Ref } from 'react'
+import { cn } from '@/lib/utils'
 
 interface FeatureBox {
   className?: string
@@ -9,13 +9,7 @@ interface FeatureBox {
   label: string
   ref?: Ref<HTMLDivElement>
 }
-export default function FeatureBox({
-  className,
-  imageAlt,
-  imageSrc,
-  label,
-  ref,
-}: FeatureBox) {
+export default function FeatureBox({ className, imageAlt, imageSrc, label, ref }: FeatureBox) {
   return (
     <div className={cn('flex w-full flex-col', className)} ref={ref}>
       {/* hover animation ---> sm:hover:border sm:hover:border-primary transition-transform ease-in-out sm:hover:scale-105 duration-300 */}
