@@ -56,6 +56,7 @@ body {
     --chart-5: 27 87% 67%;
     --surface: 0 0% 100%;
     --surface-foreground: 0 0% 32.2%;
+    --muted-text: 0 0% 79.2%
   }
 
   .dark {
@@ -86,6 +87,7 @@ body {
     --chart-5: 13.8 89.7% 69.6%;
     --surface: 0 0% 9%;
     --surface-foreground: 0 0% 98%;
+    --muted-text: 0 0% 79.2%
   }
 }
 
