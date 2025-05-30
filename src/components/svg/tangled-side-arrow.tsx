@@ -1,4 +1,38 @@
+'use client'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin'
+import { useRef } from 'react'
+
+// Register the plugin
+gsap.registerPlugin(DrawSVGPlugin)
+
 export default function TangledSideArrow({ className }: { className?: string }) {
+  const svgRef = useRef<SVGSVGElement | null>(null)
+  useGSAP(() => {
+    const svg = svgRef.current
+    if (!svg) return
+
+    const paths = svg.querySelectorAll('path')
+
+    gsap.set(paths, { drawSVG: '0%', opacity: 0 })
+
+    const tl = gsap.timeline()
+
+    paths.forEach((path, index) => {
+      tl.to(
+        path,
+        {
+          drawSVG: '100%',
+          duration: 2,
+          ease: 'power2.inOut',
+          opacity: 1,
+        },
+        index * 0.5
+      )
+    })
+  })
+
   return (
     <svg
       width="110"
@@ -7,6 +41,7 @@ export default function TangledSideArrow({ className }: { className?: string }) 
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      ref={svgRef}
     >
       <path
         fillRule="evenodd"
