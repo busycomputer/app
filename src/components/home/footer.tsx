@@ -79,7 +79,7 @@ const Footer = () => {
   )
 
   return (
-    <footer className="bg-alternative h-60 border-t overflow-clip" aria-labelledby="footerHeading">
+    <footer className="bg-alternative h-60 overflow-clip border-t" aria-labelledby="footerHeading">
       <h2 id="footerHeading" className="sr-only">
         Footer
       </h2>
