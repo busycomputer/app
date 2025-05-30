@@ -172,7 +172,7 @@ export default function WorkFlowSection() {
       })
 
       // Create the animation timeline
-      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8 })
+      const tl = gsap.timeline({ repeat: -1, repeatDelay: 0.8, delay: 2 })
 
       // Animate through each position
       positions.forEach((pos, index) => {
@@ -186,16 +186,20 @@ export default function WorkFlowSection() {
           onComplete: () => {
             gsap.to(boxRefs[index], {
               scale: 1,
-              // delay: 0.3,
+              delay: 0.9,
               duration: 1,
               ease: 'sine.out',
+              // border:1
             })
           },
           onStart: () => {
+            // gsap.from(boxRefs[index],{
+            //   border: 2
+            // })
             gsap.to(boxRefs[index], {
               scale: 1.2,
               // delay: 0.3,
-              duration: 1,
+              duration: 0.8,
               ease: 'sine.in',
             })
           },
@@ -222,6 +226,7 @@ export default function WorkFlowSection() {
             scale: 1,
             duration: 1,
             ease: 'sine.out',
+            delay: 0.9,
           })
         },
       })
@@ -267,7 +272,7 @@ export default function WorkFlowSection() {
       className="font-space relative mx-auto flex w-full max-w-sm flex-col justify-between text-[12px] text-muted-foreground md:h-[248px] md:max-w-screen-sm md:flex-row lg:max-w-screen-xl"
     >
       <div className="absolute lg:block">
-        <HandIcon ref={iconRef} className="h-16 w-16 md:h-32 md:w-32" />
+        <HandIcon ref={iconRef} className="z-20 h-16 w-16 md:h-32 md:w-32" />
       </div>
       <ConnectionNode ref={svgPathOneRef} pathDetails={pathOne} />
       <ConnectionNode ref={svgPathTwoRef} pathDetails={pathTwo} />
