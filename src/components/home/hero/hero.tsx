@@ -1,7 +1,7 @@
 import AnimatedBackgroundSquare from '@/components/svg/animated-background-square'
 import EarlyAccessInput from './early-access-input'
 import HeroDescription from './hero-description'
-import WorkFlowSection from './WorkFlowSection'
+import WorkFlowSection from '../work-flow/work-flow-section'
 import Bounded from '@/components/elements/Bounded'
 
 export default function Hero() {

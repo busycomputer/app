@@ -24,6 +24,7 @@ export default function AnimatedBackgroundSquare() {
   // Then update your calculations
   const gridCols = Math.floor(dimensions.width / boxWidth)
   const gridRows = Math.floor(dimensions.height / boxHeight)
+  let count = 0
   const generateRandomBoxes = () => {
     const numBoxes = Math.floor(Math.random() * 50) + 5 // 5-29 boxes
     const newBoxes: RandomBox[] = []
@@ -63,6 +64,12 @@ export default function AnimatedBackgroundSquare() {
     }
 
     setRandomBoxes(newBoxes)
+    count++
+    // console.log(count);
+    if (count > 10) {
+      setRandomBoxes([])
+      count = 0
+    }
   }
   useEffect(() => {
     // Handle window focus/blur changes

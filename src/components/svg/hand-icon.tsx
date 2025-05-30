@@ -1,6 +1,12 @@
 import { Ref } from 'react'
 
-export default function HandIcon({ ref }: { ref?: Ref<HTMLDivElement> }) {
+export default function HandIcon({
+  ref,
+  className,
+}: {
+  ref: Ref<SVGSVGElement> | null
+  className?: string
+}) {
   return (
     <svg
       width="110"
@@ -8,6 +14,8 @@ export default function HandIcon({ ref }: { ref?: Ref<HTMLDivElement> }) {
       viewBox="0 0 110 125"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      ref={ref}
+      className={className}
     >
       <path
         d="M87.9391 14.0911C105.362 23.1884 69.5437 65.2769 69.5437 65.2769C69.5437 65.2769 92.853 50.3972 97.9827 65.6493C101.955 77.461 80.3724 92.1298 66.7362 100.028C66.7362 100.028 74.1749 108.166 69.999 115.144C62.1236 128.303 -2.75846 99.3516 5.17924 82.6111C8.92006 74.7217 20.2343 79.0219 20.2343 79.0219C22.7727 55.9357 31.4372 15.4756 50.7655 28.0934C57.6014 20.805 63.9987 22.9859 66.9655 26.2433C73.301 17.0521 80.7843 10.3553 87.9391 14.0911Z"
