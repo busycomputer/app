@@ -133,7 +133,7 @@ export default function AnimatedBackgroundSquare() {
   // console.log(isVisible)
 
   return (
-    <div className="h-full w-full overflow-hidden">
+    <div className="h-[100dvh] w-full overflow-hidden">
       <svg viewBox={`0 0 ${dimensions.width} ${dimensions.height}`} className="h-full w-full">
         {' '}
         {/* vertical lines */}
