@@ -20,8 +20,8 @@ export default function Feature() {
   } = useFeatureAnimation()
 
   return (
-    <Bounded className="overflow-clip px-7 pb-3 pt-32" ref={containerRef}>
-      <p ref={headingRef} className="font-sans-plex w-fit pt-2 text-base text-primary md:mx-auto">
+    <Bounded className="overflow-clip px-7 pb-3 pt-20 sm:pt-32" ref={containerRef}>
+      <p ref={headingRef} className="font-sans-mono w-fit pt-2 text-base text-primary md:mx-auto">
         FEATURES
       </p>
       <h1

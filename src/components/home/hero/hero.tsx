@@ -10,7 +10,7 @@ export default function Hero() {
       <div className="absolute left-0 top-0 h-full w-full">
         <AnimatedBackgroundSquare />
       </div>
-      <Bounded className="max-w-[1312] px-5 pb-28">
+      <Bounded className="max-w-[1312] px-5 sm:pb-28">
         <div className="bg-circle-gradient absolute -top-[400px] left-1/2 h-[465px] w-64 -translate-x-1/2 rounded-full blur-[400px] md:-top-72 md:w-[365px]" />
         <HeroDescription />
         <EarlyAccessInput />
