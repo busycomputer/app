@@ -1,10 +1,10 @@
 'use client'
 
 import Bounded from '../../elements/Bounded'
-import workFlow1 from '@/assets/images/workflow-image1.png'
-import workFlow2 from '@/assets/images/workflow-image2.png'
-import workFlow3 from '@/assets/images/workflow-image3.png'
-import workFlow4 from '@/assets/images/workflow-image4.png'
+import workFlow1 from '@/assets/images/feature-image1.png'
+import workFlow2 from '@/assets/images/feature-image2.png'
+import workFlow3 from '@/assets/images/feature-image3.png'
+import workFlow4 from '@/assets/images/feature-image4.png'
 import FeatureBox from './feature-box'
 import { useFeatureAnimation } from '@/hooks/use-feature-animation'
 
@@ -53,7 +53,7 @@ export default function Feature() {
           <FeatureBox
             key={'box3'}
             imageSrc={workFlow3}
-            imageAlt={'WORKFLOW MARKETPLACE'}
+            imageAlt={'PROMPT TO GENERATE'}
             label="WORKFLOW MARKETPLACE"
             className="border-r md:basis-1/3"
             ref={featureBoxThreeRef}
@@ -61,8 +61,8 @@ export default function Feature() {
           <FeatureBox
             key={'box4'}
             imageSrc={workFlow4}
-            imageAlt={'WORKFLOW MARKETPLACE'}
-            label="WORKFLOW MARKETPLACE"
+            imageAlt={'REUSABLE MODULES'}
+            label="REUSABLE MODULES"
             className="md:basis-2/3"
             ref={featureBoxFourRef}
           />
