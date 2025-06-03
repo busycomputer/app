@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import { metadata } from '@/app/metadata'
 import { ThemeProvider } from '@/components/providers/theme-providers'
 import ReactQueryProvider from '@/components/providers/ReactQueryProvider'
+import StoreProvider from '@/components/providers/store-provider'
 
 export { metadata }
 
@@ -49,15 +50,17 @@ export default function RootLayout({
           'antialiased'
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toaster />
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </ThemeProvider>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Toaster />
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </ThemeProvider>
+        </StoreProvider>
       </body>
     </html>
   )

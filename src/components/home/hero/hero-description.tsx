@@ -76,13 +76,13 @@ export default function HeroDescription({ className }: { className?: string }) {
       <div className="flex w-full max-w-xl flex-col items-center gap-4 md:max-w-3xl lg:max-w-[884px]">
         <div
           ref={headingRef}
-          className="font-space z-20 pt-3 text-3xl sm:text-center sm:text-4xl md:pt-0 md:text-4xl lg:text-[62px] lg:leading-[4.5rem]"
+          className="font-space z-20 pt-3 text-5xl sm:text-center sm:text-4xl md:pt-0 md:text-4xl lg:text-[62px] lg:leading-[4.5rem]"
         >
           BUILD AMAZING WORKFLOW AT WARPSEED
         </div>
         <div
           ref={textRef}
-          className="font-space-mono z-20 w-full text-xs uppercase text-muted-foreground sm:max-w-sm md:max-w-md md:text-center md:text-sm lg:max-w-[830px] lg:text-[16px] lg:leading-[1.5]"
+          className="font-space-mono z-20 w-full pr-8 text-xs uppercase text-muted-foreground sm:max-w-sm sm:pr-0 md:max-w-md md:text-center md:text-sm lg:max-w-[830px] lg:text-[16px] lg:leading-[1.5]"
         >
           Infrastructure that combines powerful AI, DeFi, and data scraping modules with a vibrant
           marketplace where creators can share and monetize their automated solutions
