@@ -9,7 +9,7 @@ export default function SeeInAction() {
   const { containerRef, headingRef, titleRef, videoRef } = useSeeInActionAnimation()
   return (
     <Bounded className="mb-5 overflow-clip px-7 pt-3 lg:mb-10 xl:mb-40" ref={containerRef}>
-      <p className="font-sans-plex mt-[100px] w-fit text-primary md:mx-auto" ref={titleRef}>
+      <p className="font-sans-mono mt-[100px] w-fit text-primary md:mx-auto" ref={titleRef}>
         SEE IN ACTION
       </p>
       <h1

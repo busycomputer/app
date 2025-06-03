@@ -8,6 +8,7 @@ import Logo from '@/assets/images/logo-192x192.png'
 import BzLogo from '../Icons/bz-logo'
 import LinkedId from '../svg/linkedId'
 import Twitter from '../svg/twitter'
+import TelegramIcon from '../svg/telegram-icon'
 
 const Footer = () => {
   const productLinks = [
@@ -89,7 +90,7 @@ const Footer = () => {
           {/* Logo and Social Links */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-lg">
-              <Image src={ButtonContainer} alt="Logo" />
+              <Image src={ButtonContainer} alt="Logo" className="size-12" />
               <p className="font-space hidden sm:block">BUSY COMPUTER</p>
             </div>
 
@@ -99,11 +100,13 @@ const Footer = () => {
                   Stay Connected
                 </p>
               </div>
-              <div className="flex h-16 w-16 items-center justify-center border-r p-4">
-                <Twitter />
-              </div>
+              <Link href={`https://x.com/busycomputer`}>
+                <div className="flex h-16 w-16 items-center justify-center border-r p-4">
+                  <Twitter />
+                </div>
+              </Link>
               <div className="flex h-16 w-16 items-center justify-center p-4">
-                <LinkedId />
+                <TelegramIcon />
               </div>
             </div>
             {/* <div className="flex space-x-5">Add social media icons/links here</div> */}
