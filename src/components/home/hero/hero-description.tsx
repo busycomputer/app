@@ -78,7 +78,7 @@ export default function HeroDescription({ className }: { className?: string }) {
           ref={headingRef}
           className="font-space z-20 pt-3 text-5xl sm:text-center sm:text-4xl md:pt-0 md:text-4xl lg:text-[62px] lg:leading-[4.5rem]"
         >
-          BUILD AMAZING WORKFLOW AT WARPSEED
+          BUILD AMAZING WORKFLOW AT WARPSPEED
         </div>
         <div
           ref={textRef}
