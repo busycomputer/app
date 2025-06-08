@@ -5,6 +5,7 @@ import DottedBackground from '@/components/svg/dotted-background-long'
 import asset1 from '@/assets/images/feature/Asset 1.webp'
 import DottedBackgroundSmall from '@/components/svg/dotted-background-small'
 import DottedBackgroundLong from '@/components/svg/dotted-background-long'
+import FeatureBoxWrapper from './feature-box-wrapper'
 
 interface GradientConfig {
   shape?: 'ellipse' | 'circle'
@@ -26,6 +27,7 @@ interface FeatureBox {
   type: 'long' | 'small'
   gradient?: GradientConfig
   enableGradient?: boolean
+  id: string
 }
 export default function FeatureBox({
   className,
@@ -38,6 +40,7 @@ export default function FeatureBox({
   type,
   enableGradient,
   gradient,
+  id,
 }: FeatureBox) {
   // Default gradient configuration
   const defaultGradient: GradientConfig = {
@@ -69,9 +72,8 @@ export default function FeatureBox({
 
     return `radial-gradient(${shape} at ${position}, ${stopsString})`
   }
-
   return (
-    <div className={cn('flex w-full flex-col', className)} ref={ref}>
+    <FeatureBoxWrapper id={id} ref={ref} className={className}>
       <div className="relative h-full w-full border-y">
         <div
           className="pointer-events-none absolute inset-0 z-10"
@@ -80,7 +82,7 @@ export default function FeatureBox({
             mixBlendMode: 'multiply',
           }}
         ></div>
-        {type === 'long' ? <DottedBackgroundLong /> : <DottedBackgroundSmall />}
+        {type === 'long' ? <DottedBackgroundLong id={id} /> : <DottedBackgroundSmall id={id} />}
         <div
           className={cn(
             'absolute inset-0 left-0 top-0 flex h-full w-full items-center justify-center',
@@ -94,25 +96,13 @@ export default function FeatureBox({
               width={1920}
               height={1080}
               className={cn('h-full w-full object-contain', imageClassName)}
-              // unoptimized
             />
           </div>
         </div>
       </div>
-
-      {/* <div className="">
-          <Image
-            src={asset1}
-            alt={''}
-            width={1920}
-            height={1080}
-            className="absolute left-0 top-0 h-full w-full object-cover max-md:aspect-square"
-            unoptimized={true}
-          />
-        </div> */}
       <div className="font-space-grotesk w-full truncate px-5 py-5 font-medium uppercase text-mutedText sm:text-xl">
         {label}
       </div>
-    </div>
+    </FeatureBoxWrapper>
   )
 }

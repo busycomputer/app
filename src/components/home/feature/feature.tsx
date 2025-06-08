@@ -34,6 +34,7 @@ export default function Feature() {
       <div className="mt-7 border">
         <div className="flex flex-col md:flex-row">
           <FeatureBox
+            id="box1"
             type="long"
             key={'box1'}
             imageSrc={workFlow1}
@@ -55,6 +56,7 @@ export default function Feature() {
             // `radial-gradient(ellipse at center, transparent 0%, transparent 50%,  black 100%)`,
           />
           <FeatureBox
+            id="box2"
             enableGradient
             type="small"
             key={'box2'}
@@ -75,12 +77,13 @@ export default function Feature() {
         </div>
         <div className="flex flex-col md:flex-row">
           <FeatureBox
+            id="box3"
             enableGradient
             type="small"
             key={'box3'}
             imageSrc={workFlow3}
             imageAlt={'PROMPT TO GENERATE'}
-            label="WORKFLOW MARKETPLACE"
+            label="PROMPT TO GENERATE"
             className="border-r md:basis-1/3"
             ref={featureBoxThreeRef}
             gradient={{
@@ -94,6 +97,7 @@ export default function Feature() {
             }}
           />
           <FeatureBox
+            id="box4"
             type="long"
             enableGradient
             key={'box4'}

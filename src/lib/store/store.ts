@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import workFlowReducer from './work-flow-slice'
+import featureReducer from './feature-slice'
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       workflow: workFlowReducer,
+      feature: featureReducer,
     },
   })
 }
