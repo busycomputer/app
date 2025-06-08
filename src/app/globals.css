@@ -56,7 +56,7 @@ body {
     --chart-5: 27 87% 67%;
     --surface: 0 0% 100%;
     --surface-foreground: 0 0% 32.2%;
-    --muted-text: 0 0% 79.2%
+    --muted-text: 0 0% 79.2%;
   }
 
   .dark {
@@ -87,7 +87,7 @@ body {
     --chart-5: 13.8 89.7% 69.6%;
     --surface: 0 0% 9%;
     --surface-foreground: 0 0% 98%;
-    --muted-text: 0 0% 79.2%
+    --muted-text: 0 0% 79.2%;
   }
 }
 
@@ -102,8 +102,7 @@ body {
 
 .background-primary-gradient {
   background-color: hsla(149, 0%, 0%, 1);
-  background-image:
-    radial-gradient(at 36% 49%, hsla(24, 0%, 0%, 1) 0px, transparent 50%),
+  background-image: radial-gradient(at 36% 49%, hsla(24, 0%, 0%, 1) 0px, transparent 50%),
     radial-gradient(at 67% 0%, hsla(74, 0%, 0%, 1) 0px, transparent 50%),
     radial-gradient(at 100% 100%, hsla(149, 44%, 54%, 1) 0px, transparent 50%),
     radial-gradient(at 100% 0%, hsla(172, 47%, 44%, 1) 0px, transparent 50%),
@@ -133,7 +132,7 @@ body {
   font-style: normal;
 }
 
-.animate-dash  {
+.animate-dash {
   animation: dash-move 0.6s linear infinite;
 }
 
@@ -141,4 +140,7 @@ body {
   to {
     stroke-dashoffset: -8;
   }
+}
+.radial-gradient {
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 10%, black 100%);
 }
