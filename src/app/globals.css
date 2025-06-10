@@ -34,7 +34,7 @@ body {
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 149, 44%, 54%, 1;
+    --primary: 149, 44%, 54%;
     --primary-muted: 149, 36%, 16%, 1;
     --primary-foreground: 0 0% 98%;
     --secondary: 240 4.8% 95.9%;
@@ -142,5 +142,6 @@ body {
   }
 }
 .radial-gradient {
-  background: radial-gradient(ellipse at center, transparent 0%, transparent 10%, black 100%);
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 30%, rgb(0, 0, 0) 100%);
+  z-index: 10;
 }

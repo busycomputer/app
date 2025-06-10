@@ -1,10 +1,20 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useRef, useState } from 'react'
 import { useAppSelector } from '@/lib/store/hooks'
 
-export default function DottedBackgroundSmall({ id }: { id: string }) {
+export default function DottedBackgroundSmall({
+  id,
+  isMobile,
+  svgFillColor,
+}: {
+  id: string
+  isMobile: boolean
+  svgFillColor: string
+}) {
   const isHovered = useAppSelector((state) => state.feature.featureCardHover[id])
+  const ref = useRef(null)
+  const inView = useInView(ref, { amount: 0.5, margin: '-20% 0px -20% 0px' })
 
   // Generate circles programmatically with animation
   const generateCircles = () => {
@@ -31,9 +41,9 @@ export default function DottedBackgroundSmall({ id }: { id: string }) {
             r="1.9"
             fill="#1e1e1e"
             animate={
-              isHovered
+              isHovered || (isMobile && inView)
                 ? {
-                    fill: ['#1e1e1e', '#3b82f6', '#1e1e1e'],
+                    fill: ['#1e1e1e', `${svgFillColor}`, '#1e1e1e'],
                     scale: [1, 1.2, 1],
                   }
                 : {
@@ -43,9 +53,9 @@ export default function DottedBackgroundSmall({ id }: { id: string }) {
             }
             transition={{
               duration: 1.5,
-              delay: isHovered ? normalizedDistance * 0.8 : 0,
+              delay: isHovered || (isMobile && inView) ? normalizedDistance * 0.8 : 0,
               ease: 'easeInOut',
-              repeat: isHovered ? Infinity : 0,
+              repeat: isHovered || (isMobile && inView) ? Infinity : 0,
               repeatDelay: 0.5,
             }}
           />
@@ -58,6 +68,7 @@ export default function DottedBackgroundSmall({ id }: { id: string }) {
 
   return (
     <div
+      ref={ref}
       className="cursor-pointer"
       // onMouseEnter={() => setIsHovered(true)}
       // onMouseLeave={() => setIsHovered(false)}

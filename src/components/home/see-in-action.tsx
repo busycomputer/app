@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Bounded from '../elements/Bounded'
-import workFlow5 from '@/assets/images/workflow-image5.png'
+import workFlow5 from '@/assets/images/workflow5.jpg'
 import { useSeeInActionAnimation } from '@/hooks/use-see-in-action-animation'
 
 export default function SeeInAction() {
@@ -18,12 +18,18 @@ export default function SeeInAction() {
       >
         SEE HOW BC WORKS
       </h1>
-      <div className="flex flex-col" ref={videoRef}>
-        <div className="">
-          {/* <div className="max-h-[600px] h-full border border-primary"> */}
-          <Image alt="" src={workFlow5} className="h-full w-full object-cover" />
-          {/* </div> */}
-          <div className="flex h-10 items-center justify-end border border-border sm:h-12 md:h-14 lg:h-16">
+      <div className="" ref={videoRef}>
+        <div className="border">
+          <div className="radial-gradient md:h-[500px] lg:h-[600px]">
+            <Image
+              alt=""
+              src={workFlow5}
+              className="aspect-video h-full w-full object-cover mix-blend-overlay"
+              width={1920}
+              height={1080}
+            />
+          </div>
+          <div className="flex h-10 items-center justify-end border-t sm:h-12 md:h-14 lg:h-16">
             <div className="mr-5 flex gap-4">
               <svg
                 width="16"
