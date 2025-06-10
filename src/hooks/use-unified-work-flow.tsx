@@ -1,6 +1,6 @@
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { Dispatch, RefObject, SetStateAction, useCallback, useEffect, useState } from 'react'
+import { RefObject, useCallback, useEffect, useState, useRef } from 'react'
 import { TPathDetails } from '@/components/home/hero/connection-node'
 
 const debounce = <TFunc extends (...args: any[]) => any>(
@@ -52,6 +52,12 @@ export const useUnifiedWorkFlow = ({
   const [pathTwo, setPathTwo] = useState<TPathDetails>(initialPathValues)
   const [pathThree, setPathThree] = useState<TPathDetails>(initialPathValues)
   const [updateKey, setUpdateKey] = useState(0)
+
+  // Store timeline references
+  const timelinesRef = useRef<{
+    boxAndSvgTimeLine?: gsap.core.Timeline
+    handIconTimeLine?: gsap.core.Timeline
+  }>({})
 
   // Combined update function for paths and positions
   const updateLayoutAndAnimation = useCallback(() => {
@@ -124,6 +130,75 @@ export const useUnifiedWorkFlow = ({
     return () => window.removeEventListener('resize', debouncedUpdate)
   }, [updateLayoutAndAnimation, debouncedUpdate])
 
+  // Cleanup function to kill all animations and reset states
+  const cleanupAnimations = useCallback(() => {
+    const icon = iconRef.current
+    const boxRefs = [
+      boxOneRef.current,
+      boxTwoRef.current,
+      boxThreeRef.current,
+      boxFourRef.current,
+    ].filter(Boolean)
+    const svgRefs = [svgPathOneRef.current, svgPathTwoRef.current, svgPathThreeRef.current].filter(
+      Boolean
+    )
+
+    // Kill existing timelines
+    if (timelinesRef.current.boxAndSvgTimeLine) {
+      timelinesRef.current.boxAndSvgTimeLine.kill()
+      timelinesRef.current.boxAndSvgTimeLine = undefined
+    }
+    if (timelinesRef.current.handIconTimeLine) {
+      timelinesRef.current.handIconTimeLine.kill()
+      timelinesRef.current.handIconTimeLine = undefined
+    }
+
+    // Kill all tweens on elements
+    if (icon) gsap.killTweensOf(icon)
+    if (boxRefs.length) gsap.killTweensOf(boxRefs)
+
+    // Reset SVG paths
+    svgRefs.forEach((svg) => {
+      if (svg) {
+        const paths = svg.querySelectorAll('path')
+        gsap.killTweensOf(paths)
+        gsap.set(paths, {
+          drawSVG: '0%',
+          strokeDasharray: 'none',
+          strokeDashoffset: 0,
+        })
+      }
+    })
+
+    // Reset box scales
+    boxRefs.forEach((box) => {
+      if (box) {
+        gsap.set(box, { scale: 1 })
+      }
+    })
+
+    // Reset icon
+    if (icon) {
+      gsap.set(icon, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        display: 'none',
+        position: 'absolute',
+        zIndex: 100,
+      })
+    }
+  }, [
+    boxOneRef,
+    boxTwoRef,
+    boxThreeRef,
+    boxFourRef,
+    iconRef,
+    svgPathOneRef,
+    svgPathTwoRef,
+    svgPathThreeRef,
+  ])
+
   // Animation logic
   useGSAP(
     () => {
@@ -151,17 +226,21 @@ export const useUnifiedWorkFlow = ({
         return
       }
 
-      // Kill existing animations
-      gsap.killTweensOf(icon)
-      gsap.killTweensOf([boxOne, boxTwo, boxThree, boxFour])
+      // Clean up before starting new animations
+      cleanupAnimations()
 
       const boxRefs = [boxOne, boxTwo, boxThree, boxFour]
       const groupRect = group.getBoundingClientRect()
 
       const boxes = [boxOne, boxTwo, boxThree, boxFour]
 
+      // Create new timelines
       const boxAndSvgTimeLine = gsap.timeline()
       const handIconTimeLine = gsap.timeline({ repeat: -1, repeatDelay: 0.8, delay: 5 })
+
+      // Store timeline references
+      timelinesRef.current.boxAndSvgTimeLine = boxAndSvgTimeLine
+      timelinesRef.current.handIconTimeLine = handIconTimeLine
 
       // Initial box in-animation
       boxAndSvgTimeLine.fromTo(
@@ -176,6 +255,11 @@ export const useUnifiedWorkFlow = ({
         svgPathTwo.querySelectorAll('path'),
         svgPathThree.querySelectorAll('path'),
       ]
+
+      // Reset SVG paths before animating
+      allPaths.forEach((pathGroup) => {
+        gsap.set(pathGroup, { drawSVG: '0%', strokeDasharray: 'none', strokeDashoffset: 0 })
+      })
 
       // Svg line draw animation
       allPaths.forEach((pathGroup) => {
@@ -205,7 +289,6 @@ export const useUnifiedWorkFlow = ({
         x: positions[0].x,
         y: positions[0].y,
         scale: 1,
-        // delay: 3,
         display: 'block',
         ease: 'power1',
       })
@@ -253,13 +336,10 @@ export const useUnifiedWorkFlow = ({
       })
 
       return () => {
-        // tl.kill()
-        boxAndSvgTimeLine.kill()
-        handIconTimeLine.kill()
-        gsap.killTweensOf([icon, ...boxRefs])
+        cleanupAnimations()
       }
     },
-    { dependencies: [updateKey, isMobile, pathOne, pathTwo, pathThree] }
+    { dependencies: [updateKey, isMobile, pathOne, pathTwo, pathThree, cleanupAnimations] }
   )
 
   return {
