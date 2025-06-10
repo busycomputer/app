@@ -36,7 +36,7 @@ export const useFeatureAnimation = () => {
         return
 
       // Use GSAP's matchMedia for responsive animations
-      let mm = gsap.matchMedia()
+      const mm = gsap.matchMedia()
 
       // Desktop animations (screen width >= 700px)
       mm.add('(min-width: 700px)', () => {
@@ -165,13 +165,11 @@ export const useFeatureAnimation = () => {
           //     scrub: true,
           //   })
           // )
-
           // tl.to(box,{
           //   scale:1.2,
           //   ease: 'back.inOut',
           //   // duration: 0.6
           // })
-
           // tl.to(box,{
           //   scale:1,
           //   ease:'back.inOut'

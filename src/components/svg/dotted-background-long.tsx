@@ -5,10 +5,10 @@ import { useAppSelector } from '@/lib/store/hooks'
 
 export default function DottedBackgroundLong({
   id,
-  svgFillColor
+  svgFillColor,
 }: {
   id: string
-  svgFillColor:string
+  svgFillColor: string
 }) {
   // const [featureCardHover, setfeatureCardHover] = useState(false)
   const isHovered = useAppSelector((state) => state.feature.featureCardHover[id])

@@ -1,13 +1,14 @@
 import Image, { StaticImageData } from 'next/image'
 import { CSSProperties, Ref, useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import DottedBackground from '@/components/svg/dotted-background-long'
 import asset1 from '@/assets/images/feature/Asset 1.webp'
 import DottedBackgroundSmall from '@/components/svg/dotted-background-small'
 import DottedBackgroundLong from '@/components/svg/dotted-background-long'
 import FeatureBoxWrapper from './feature-box-wrapper'
-import { motion } from 'framer-motion'
 import { generateGradientString } from '@/lib/helpers/generate-gradient-string'
+import { useIsMobile } from '@/hooks/use-responsive'
 
 interface GradientConfig {
   shape?: 'ellipse' | 'circle'
@@ -45,13 +46,7 @@ export default function FeatureBox({
   id,
 }: FeatureBox) {
   // Default gradient configuration
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
-
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768)
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+  const isMobile = useIsMobile()
 
   const MotionImage = motion(Image)
   return (
@@ -65,9 +60,9 @@ export default function FeatureBox({
           }}
         ></div>
         {type === 'long' ? (
-          <DottedBackgroundLong svgFillColor="#56bd88" id={id} />
+          <DottedBackgroundLong svgFillColor="#2B6F4C" id={id} />
         ) : (
-          <DottedBackgroundSmall svgFillColor="#56bd88" isMobile={isMobile} id={id} />
+          <DottedBackgroundSmall svgFillColor="#2B6F4C" isMobile={isMobile} id={id} />
         )}
         <div
           className={cn(
