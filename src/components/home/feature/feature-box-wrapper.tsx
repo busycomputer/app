@@ -1,6 +1,6 @@
 'use client'
 import { motion } from 'framer-motion'
-import { Ref } from 'react'
+import { Ref, useEffect, useState } from 'react'
 import { setFeatureHover } from '@/lib/store/feature-slice'
 import { useAppDispatch, useAppSelector } from '@/lib/store/hooks'
 import { cn } from '@/lib/utils'
@@ -9,15 +9,22 @@ interface IFeatureBoxWrapper {
   className?: string
   ref?: Ref<HTMLDivElement>
   id: string
+  isMobile: boolean
 }
-export default function FeatureBoxWrapper({ children, className, ref, id }: IFeatureBoxWrapper) {
+export default function FeatureBoxWrapper({
+  children,
+  className,
+  ref,
+  id,
+  isMobile,
+}: IFeatureBoxWrapper) {
   const dispatch = useAppDispatch()
   const isHovered = useAppSelector((state) => state.feature.featureCardHover[id])
 
   return (
     <motion.div
-      onMouseEnter={() => dispatch(setFeatureHover({ id, isHovered: true }))}
-      onMouseLeave={() => dispatch(setFeatureHover({ id, isHovered: false }))}
+      onMouseEnter={() => !isMobile && dispatch(setFeatureHover({ id, isHovered: true }))}
+      onMouseLeave={() => !isMobile && dispatch(setFeatureHover({ id, isHovered: false }))}
       className={cn('flex w-full flex-col bg-black hover:z-30', className)}
       ref={ref}
       animate={{
@@ -27,7 +34,7 @@ export default function FeatureBoxWrapper({ children, className, ref, id }: IFea
       }}
       style={{
         boxShadow: isHovered
-          ? '0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(59, 130, 246, 0.3)'
+          ? '0 5px 5px -12px rgba(86, 189, 136, 0.8), 0 0 0 1px rgba(86, 189, 136, 0.3)'
           : '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
         filter: isHovered ? 'brightness(1.1)' : 'brightness(1)',
       }}

@@ -1,12 +1,19 @@
 'use client'
-import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { Ref, useRef, useState } from 'react'
 import { useAppSelector } from '@/lib/store/hooks'
 
-export default function DottedBackgroundLong({ id }: { id: string }) {
+export default function DottedBackgroundLong({
+  id,
+  svgFillColor
+}: {
+  id: string
+  svgFillColor:string
+}) {
   // const [featureCardHover, setfeatureCardHover] = useState(false)
   const isHovered = useAppSelector((state) => state.feature.featureCardHover[id])
-  // featureCardHover[id]
+  const ref = useRef(null)
+  const inView = useInView(ref, { amount: 0.5, margin: '-20% 0px -20% 0px' })
   // Generate circles for desktop version
   const generateDesktopCircles = () => {
     const circles: React.ReactElement<SVGCircleElement>[] = []
@@ -35,7 +42,7 @@ export default function DottedBackgroundLong({ id }: { id: string }) {
             animate={
               isHovered
                 ? {
-                    fill: ['#1e1e1e', '#3b82f6', '#1e1e1e'],
+                    fill: ['#1e1e1e', `${svgFillColor}`, '#1e1e1e'],
                     scale: [1, 1.2, 1],
                   }
                 : {
@@ -82,9 +89,9 @@ export default function DottedBackgroundLong({ id }: { id: string }) {
             r="1.9"
             fill="#1e1e1e"
             animate={
-              isHovered
+              inView
                 ? {
-                    fill: ['#1e1e1e', '#3b82f6', '#1e1e1e'],
+                    fill: ['#1e1e1e', `${svgFillColor}`, '#1e1e1e'],
                     scale: [1, 1.2, 1],
                   }
                 : {
@@ -94,9 +101,9 @@ export default function DottedBackgroundLong({ id }: { id: string }) {
             }
             transition={{
               duration: 1.5,
-              delay: isHovered ? normalizedDistance * 0.8 : 0,
+              delay: inView ? normalizedDistance * 0.5 : 0,
               ease: 'easeInOut',
-              repeat: isHovered ? 0 : 0,
+              repeat: inView ? Infinity : 0,
               repeatDelay: 0.5,
             }}
           />
@@ -110,6 +117,7 @@ export default function DottedBackgroundLong({ id }: { id: string }) {
   return (
     <div
       className="cursor-pointer"
+      ref={ref}
       // onMouseEnter={() => setfeatureCardHover(true)}
       // onMouseLeave={() => setfeatureCardHover(false)}
     >

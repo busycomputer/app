@@ -31,8 +31,8 @@ export default function Feature() {
       >
         DESIGN FOR SCALE. BUILD TO CONTROL
       </h1>
-      <div className="mt-7 border">
-        <div className="flex flex-col md:flex-row">
+      <div className="mt-7 space-y-5 md:space-y-0 md:border">
+        <div className="flex flex-col gap-5 md:flex-row md:gap-0">
           <FeatureBox
             id="box1"
             type="long"
@@ -40,7 +40,7 @@ export default function Feature() {
             imageSrc={workFlow1}
             imageAlt={'Customizable Drag Component'}
             label="Customizable Drag Component"
-            className="border-r md:basis-2/3"
+            className="border md:basis-2/3 md:border-y-0 md:border-l-0 md:border-r"
             ref={featureBoxOneRef}
             imagePosition="md:px-20 md:py-16 py-4 px-4"
             enableGradient
@@ -63,7 +63,7 @@ export default function Feature() {
             imageSrc={workFlow2}
             imageAlt={'WORKFLOW MARKETPLACE'}
             label="WORKFLOW MARKETPLACE"
-            className="md:basis-1/3"
+            className="border md:basis-1/3 md:border-none"
             ref={featureBoxTwoRef}
             gradient={{
               position: 'center',
@@ -75,7 +75,7 @@ export default function Feature() {
             }}
           />
         </div>
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col gap-5 md:flex-row md:gap-0">
           <FeatureBox
             id="box3"
             enableGradient
@@ -84,7 +84,7 @@ export default function Feature() {
             imageSrc={workFlow3}
             imageAlt={'PROMPT TO GENERATE'}
             label="PROMPT TO GENERATE"
-            className="border-r md:basis-1/3"
+            className="border md:basis-1/3 md:border-y-0 md:border-l-0 md:border-r"
             ref={featureBoxThreeRef}
             gradient={{
               position: 'center',
@@ -104,7 +104,7 @@ export default function Feature() {
             imageSrc={workFlow4}
             imageAlt={'REUSABLE MODULES'}
             label="REUSABLE MODULES"
-            className="md:basis-2/3"
+            className="border md:basis-2/3 md:border-none"
             ref={featureBoxFourRef}
             gradient={{
               position: 'center',
@@ -122,71 +122,3 @@ export default function Feature() {
     </Bounded>
   )
 }
-// <div className="font-space-grotesk space-y-2 text-mutedText md:space-y-0">
-//   {/* box1 */}
-//   <div className="flex flex-col items-center gap-2 md:flex-row md:gap-0">
-//     {/* <div className="max-md:w-full"> */}
-//     <div className="max-md:w-full">
-//       <Image
-//         src={workFlow1}
-//         alt="Customizable Drag Component"
-//         className="object-cover max-md:w-full"
-//       />
-//     </div>
-//     <div className="block w-full basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:hidden md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       CUSTOMIZABLE DRAG COMPONENT
-//     </div>
-//     <div className="max-md:w-full">
-//       <Image
-//         src={workFlow2}
-//         alt="Workflow Marketplace"
-//         className="object-cover max-md:w-full"
-//       />
-//     </div>
-//     <div className="block w-full basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:hidden md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       WORKFLOW MARKETPLACE
-//     </div>
-//   </div>
-//   <div className="hidden font-medium md:flex">
-//     <div className="basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       CUSTOMIZABLE DRAG COMPONENT
-//     </div>
-//     <div className="basis-1/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       WORKFLOW MARKETPLACE
-//     </div>
-//   </div>
-//   {/* box2 */}
-//   <div className="flex flex-col-reverse items-center gap-2 md:flex-row md:gap-0">
-//     {/* <div className="max-md:w-full"> */}
-//     <div className="block w-full basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:hidden md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       PROMPT TO GENERATE
-//     </div>
-//     <div className="max-md:w-full">
-//       <Image
-//         src={workFlow3}
-//         alt="Customizable Drag Component"
-//         className="object-cover max-md:w-full"
-//       />
-//     </div>
-
-//     <div className="block w-full basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:hidden md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       REUSABLE MODULES
-//     </div>
-//     <div className="max-md:w-full">
-//       <Image
-//         src={workFlow4}
-//         alt="Workflow Marketplace"
-//         className="object-cover max-md:w-full"
-//       />
-//     </div>
-//   </div>
-
-//   <div className="hidden font-medium md:flex">
-//     <div className="basis-1/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       PROMPT TO GENERATE
-//     </div>
-//     <div className="basis-2/3 border-[1px] px-4 py-3 text-[10px] sm:px-5 md:px-7 md:py-4 md:text-sm lg:px-8 lg:pl-5 lg:text-xl">
-//       REUSABLE MODULES
-//     </div>
-//   </div>
-// </div>

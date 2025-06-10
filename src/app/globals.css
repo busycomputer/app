@@ -142,5 +142,6 @@ body {
   }
 }
 .radial-gradient {
-  background: radial-gradient(ellipse at center, transparent 0%, transparent 10%, black 100%);
+  background: radial-gradient(ellipse at center, transparent 0%, transparent 30%, rgb(0, 0, 0) 100%);
+  z-index: 10;
 }
