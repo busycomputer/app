@@ -48,7 +48,7 @@ export default function FeatureBox({
   // Default gradient configuration
   const isMobile = useIsMobile()
 
-  const MotionImage = motion(Image)
+  const MotionImage = motion.create(Image)
   return (
     <FeatureBoxWrapper isMobile={isMobile} id={id} ref={ref} className={className}>
       <div className="relative h-full w-full md:border-y">
