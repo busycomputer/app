@@ -1,37 +1,28 @@
 'use client'
 
+import { createEarlyAccess } from '@/app/actions/create-early-access-details'
 import TangledSideArrow from '@/components/svg/tangled-side-arrow'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useEarlyAccessInput } from '@/hooks/useEarlyAccessInput'
+import { cn } from '@/lib/utils'
+import { EarlyAccessValidator, TEarlyAccessValidator } from '@/lib/validators/early-access'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-type TEarlyAccessForm = z.infer<typeof schema>
-const schema = z.object({
-  referralCode: z
-    .string()
-    .max(6, { message: 'Maximum length is 6' })
-    .min(6, { message: 'Minimum length is 6' }),
-  walletAddress: z
-    .string()
-    .max(10, { message: 'Cannot exceed 15' })
-    .min(10, { message: 'Minimum length is 10' }),
-})
+import { useWallet } from '@/hooks/use-wallet'
+import WalletConnectDialog from '@/components/dialog/wallet-connect-dialog'
 
 export default function EarlyAccessInput() {
   const { inputRef } = useEarlyAccessInput()
+  // const {} = useWallet()
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<TEarlyAccessForm>({
-    resolver: zodResolver(schema),
+  } = useForm<TEarlyAccessValidator>({
+    resolver: zodResolver(EarlyAccessValidator),
   })
-  function onSubmit(values: TEarlyAccessForm) {
-    console.log(values)
-  }
+  async function onSubmit(values: TEarlyAccessValidator) {}
   return (
     <div className="" ref={inputRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -40,20 +31,36 @@ export default function EarlyAccessInput() {
             <TangledSideArrow className="h-24 w-24 rotate-90 stroke-[#3B3B45] sm:h-20 sm:w-20 sm:rotate-0 md:h-24 md:w-24" />
           </div>
           <div className="space-y-2 sm:flex sm:gap-4 sm:space-y-0 md:flex md:gap-3 lg:contents">
-            <Input
-              placeholder="REFERRAL CODE"
-              className="mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:max-w-40 lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
-              {...register('referralCode')}
-            />
-            {errors.referralCode ? (
-              <div className="text-xs font-thin">{errors.referralCode.message}</div>
-            ) : null}
-            <Input
-              {...register('walletAddress')}
-              placeholder="YOUR WALLET ADDRESS"
-              className="mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:w-80 lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
-            />
-            {errors.walletAddress ? <div className="">{errors.walletAddress.message}</div> : null}
+            <div className="w-full lg:max-w-40">
+              <Input
+                placeholder="REFERRAL CODE"
+                className={cn(
+                  'mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:max-w-40 lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]',
+                  { 'focus-visible:ring-1 focus-visible:ring-destructive': errors.referralCode }
+                )}
+                {...register('referralCode')}
+              />
+              {errors.referralCode ? (
+                <div className="w-full pt-2 text-center text-xs font-thin text-destructive">
+                  {errors.referralCode.message}
+                </div>
+              ) : null}
+            </div>
+            <div className="relative w-full lg:w-[360px]">
+              <Input
+                {...register('walletAddress')}
+                placeholder="YOUR WALLET ADDRESS"
+                className="relative mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:w-[360px] lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
+              />
+              <div className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground border">
+                <WalletConnectDialog />
+              </div>
+              {errors.walletAddress ? (
+                <div className="w-full pt-2 text-center text-xs font-thin text-destructive">
+                  {errors.walletAddress.message}
+                </div>
+              ) : null}
+            </div>
           </div>
           <Button
             type="submit"
@@ -66,3 +73,182 @@ export default function EarlyAccessInput() {
     </div>
   )
 }
+
+// function WalletSelectionModal({
+//   isOpen,
+//   onClose,
+//   availableWallets,
+//   onSelectWallet,
+//   connecting
+// }: {
+//   isOpen: boolean
+//   onClose: () => void
+//   availableWallets: any[]
+//   onSelectWallet: (wallet: any) => void
+//   connecting: boolean
+// }) {
+//   if (!isOpen) return null
+
+//   return (
+//     <Dialog open={isOpen}>
+//       <div className="bg-background border border-border rounded-lg p-6 max-w-md w-full mx-4">
+//         <div className="flex justify-between items-center mb-4">
+//           <h3 className="text-lg font-bold">Select Wallet</h3>
+//           <button
+//             onClick={onClose}
+//             className="text-muted-foreground hover:text-foreground"
+//           >
+//             ✕
+//           </button>
+//         </div>
+
+//         <div className="space-y-2">
+//           {availableWallets.map((wallet) => (
+//             <div key={wallet.name}>
+//               <button
+//                 onClick={() => onSelectWallet(wallet)}
+//                 disabled={connecting || wallet.readyState !== 'Installed'}
+//                 className={cn(
+//                   "w-full flex items-center gap-3 p-3 rounded-lg border transition-colors",
+//                   wallet.readyState === 'Installed'
+//                     ? "border-border hover:border-primary hover:bg-muted"
+//                     : "border-muted bg-muted/50 cursor-not-allowed opacity-50"
+//                 )}
+//               >
+//                 <img
+//                   src={wallet.icon}
+//                   alt={wallet.name}
+//                   className="w-8 h-8 rounded-full"
+//                   onError={(e) => {
+//                     (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iMTYiIGZpbGw9IiMzMzMzMzMiLz4KPHRleHQgeD0iMTYiIHk9IjIwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJ3aGl0ZSIgZm9udC1zaXplPSIxMiI+VzwvdGV4dD4KPHN2Zz4K'
+//                   }}
+//                 />
+//                 <div className="flex-1 text-left">
+//                   <div className="font-medium">{wallet.name}</div>
+//                   <div className="text-xs text-muted-foreground">
+//                     {wallet.readyState === 'Installed' ? 'Detected' : 'Not Installed'}
+//                   </div>
+//                 </div>
+//                 {wallet.readyState === 'Installed' && (
+//                   <CheckCircle className="w-4 h-4 text-green-500" />
+//                 )}
+//                 {wallet.readyState !== 'Installed' && (
+//                   <ExternalLink className="w-4 h-4 text-muted-foreground" />
+//                 )}
+//               </button>
+
+//               {wallet.readyState !== 'Installed' && (
+//                 <div className="px-3 py-1">
+//                   <a
+//                     href={wallet.url}
+//                     target="_blank"
+//                     rel="noopener noreferrer"
+//                     className="text-xs text-primary hover:underline"
+//                   >
+//                     Install {wallet.name} →
+//                   </a>
+//                 </div>
+//               )}
+//             </div>
+//           ))}
+//         </div>
+
+//         {availableWallets.filter(w => w.readyState === 'Installed').length === 0 && (
+//           <div className="text-center py-4 text-muted-foreground">
+//             <p className="text-sm">No wallets detected.</p>
+//             <p className="text-xs mt-1">Please install a Solana wallet to continue.</p>
+//           </div>
+//         )}
+//       </div>
+//     </Dialog>
+//   )
+// }
+
+// export default function EarlyAccessInput() {
+//   const { inputRef } = useEarlyAccessInput()
+//   const [showWalletModal, setShowWalletModal] = useState(false)
+//   const [isVerifying, setIsVerifying] = useState(false)
+
+//   const {
+//     availableWallets,
+//     selectedWallet,
+//     connected,
+//     connecting,
+//     publicKey,
+//     connectWallet,
+//     disconnectWallet,
+//     verifyWallet
+//   } = useSolanaWallet()
+
+//   const {
+//     handleSubmit,
+//     register,
+//     formState: { errors },
+//     setValue,
+//     watch
+//   } = useForm<TEarlyAccessValidator>({
+//     resolver: zodResolver(EarlyAccessValidator),
+//   })
+
+//   const walletAddress = watch('walletAddress')
+
+//   // Handle wallet selection and verification
+//   const handleWalletConnect = async (wallet: any) => {
+//     const address = await connectWallet(wallet)
+//     if (address) {
+//       setShowWalletModal(false)
+
+//       // Auto-verify wallet after connection
+//       setIsVerifying(true)
+//       try {
+//         const verificationResult = await verifyWallet()
+//         if (verificationResult) {
+//           setValue('walletAddress', verificationResult.address)
+//           toast.success('Wallet verified successfully!')
+//         }
+//       } catch (error) {
+//         console.error('Verification error:', error)
+//         toast.error('Failed to verify wallet')
+//       } finally {
+//         setIsVerifying(false)
+//       }
+//     }
+//   }
+
+//   // Handle manual wallet verification
+//   const handleVerifyWallet = async () => {
+//     if (!connected) {
+//       setShowWalletModal(true)
+//       return
+//     }
+
+//     setIsVerifying(true)
+//     try {
+//       const verificationResult = await verifyWallet()
+//       if (verificationResult) {
+//         setValue('walletAddress', verificationResult.address)
+//         toast.success('Wallet verified successfully!')
+//       }
+//     } catch (error) {
+//       console.error('Verification error:', error)
+//       toast.error('Failed to verify wallet')
+//     } finally {
+//       setIsVerifying(false)
+//     }
+//   }
+
+//   async function onSubmit(values: TEarlyAccessValidator) {
+//     if (!connected || !publicKey) {
+//       toast.error('Please connect and verify your wallet first')
+//       return
+//     }
+
+//     try {
+//       // Your existing form submission logic
+//       console.log('Form submitted:', values)
+//       toast.success('Early access request submitted!')
+//     } catch (error) {
+//       console.error('Submission error:', error)
+//       toast.error('Failed to submit request')
+//     }
+//   }
