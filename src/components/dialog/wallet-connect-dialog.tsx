@@ -63,7 +63,10 @@ export default function WalletConnectDialog({
       </DialogTrigger>
       <DialogContent className="z-[1000] max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-semibold text-primary flex items-center gap-3"><Wallet/>Connect Wallet</DialogTitle>
+          <DialogTitle className="flex items-center gap-3 text-2xl font-semibold text-primary">
+            <Wallet />
+            Connect Wallet
+          </DialogTitle>
         </DialogHeader>
 
         {!connected ? (
@@ -74,11 +77,11 @@ export default function WalletConnectDialog({
                   <Button
                     key={wallet.name}
                     variant="outline"
-                    className={cn('flex items-center justify-start py-8 gap-3', {
+                    className={cn('flex items-center justify-start gap-3 py-8', {
                       'cursor-not-allowed': !(wallet.readyState === 'Installed'),
                     })}
                     onClick={() => {
-                      if(!(wallet.readyState === 'Installed')) return
+                      if (!(wallet.readyState === 'Installed')) return
                       setWalletType(wallet.name)
                       handleConnect(wallet)
                     }}

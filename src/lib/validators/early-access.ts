@@ -25,8 +25,7 @@ export const EarlyAccessValidator = z.object({
         return false
       },
       {
-        message:
-          'Invalid wallet address. Must be a valid Solana address (32-44 Base58 characters)',
+        message: 'Invalid wallet address. Must be a valid Solana address (32-44 Base58 characters)',
       }
     ),
 })

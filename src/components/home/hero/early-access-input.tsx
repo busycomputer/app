@@ -63,7 +63,7 @@ export default function EarlyAccessInput() {
     setVerifiedWallet(true)
     setValue('walletAddress', value)
   }
-  async function onSubmit(values: TEarlyAccessValidator) {    
+  async function onSubmit(values: TEarlyAccessValidator) {
     mutate({
       is_wallet_verified: verifiedWallet,
       wallet_address: values.walletAddress,

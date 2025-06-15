@@ -1,8 +1,8 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { createServerClient } from '../server'
 import { SupabaseClient } from '@supabase/supabase-js'
+import { createServerClient } from '../server'
 
 export async function checkReferrerId(referrer_code: string, supabase: SupabaseClient) {
   const response = await supabase
@@ -65,7 +65,6 @@ export async function createReferralDetails({
     })
     .select('referral_code')
     .single()
-
 
   if (error) throw new Error('Internal server error', error)
 
