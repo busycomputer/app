@@ -8,14 +8,13 @@ export const runtime = 'edge'
 export default async function WorkflowPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params
   const supabase = await createServerClient()
-  let workflow: UserWorkflow | null = null
+  const workflow: UserWorkflow | null = null
 
   try {
-    const { data } = await supabase.from('workflows').select('*').eq('id', params.id!).single()
-
-    if (data) {
-      workflow = data as UserWorkflow
-    }
+    // const { data } = await supabase.from('workflows').select('*').eq('id', params.id!).single()
+    // if (data) {
+    //   workflow = data as UserWorkflow
+    // }
   } catch (error) {
     console.error('Error getting workflow:', error)
   }

@@ -15,33 +15,33 @@ export const CreateOrLoginEmailUser = async (userdata: TUserAuthSchema) => {
   if (Sdata.session?.user) {
     redirect('/dashboard')
   }
-  const dbUser = await client.from('profiles').select('email').eq('email', data.email)
+  // const dbUser = await client.from('profiles').select('email').eq('email', data.email)
 
-  if (dbUser.count) {
-    const { data: logData, error } = await client.auth.signInWithPassword({
-      email: data.email,
-      password: data.password,
-    })
+  // if (dbUser.count) {
+  //   const { data: logData, error } = await client.auth.signInWithPassword({
+  //     email: data.email,
+  //     password: data.password,
+  //   })
 
-    if (error) {
-      return `Invalid password`
-    }
-    redirect('/dashboard')
+  if (error) {
+    return `Invalid password`
   }
-
-  const { data: newUser, error: NewUserError } = await client.auth.signUp({
-    email: data.email,
-    password: data.password,
-  })
-
-  if (NewUserError) {
-    console.log('[ERROR-AUTH]', NewUserError)
-    return "Couldn't create user login"
-  }
-
-  console.log('[CREATED USER]:', newUser)
   redirect('/dashboard')
 }
+
+// const { data: newUser, error: NewUserError } = await client.auth.signUp({
+//   email: data.email,
+//   password: data.password,
+// })
+
+// if (NewUserError) {
+//   console.log('[ERROR-AUTH]', NewUserError)
+//   return "Couldn't create user login"
+// }
+
+// console.log('[CREATED USER]:', newUser)
+redirect('/dashboard')
+// }
 const GUEST_EMAIL_PREFIX = '@guest.busycomputer.com'
 export const loginAsGuest = async () => {
   const client = await createServerClient()
