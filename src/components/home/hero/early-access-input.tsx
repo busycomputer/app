@@ -1,28 +1,77 @@
 'use client'
 
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useCallback, useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import toast from 'react-hot-toast'
+import { useRouter } from 'next/navigation'
 import { createEarlyAccess } from '@/app/actions/create-early-access-details'
 import TangledSideArrow from '@/components/svg/tangled-side-arrow'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useEarlyAccessInput } from '@/hooks/useEarlyAccessInput'
 import { cn } from '@/lib/utils'
-import { EarlyAccessValidator, TEarlyAccessValidator } from '@/lib/validators/early-access'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
+import {
+  BASE58_REGEX,
+  EarlyAccessValidator,
+  EVM_ADDRESS_REGEX,
+  TEarlyAccessValidator,
+} from '@/lib/validators/early-access'
 import { useWallet } from '@/hooks/use-wallet'
 import WalletConnectDialog from '@/components/dialog/wallet-connect-dialog'
+import { createReferralDetails } from '@/lib/supabase/dto/referaral'
 
 export default function EarlyAccessInput() {
+  const [verifiedWallet, setVerifiedWallet] = useState<boolean>(false)
+  const router = useRouter()
   const { inputRef } = useEarlyAccessInput()
-  // const {} = useWallet()
+  const { mutate } = useMutation({
+    mutationKey: ['get-early-access'],
+    mutationFn: createReferralDetails,
+    onMutate() {
+      toast.loading('Creating referral, please wait...', { id: 'toastId' })
+    },
+    onSuccess(redirect_link) {
+      toast.success('Creation successful', { id: 'toastId' })
+      router.push(redirect_link)
+    },
+    onError() {
+      toast.error('Failed to create referral, please try again', { id: 'toastId' })
+    },
+  })
   const {
     handleSubmit,
     register,
     formState: { errors },
+    setValue,
   } = useForm<TEarlyAccessValidator>({
     resolver: zodResolver(EarlyAccessValidator),
   })
-  async function onSubmit(values: TEarlyAccessValidator) {}
+
+  const getWalletType = (address: string): 'EVM' | 'Solana' => {
+    if (address.length === 42 && EVM_ADDRESS_REGEX.test(address)) {
+      return 'EVM'
+    }
+    if (address.length >= 32 && address.length <= 44 && BASE58_REGEX.test(address)) {
+      return 'Solana'
+    }
+    // This shouldn't happen due to validation, but TypeScript likes exhaustive checks
+    throw new Error('Invalid wallet address format')
+  }
+
+  function handleVerifiedWalletAddress(value: string) {
+    setVerifiedWallet(true)
+    setValue('walletAddress', value)
+  }
+  async function onSubmit(values: TEarlyAccessValidator) {
+    mutate({
+      is_wallet_verified: verifiedWallet,
+      wallet_address: values.walletAddress,
+      wallet_type: getWalletType(values.walletAddress),
+      referrer_code: values.referralCode,
+    })
+  }
   return (
     <div className="" ref={inputRef}>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -52,8 +101,8 @@ export default function EarlyAccessInput() {
                 placeholder="YOUR WALLET ADDRESS"
                 className="relative mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:w-[360px] lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
               />
-              <div className="absolute right-1 top-1/2 -translate-y-1/2 text-muted-foreground border">
-                <WalletConnectDialog />
+              <div className="absolute right-1 top-1/2 -translate-y-1/2 border text-muted-foreground">
+                <WalletConnectDialog setVerifiedWalletAddress={handleVerifiedWalletAddress} />
               </div>
               {errors.walletAddress ? (
                 <div className="w-full pt-2 text-center text-xs font-thin text-destructive">

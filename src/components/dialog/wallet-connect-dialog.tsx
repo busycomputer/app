@@ -1,6 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { AlertCircle } from 'lucide-react'
+import { toast } from 'react-hot-toast'
+import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -8,15 +11,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Wallet, Wallet2 } from 'lucide-react'
-import { toast } from 'react-hot-toast'
+import { WalletAdapter, useWallet } from '@/hooks/use-wallet'
+import { cn } from '@/lib/utils'
 
-// import {  } from '@/lib/wallets'
-import { SOLANA_WALLETS, ETHEREUM_WALLETS, WalletAdapter, useWallet } from '@/hooks/use-wallet'
-// import { useWalletContext } from '@/context/wallet-context'
-
-export default function WalletConnectDialog() {
+export default function WalletConnectDialog({
+  setVerifiedWalletAddress,
+}: {
+  setVerifiedWalletAddress: (state: string) => void
+}) {
   const [open, setOpen] = useState(false)
 
   const {
@@ -45,33 +47,51 @@ export default function WalletConnectDialog() {
     if (result) {
       toast.success('Wallet verified!')
       console.log('Verified Payload:', result)
+      setVerifiedWalletAddress(result.address)
       setOpen(false)
     }
   }
 
+  const installedWallets = availableWallets.filter((fv) => fv.readyState === 'Installed')
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Verify</Button>
+        <Button variant="outline" className="hover:bg-background">
+          Verify
+        </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="z-[1000] max-w-md">
         <DialogHeader>
           <DialogTitle className="text-lg font-semibold">Connect Wallet</DialogTitle>
         </DialogHeader>
 
         {!connected ? (
-          <div className="grid gap-3">
-            {availableWallets.map((wallet) => (
-              <Button
-                key={wallet.name}
-                variant="outline"
-                className="flex items-center justify-start gap-3"
-                onClick={() => handleConnect(wallet)}
-              >
-                <img src={wallet.icon} alt={wallet.name} className="h-6 w-6" />
-                {wallet.name}
-              </Button>
-            ))}
+          <div className="">
+            <div className="flex flex-col gap-3">
+              {availableWallets.map((wallet) => {
+                return (
+                  <Button
+                    key={wallet.name}
+                    variant="outline"
+                    className={cn('flex items-center justify-start gap-3', {
+                      'cursor-not-allowed': !(wallet.readyState === 'Installed'),
+                    })}
+                    onClick={() => handleConnect(wallet)}
+                    disabled={!(wallet.readyState === 'Installed')}
+                  >
+                    <wallet.icon className="h-6 w-6" />
+                    {wallet.name}
+                  </Button>
+                )
+              })}
+            </div>
+            {/* {!installedWallets.length && <div>Couldn't find any installed wallets</div>} */}
+            {!installedWallets.length && (
+              <div className="flex items-center justify-center py-8 text-gray-400">
+                <AlertCircle className="mr-2 h-5 w-5" />
+                <span className="text-sm">No supported wallets installed</span>
+              </div>
+            )}{' '}
           </div>
         ) : (
           <div className="space-y-4">

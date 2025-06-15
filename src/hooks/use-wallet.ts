@@ -1,7 +1,9 @@
 import bs58 from 'bs58'
-import { useCallback, useEffect, useState } from 'react'
+import { ForwardRefExoticComponent, RefAttributes, useCallback, useEffect, useState } from 'react'
 import { ExternalProvider } from '@ethersproject/providers'
+import { Wallet, Shield, Coins, Zap, Gem, LucideProps } from 'lucide-react'
 import toast from 'react-hot-toast'
+import { SolanaWallet } from 'types/global'
 
 type EthereumProvider = ExternalProvider & {
   selectedAddress?: string
@@ -18,111 +20,108 @@ type EthereumProviderWithMultiSupport = EthereumProvider & {
 
 export interface WalletAdapter {
   name: string
-  icon: string
+  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
   url: string
   readyState: 'Installed' | 'NotDetected' | 'Loadable' | 'Unsupported'
 }
-
-// Define available Solana wallets
-export const SOLANA_WALLETS = [
-  {
-    name: 'Phantom',
-    icon: 'https://www.phantom.app/img/phantom-logo.svg',
-    url: 'https://phantom.app/',
-    readyState: 'NotDetected',
-  },
-  {
-    name: 'Solflare',
-    icon: 'https://solflare.com/img/logo.svg',
-    url: 'https://solflare.com/',
-    readyState: 'NotDetected',
-  },
-  {
-    name: 'Backpack',
-    icon: 'https://backpack.app/img/logo.svg',
-    url: 'https://backpack.app/',
-    readyState: 'NotDetected',
-  },
-  {
-    name: 'Glow',
-    icon: 'https://glow.app/img/logo.svg',
-    url: 'https://glow.app/',
-    readyState: 'NotDetected',
-  },
-] as const
 
 type TSolanaWallet = (typeof SOLANA_WALLETS)[number]['name']
 type TEthereumWallet = (typeof ETHEREUM_WALLETS)[number]['name']
 type TWalletName = TSolanaWallet | TEthereumWallet | (string & {})
 
+// Define available Solana wallets
+export const SOLANA_WALLETS = [
+  {
+    name: 'Phantom',
+    icon: Shield, // Purple ghost-like shield
+    url: 'https://phantom.app/',
+    readyState: 'NotDetected',
+  },
+  {
+    name: 'Solflare',
+    icon: Zap, // Fire/energy symbol
+    url: 'https://solflare.com/',
+    readyState: 'NotDetected',
+  },
+  {
+    name: 'Backpack',
+    icon: Wallet, // Classic wallet icon
+    url: 'https://backpack.app/',
+    readyState: 'NotDetected',
+  },
+  {
+    name: 'Glow',
+    icon: Gem, // Glowing gem
+    url: 'https://glow.app/',
+    readyState: 'NotDetected',
+  },
+] as const
+
 export const ETHEREUM_WALLETS = [
   {
     name: 'MetaMask',
-    icon: 'https://metamask.io/images/mm-logo.svg',
+    icon: Shield, // Fox-like shield
     url: 'https://metamask.io/',
     readyState: 'NotDetected',
   },
   {
     name: 'Rabby',
-    icon: 'https://rabby.io/assets/logo.svg',
+    icon: Zap, // Rabbit energy
     url: 'https://rabby.io/',
     readyState: 'NotDetected',
   },
   {
     name: 'Coinbase Wallet',
-    icon: 'https://wallet.coinbase.com/assets/favicon.ico',
+    icon: Coins, // Coinbase = coins
     url: 'https://wallet.coinbase.com/',
     readyState: 'NotDetected',
   },
   {
     name: 'Trust Wallet',
-    icon: 'https://trustwallet.com/assets/images/media/assets/TWT.png',
+    icon: Shield, // Trust = shield
     url: 'https://trustwallet.com/browser-extension',
     readyState: 'NotDetected',
   },
   {
     name: 'Frame',
-    icon: 'https://frame.sh/images/logo.svg',
+    icon: Wallet, // Simple wallet
     url: 'https://frame.sh/',
     readyState: 'NotDetected',
   },
 ] as const
 
-interface SolanaWallet {
-  //   publicKey?: PublicKey | null
-  publicKey?: {
-    toString(): string
-  }
-  [key: string]: any
-  isPhantom?: boolean
-  isSolflare?: boolean
-  isBackpack?: boolean
-  isGlow?: boolean
-  //   publicKey?: {
-  //     toString(): string
-  //   }
-  connect(): Promise<void>
-  disconnect(): Promise<void>
-  signMessage(message: Uint8Array): Promise<{ signature: Uint8Array }>
-}
+// interface SolanaWallet {
+//   //   publicKey?: PublicKey | null
+//   publicKey?: {
+//     toString(): string
+//   }
+//   // [key: string]: any
+//   isPhantom?: boolean
+//   isSolflare?: boolean
+//   isBackpack?: boolean
+//   isGlow?: boolean
+//   connect(): Promise<void>
+//   disconnect(): Promise<void>
+//   signMessage(message: Uint8Array): Promise<{ signature: Uint8Array }>
+// }
 
-declare global {
-  interface Window {
-    // solana wallets
-    solana?: SolanaWallet
-    phantom?: { solana?: SolanaWallet }
-    solflare?: SolanaWallet
-    backpack?: SolanaWallet
-    glowSolana?: SolanaWallet
+// declare global {
+//   interface Window {
+//     // solana wallets
+//    solana?: SolanaWallet
+//     phantom?: { solana?: SolanaWallet }
+//     solflare?: SolanaWallet
+//     backpack?: { solana?: SolanaWallet; isBackpack?: boolean }
+//     glowSolana?: SolanaWallet
 
-    // Ethereum wallets
-    ethereum?: EthereumProvider // MetaMask, Rabby, etc.
-    rabby?: EthereumProvider
-    coinbaseWalletExtension?: EthereumProvider
-    trustwallet?: EthereumProvider
-    frame?: EthereumProvider
-  }
-}
+//     // Ethereum wallets
+//     ethereum?: EthereumProvider // MetaMask, Rabby, etc.
+//     rabby?: EthereumProvider
+//     coinbaseWalletExtension?: EthereumProvider
+//     trustwallet?: EthereumProvider
+//     frame?: EthereumProvider
+//   }
+// }
 
 export const useWallet = () => {
   const [availableWallets, setAvailableWallets] = useState<WalletAdapter[]>([])
@@ -143,13 +142,13 @@ export const useWallet = () => {
 
       switch (wallet.name) {
         case 'Phantom':
-          isInstalled = !!(window.solana?.isPhantom || window.phantom?.solana)
+          isInstalled = !!window.phantom
           break
         case 'Solflare':
-          isInstalled = !!(window.solflare || window.solana?.isSolflare)
+          isInstalled = !!window.solflare
           break
         case 'Backpack':
-          isInstalled = !!window.backpack?.isBackpack
+          isInstalled = !!window.backpack
           break
         case 'Glow':
           isInstalled = !!window.glowSolana
@@ -190,7 +189,8 @@ export const useWallet = () => {
       })
     })
 
-    return detected.filter((w) => w.readyState === 'Installed')
+    return detected
+    // .filter((w) => w.readyState === 'Installed')
   }, [])
 
   const disconnectWallet = useCallback(async () => {
@@ -221,21 +221,21 @@ export const useWallet = () => {
   const getWalletInstance = useCallback(
     (walletName: TWalletName): SolanaWallet | EthereumProvider | null => {
       // ✅ Handle Solana wallets
-      const solana = window.solana
-      const backpack = window.backpack?.solana
-      const phantom = window.phantom?.solana
-      const solflare = window.solflare
-      const glow = window.glowSolana
+      // const solana = window.solana
+      const backpack = window?.backpack
+      const phantom = window?.phantom
+      const solflare = window?.solflare
+      const glow = window?.glowSolana
 
       switch (walletName) {
         case 'Phantom':
-          return phantom || solana || null
+          return phantom?.solana ?? null
         case 'Solflare':
-          return solflare || solana || null
+          return solflare?.solana ?? null
         case 'Backpack':
-          return backpack || solana || null // ✅ Corrected here
+          return backpack?.solana ?? null // ✅ Corrected here
         case 'Glow':
-          return glow || solana || null
+          return glow?.solana ?? null
       }
 
       // ✅ Handle Ethereum wallets (with multi-provider support)
@@ -274,8 +274,6 @@ export const useWallet = () => {
 
       try {
         const instance = getWalletInstance(wallet.name)
-        // console.log('instance:', instance)
-
         if (!instance) {
           throw new Error(`${wallet.name} wallet not found`)
         }
@@ -284,9 +282,9 @@ export const useWallet = () => {
 
         // 🔹 Solana Wallets
         if ('connect' in instance && typeof instance.connect === 'function') {
-          const res = await instance.connect()
+          await instance.connect()
           //   console.log('res:', res)
-
+          // console.log('getSolana:', instance)
           if (!instance.publicKey) {
             throw new Error('No public key found')
           }

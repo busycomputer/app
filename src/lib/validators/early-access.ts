@@ -1,19 +1,19 @@
 import { z } from 'zod'
 
-const BASE58_REGEX = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/
-const EVM_ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
+export const BASE58_REGEX = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]+$/
+export const EVM_ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
 
 export type TEarlyAccessValidator = z.infer<typeof EarlyAccessValidator>
 
 export const EarlyAccessValidator = z.object({
   referralCode: z
-  .string()
-  .trim()
-  .transform((val) => (val === '' ? undefined : val))
-  .optional()
-  .refine((val) => !val || val.length === 6, {
-    message: 'Referral code must be exactly 6 characters',
-  }),
+    .string()
+    .trim()
+    .transform((val) => (val === '' ? undefined : val))
+    .optional()
+    .refine((val) => !val || val.length === 6, {
+      message: 'Referral code must be exactly 6 characters',
+    }),
   walletAddress: z
     .string()
     .min(1, { message: 'Wallet address is required' })
