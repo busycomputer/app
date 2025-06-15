@@ -6,7 +6,7 @@ import Bounded from '@/components/elements/Bounded'
 
 export default function Hero() {
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       <div className="absolute left-0 top-0 h-full w-full">
         <AnimatedBackgroundSquare />
       </div>

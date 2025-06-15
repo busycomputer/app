@@ -10,12 +10,12 @@ export const createEmptyWorkflow = async () => {
     throw new AuthError('Not authenticated')
   }
 
-  const { data } = await supabase
-    .from('workflows')
-    .insert({
-      name: 'Untitled',
-      user_id: user.data.user.id,
-    })
-    .returns()
-  return data
+  // const { data } = await supabase
+  //   .from('workflows')
+  //   .insert({
+  //     name: 'Untitled',
+  //     user_id: user.data.user.id,
+  //   })
+  //   .returns()
+  // return data
 }

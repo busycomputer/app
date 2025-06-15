@@ -1,6 +1,6 @@
 import React from 'react'
 import '@/app/globals.css'
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from 'sonner'
 import { Space_Mono, IBM_Plex_Sans, Space_Grotesk } from 'next/font/google'
 import localFont from 'next/font/local'
 import { cn } from '@/lib/utils'

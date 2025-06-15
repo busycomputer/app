@@ -28,68 +28,45 @@ export type Database = {
   }
   public: {
     Tables: {
-      profiles: {
+      referrals: {
         Row: {
-          first_name: string | null
+          created_at: string | null
           id: string
-          last_name: string | null
+          is_wallet_verified: boolean | null
+          referral_code: string
+          referred_by: string | null
+          wallet_address: string
+          wallet_type: string
         }
         Insert: {
-          first_name?: string | null
-          id: string
-          last_name?: string | null
+          created_at?: string | null
+          id?: string
+          is_wallet_verified?: boolean | null
+          referral_code?: string
+          referred_by?: string | null
+          wallet_address: string
+          wallet_type: string
         }
         Update: {
-          first_name?: string | null
+          created_at?: string | null
           id?: string
-          last_name?: string | null
+          is_wallet_verified?: boolean | null
+          referral_code?: string
+          referred_by?: string | null
+          wallet_address?: string
+          wallet_type?: string
         }
         Relationships: []
-      }
-      workflows: {
-        Row: {
-          created_at: string
-          description: string | null
-          enabled: boolean
-          id: string
-          name: string | null
-          user_id: string
-          workflow: Json | null
-        }
-        Insert: {
-          created_at?: string
-          description?: string | null
-          enabled?: boolean
-          id?: string
-          name?: string | null
-          user_id: string
-          workflow?: Json | null
-        }
-        Update: {
-          created_at?: string
-          description?: string | null
-          enabled?: boolean
-          id?: string
-          name?: string | null
-          user_id?: string
-          workflow?: Json | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'workflows_user_id_fkey'
-            columns: ['user_id']
-            isOneToOne: false
-            referencedRelation: 'profiles'
-            referencedColumns: ['id']
-          },
-        ]
       }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_referral_code: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

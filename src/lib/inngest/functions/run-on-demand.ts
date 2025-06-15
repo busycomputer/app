@@ -6,7 +6,7 @@ import { EVENT_RUN_ON_DEMAND, FUNCTION_RUN_ON_DEMAND } from '@/lib/constants'
 
 const workflowEngine = new Engine({
   actions: availableActions,
-  loader: loadSupabaseWorkflow,
+  // loader: loadSupabaseWorkflow,
 })
 
 export default inngest.createFunction(
