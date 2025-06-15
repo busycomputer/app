@@ -1,15 +1,16 @@
 import { ExternalProvider } from '@ethersproject/providers'
+import { Wallet } from '@solana/wallet-adapter-react'
 
-type EthereumProvider = ExternalProvider & {
-  selectedAddress?: string
-  isMetaMask?: boolean
-  isCoinbaseWallet?: boolean
-  isRabby?: boolean
-  isTrust?: boolean
-  isFrame?: boolean
-}
+// type EthereumProvider = ExternalProvider & {
+//   selectedAddress?: string
+//   isMetaMask?: boolean
+//   isCoinbaseWallet?: boolean
+//   isRabby?: boolean
+//   isTrust?: boolean
+//   isFrame?: boolean
+// }
 
-export { }
+export {}
 export interface SolanaWallet {
   //   publicKey?: PublicKey | null
   publicKey?: {
@@ -27,17 +28,17 @@ export interface SolanaWallet {
 declare global {
   interface Window {
     // solana wallets
-    solana: { solana?: SolanaWallet } 
+    solana: { solana?: SolanaWallet }
     phantom: { solana?: SolanaWallet }
-    solflare: { solana?: SolanaWallet }
-    backpack: { solana?: SolanaWallet };
-    glowSolana: { solana?: SolanaWallet }
+    solflare: SolanaWallet
+    backpack: { solana?: SolanaWallet }
+    // glowSolana: { solana?: SolanaWallet }
 
     // Ethereum wallets
-    ethereum?: EthereumProvider // MetaMask, Rabby, etc.
-    rabby?: EthereumProvider
-    coinbaseWalletExtension?: EthereumProvider
-    trustwallet?: EthereumProvider
-    frame?: EthereumProvider
+    // ethereum?: EthereumProvider // MetaMask, Rabby, etc.
+    // rabby?: EthereumProvider
+    // coinbaseWalletExtension?: EthereumProvider
+    // trustwallet?: EthereumProvider
+    // frame?: EthereumProvider
   }
 }

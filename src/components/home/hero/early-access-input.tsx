@@ -4,9 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { useCallback, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
-import { createEarlyAccess } from '@/app/actions/create-early-access-details'
 import TangledSideArrow from '@/components/svg/tangled-side-arrow'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -32,12 +31,12 @@ export default function EarlyAccessInput() {
     onMutate() {
       toast.loading('Creating referral, please wait...', { id: 'toastId' })
     },
-    onSuccess(redirect_link) {
+    onSuccess() {
       toast.success('Creation successful', { id: 'toastId' })
-      router.push(redirect_link)
+      // router.push(redirect_link)
     },
-    onError() {
-      toast.error('Failed to create referral, please try again', { id: 'toastId' })
+    onError(error) {
+      toast.error(`Failed to create referral, ${error.message}`, { id: 'toastId' })
     },
   })
   const {
@@ -49,10 +48,10 @@ export default function EarlyAccessInput() {
     resolver: zodResolver(EarlyAccessValidator),
   })
 
-  const getWalletType = (address: string): 'EVM' | 'Solana' => {
-    if (address.length === 42 && EVM_ADDRESS_REGEX.test(address)) {
-      return 'EVM'
-    }
+  const getWalletType = (address: string): 'Solana' => {
+    // if (address.length === 42 && EVM_ADDRESS_REGEX.test(address)) {
+    //   return 'EVM'
+    // }
     if (address.length >= 32 && address.length <= 44 && BASE58_REGEX.test(address)) {
       return 'Solana'
     }
@@ -64,7 +63,7 @@ export default function EarlyAccessInput() {
     setVerifiedWallet(true)
     setValue('walletAddress', value)
   }
-  async function onSubmit(values: TEarlyAccessValidator) {
+  async function onSubmit(values: TEarlyAccessValidator) {    
     mutate({
       is_wallet_verified: verifiedWallet,
       wallet_address: values.walletAddress,

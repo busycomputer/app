@@ -2,14 +2,16 @@
 
 import { redirect } from 'next/navigation'
 import { createServerClient } from '../server'
+import { SupabaseClient } from '@supabase/supabase-js'
 
-export async function checkReferrerId(referrer_code: string) {
-  // /***
-  //  * sanitize and validate
-  //  */
+export async function checkReferrerId(referrer_code: string, supabase: SupabaseClient) {
+  const response = await supabase
+    .from('referrals')
+    .select('*')
+    .eq('referral_code', referrer_code)
+    .single()
 
-  // supabase.from('referrals').count.where(referralCode)
-  return true
+  return response
 }
 
 const twitterRedirectLink =
@@ -33,10 +35,26 @@ export async function createReferralDetails({
   wallet_address: string
   wallet_type: string
   is_wallet_verified: boolean
-  referrer_code?: string
+  referrer_code: string
 }) {
   const supabase = await createServerClient()
 
+  const { error: referralCodeError, data: refData } = await supabase
+    .from('referrals')
+    .select('referral_code')
+    .eq('referral_code', referrer_code)
+    .single()
+  // console.log('data', refData)
+
+  if (!refData) {
+    console.log(referralCodeError)
+
+    throw new Error('Invalid referral code')
+  }
+
+  if (referralCodeError) {
+    throw new Error('Internal server error')
+  }
   const { data, error } = await supabase
     .from('referrals')
     .insert({
@@ -48,9 +66,8 @@ export async function createReferralDetails({
     .select('referral_code')
     .single()
 
-  // console.log('data', data)
 
-  if (error) throw new Error('Failed to create referral', error)
+  if (error) throw new Error('Internal server error', error)
 
   // const redirect_url = getTwitterUrl(
   //   '/intent/tweet',
