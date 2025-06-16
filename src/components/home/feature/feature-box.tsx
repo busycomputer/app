@@ -23,7 +23,7 @@ interface FeatureBox {
   className?: string
   imagePosition?: string
   imageClassName?: string
-  imageSrc: StaticImageData | string
+  imageSrc: string
   imageAlt: string
   label: string
   ref?: Ref<HTMLDivElement>
