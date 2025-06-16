@@ -3,7 +3,7 @@ import { Moon } from 'lucide-react'
 // Add SVG icons for social media here
 import Link from 'next/link'
 import Image from 'next/image'
-import ButtonContainer from '@/assets/icons/Buttons Container.svg'
+// import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 import Logo from '@/assets/images/logo-192x192.png'
 import BzLogo from '../Icons/bz-logo'
 import LinkedId from '../svg/linkedId'
@@ -90,7 +90,7 @@ const Footer = () => {
           {/* Logo and Social Links */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-lg">
-              <Image src={ButtonContainer} alt="Logo" className="size-12" />
+              <Image src={'/assets/icons/Buttons Container.svg'} alt="Logo" className="size-12" />
               <p className="font-space hidden sm:block">BUSY COMPUTER</p>
             </div>
 

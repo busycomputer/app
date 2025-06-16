@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import Bounded from '../elements/Bounded'
-import workFlow5 from '@/assets/images/workflow5.jpg'
 import { useSeeInActionAnimation } from '@/hooks/use-see-in-action-animation'
 
 export default function SeeInAction() {
@@ -23,7 +22,7 @@ export default function SeeInAction() {
           <div className="radial-gradient md:h-[500px] lg:h-[600px]">
             <Image
               alt=""
-              src={workFlow5}
+              src={'/assets/images/workflow5.jpg'}
               className="aspect-video h-full w-full object-cover mix-blend-overlay"
               width={1920}
               height={1080}

@@ -37,7 +37,7 @@ export default function Feature() {
             id="box1"
             type="long"
             key={'box1'}
-            imageSrc={workFlow1}
+            imageSrc={'/assets/images/feature/Asset 1.webp'}
             imageAlt={'Customizable Drag Component'}
             label="Customizable Drag Component"
             className="border md:basis-2/3 md:border-y-0 md:border-l-0 md:border-r"
@@ -60,7 +60,7 @@ export default function Feature() {
             enableGradient
             type="small"
             key={'box2'}
-            imageSrc={workFlow2}
+            imageSrc={'/assets/images/feature/Asset 5.webp'}
             imageAlt={'WORKFLOW MARKETPLACE'}
             label="WORKFLOW MARKETPLACE"
             className="border md:basis-1/3 md:border-none"
@@ -81,7 +81,7 @@ export default function Feature() {
             enableGradient
             type="small"
             key={'box3'}
-            imageSrc={workFlow3}
+            imageSrc={'/assets/images/feature/Asset 2.webp'}
             imageAlt={'PROMPT TO GENERATE'}
             label="PROMPT TO GENERATE"
             className="border md:basis-1/3 md:border-y-0 md:border-l-0 md:border-r"
@@ -101,7 +101,7 @@ export default function Feature() {
             type="long"
             enableGradient
             key={'box4'}
-            imageSrc={workFlow4}
+            imageSrc={'/assets/images/feature/Rectangle 49.png'}
             imageAlt={'REUSABLE MODULES'}
             label="REUSABLE MODULES"
             className="border md:basis-2/3 md:border-none"

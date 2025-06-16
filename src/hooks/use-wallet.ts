@@ -1,9 +1,10 @@
 import bs58 from 'bs58'
-import { ForwardRefExoticComponent, RefAttributes, useCallback, useEffect, useState } from 'react'
-import { ExternalProvider } from '@ethersproject/providers'
-import { Wallet, Shield, Coins, Zap, Gem, LucideProps } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { SolanaWallet } from 'types/global'
+import Phantom from '@/components/svg/phantom'
+import Solflare from '@/components/Icons/solflare'
+import Backpack from '@/components/svg/backpack'
 
 // type EthereumProvider = ExternalProvider & {
 //   selectedAddress?: string
@@ -20,7 +21,7 @@ import { SolanaWallet } from 'types/global'
 
 export interface WalletAdapter {
   name: string
-  icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
+  icon: any
   url: string
   readyState: 'Installed' | 'NotDetected' | 'Loadable' | 'Unsupported'
 }
@@ -33,19 +34,19 @@ type TWalletName = TSolanaWallet
 export const SOLANA_WALLETS = [
   {
     name: 'Phantom',
-    icon: Shield, // Purple ghost-like shield
+    icon: Phantom, // Purple ghost-like shield
     url: 'https://phantom.app/',
     readyState: 'NotDetected',
   },
   {
     name: 'Solflare',
-    icon: Zap, // Fire/energy symbol
+    icon: Solflare, // Fire/energy symbol
     url: 'https://solflare.com/',
     readyState: 'NotDetected',
   },
   {
     name: 'Backpack',
-    icon: Wallet, // Classic wallet icon
+    icon: Backpack, // Classic wallet icon
     url: 'https://backpack.app/',
     readyState: 'NotDetected',
   },

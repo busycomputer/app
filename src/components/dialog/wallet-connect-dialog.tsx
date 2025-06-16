@@ -63,8 +63,8 @@ export default function WalletConnectDialog({
       </DialogTrigger>
       <DialogContent className="z-[1000] max-w-md">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3 text-2xl font-semibold text-primary">
-            <Wallet />
+          <DialogTitle className="flex items-center gap-3 text-2xl font-extrabold text-primary">
+            <Wallet size={35} />
             Connect Wallet
           </DialogTitle>
         </DialogHeader>
@@ -85,9 +85,9 @@ export default function WalletConnectDialog({
                       setWalletType(wallet.name)
                       handleConnect(wallet)
                     }}
-                    // disabled={!(wallet.readyState === 'Installed')}
+                    disabled={!(wallet.readyState === 'Installed')}
                   >
-                    <wallet.icon className="h-6 w-6" />
+                    <wallet.icon className="rounded-lg" />
                     {wallet.name}
                   </Button>
                 )
