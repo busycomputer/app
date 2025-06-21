@@ -10,7 +10,7 @@ import ButtonContainer from '@/assets/icons/Buttons Container.svg'
 export default function HomeNav() {
   return (
     <div className="sticky top-0 z-50 flex h-36 items-center justify-center">
-      <Image src={ButtonContainer} alt="Logo" />
+      <Image src={'/assets/icons/Buttons Container.svg'} alt="Logo" width={720} height={480} />
       {/* <Bounded as={'nav'} className="flex items-center justify-between">
         <div className="flex items-center justify-center gap-1">
           <LogoRow />
