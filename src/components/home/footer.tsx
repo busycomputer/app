@@ -90,7 +90,13 @@ const Footer = () => {
           {/* Logo and Social Links */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 text-lg">
-              <Image src={'/assets/icons/Buttons Container.svg'} alt="Logo" className="size-12" />
+              <Image
+                src={'/assets/icons/Buttons Container.svg'}
+                alt="Logo"
+                className="size-12"
+                width={720}
+                height={480}
+              />
               <p className="font-space hidden sm:block">BUSY COMPUTER</p>
             </div>
 
