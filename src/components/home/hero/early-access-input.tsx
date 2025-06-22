@@ -23,7 +23,6 @@ import { createReferralDetails } from '@/lib/supabase/dto/referaral'
 
 export default function EarlyAccessInput() {
   const [verifiedWallet, setVerifiedWallet] = useState<boolean>(false)
-  const router = useRouter()
   const { inputRef } = useEarlyAccessInput()
   const { mutate } = useMutation({
     mutationKey: ['get-early-access'],
@@ -83,7 +82,7 @@ export default function EarlyAccessInput() {
               <Input
                 placeholder="REFERRAL CODE"
                 className={cn(
-                  'mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:max-w-40 lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]',
+                  'mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-left placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:max-w-40 lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]',
                   { 'focus-visible:ring-1 focus-visible:ring-destructive': errors.referralCode }
                 )}
                 {...register('referralCode')}
@@ -98,7 +97,7 @@ export default function EarlyAccessInput() {
               <Input
                 {...register('walletAddress')}
                 placeholder="YOUR WALLET ADDRESS"
-                className="relative mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-center placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:w-[360px] lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
+                className="relative mr-0 h-[50px] w-full rounded-sm border border-muted bg-muted py-0 text-center text-[16px] text-sm font-bold tracking-widest text-primary placeholder:bg-muted placeholder:text-left placeholder:font-thin sm:h-[50px] sm:max-w-none sm:flex-1 sm:px-6 sm:py-3 sm:text-left sm:placeholder:text-left sm:placeholder:text-xs md:h-[50px] md:max-w-none md:flex-1 md:px-4 lg:h-full lg:w-[360px] lg:py-4 lg:leading-[28px] lg:placeholder:tracking-widest xl:placeholder:text-[12px]"
               />
               <div className="absolute right-1 top-1/2 -translate-y-1/2 border text-muted-foreground">
                 <WalletConnectDialog setVerifiedWalletAddress={handleVerifiedWalletAddress} />

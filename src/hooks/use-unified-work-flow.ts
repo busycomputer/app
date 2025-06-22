@@ -125,11 +125,16 @@ export const useUnifiedWorkFlow = ({
 
   // Setup resize listener
   useEffect(() => {
-    updateLayoutAndAnimation() // Initial calculation
-    window.addEventListener('resize', debouncedUpdate)
-    return () => window.removeEventListener('resize', debouncedUpdate)
-  }, [updateLayoutAndAnimation, debouncedUpdate])
+    const isMobile = window.innerWidth <= 768 // or your preferred breakpoint
 
+    if (!isMobile) {
+      updateLayoutAndAnimation() // Initial calculation
+      window.addEventListener('resize', debouncedUpdate)
+      return () => window.removeEventListener('resize', debouncedUpdate)
+    } else {
+      updateLayoutAndAnimation() // Still run initial calculation on mobile
+    }
+  }, [updateLayoutAndAnimation, debouncedUpdate])
   // Cleanup function to kill all animations and reset states
   const cleanupAnimations = useCallback(() => {
     const icon = iconRef.current
@@ -278,8 +283,8 @@ export const useUnifiedWorkFlow = ({
       const positions = boxRefs.map((box) => {
         const boxRect = box.getBoundingClientRect()
         return {
-          x: boxRect.left - groupRect.left + boxRect.width / 2 - (isMobile ? 50 : 80),
-          y: boxRect.top - groupRect.top + boxRect.height / 2 - (isMobile ? 0 : 20),
+          x: boxRect.left - groupRect.left + boxRect.width / 2 - (isMobile ? 20 : 50),
+          y: boxRect.top - groupRect.top + boxRect.height / 2 - (isMobile ? 0 : -30),
         }
       })
 

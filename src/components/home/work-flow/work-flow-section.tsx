@@ -38,7 +38,7 @@ export default function WorkFlowSection() {
       className="font-space relative mx-auto flex w-full max-w-sm flex-col justify-between text-[12px] text-muted-foreground md:h-[248px] md:max-w-screen-sm md:flex-row lg:max-w-screen-xl"
     >
       <div className="absolute lg:block">
-        <HandIcon ref={iconRef} className="hidden h-16 w-16 lg:h-32 lg:w-32" />
+        <HandIcon ref={iconRef} className="hidden" />
       </div>
       <ConnectionNode ref={svgPathOneRef} pathDetails={pathOne} />
       <ConnectionNode ref={svgPathTwoRef} pathDetails={pathTwo} />
